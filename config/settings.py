@@ -35,8 +35,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 DEBUG = True
 ALLOWED_HOSTS = []
-ROOT_URLCONF = "project.urls"
-WSGI_APPLICATION = "project.wsgi.application"
+ROOT_URLCONF = "config.urls"
+WSGI_APPLICATION = "config.wsgi.application"
 
 # CORS
 CORS_ORIGIN_ALLOW_ALL = True
