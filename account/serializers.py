@@ -51,3 +51,13 @@ class EmployerDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employer
         fields = "__all__"
+
+
+class ProfessionalSerialzier(serializers.ModelSerializer):
+    last_name = serializers.CharField(source="user.last_name")
+    first_name = serializers.CharField(source="user.first_name")
+    middle_name = serializers.CharField(source="user.middle_name")
+
+    class Meta:
+        model = Professional
+        fields = ("photo", "company_name", "region", "speciality")
