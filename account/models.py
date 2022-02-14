@@ -118,8 +118,11 @@ class Employer(models.Model):
     has_educational_products = models.BooleanField(verbose_name="Есть ли образовательные продукты?", default=False)
     has_targeted_training = models.BooleanField(verbose_name="Есть ли целевое обучение?", default=False)
 
-
     objects = EmployerManager
+
+    class Meta:
+        verbose_name = "Организация"
+        verbose_name_plural = "Организации"
 
 
 class ProfessionalManager(models.Manager):
