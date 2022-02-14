@@ -149,7 +149,7 @@ class Professional(models.Model):
     graduation_exams = ArrayField(models.CharField(max_length=255), verbose_name="Экзаменационные предметы")
     films = models.TextField(verbose_name="Фильмы")
     books = models.TextField(verbose_name="Книги")
-    profession_hobbies = ArrayField(models.CharField(max_length=100), verbose_name="Увлечения для професси")
+    profession_hobbies = ArrayField(models.CharField(max_length=100), verbose_name="Увлечения для профессии")
     profession_qualities = ArrayField(models.CharField(max_length=100), verbose_name="Качества необходимые для профессии")
     profession_technology = models.TextField(verbose_name="Техника использующаяся в профессии")
     educational_institution = models.CharField(verbose_name="Образовательное учереждение", max_length=255)
@@ -163,7 +163,7 @@ class Professional(models.Model):
     favorite_school_subjects = models.TextField(verbose_name="Любимые школьные предметы")
 
     # Work
-    scope = models.TextField(verbose_name="Сфера деятельность") # TODO Array field?
+    scope = models.TextField(verbose_name="Сфера деятельности") # TODO Array field?
     seniority = models.CharField(verbose_name="Стаж работы", max_length=100)
     timetable = models.CharField(verbose_name="График работы", max_length=255)
     profession_name = models.CharField(verbose_name="Название профессии", max_length=255)
