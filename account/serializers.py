@@ -35,3 +35,9 @@ class EmployerSerialzier(serializers.ModelSerializer):
         model = Employer
         fields = ("company_logo", "company_name", "company_region",
                   "last_name", "first_name", "middle_name")
+
+
+class EmployerCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Employer
+        fields = ("company_logo", "company_name", "company_region")
