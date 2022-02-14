@@ -4,6 +4,9 @@ from django.contrib.postgres.fields import ArrayField
 from account.models import Employer
 class Event(models.Model):
     class Modes(models.TextChoices):
+        ONLINE = "ONLINE", "Онлайн"
+        OFFLINE = "OFFLINE", "Оффлайн"
+        MIXED = "MIXED", "Смешанный"
 
     class Periodic(models.TextChoices):
         FIRST = "FIRST", "Впервые"
