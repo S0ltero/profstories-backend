@@ -17,6 +17,7 @@ INSTALLED_APPS = [
 
     # Local apps
     "account",
+    "events",
 
 ]
 
