@@ -61,3 +61,9 @@ class ProfessionalSerialzier(serializers.ModelSerializer):
     class Meta:
         model = Professional
         fields = ("photo", "company_name", "region", "speciality")
+
+
+class ProfessionalCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Employer
+        fields = ("company_logo", "company_name", "company_region")
