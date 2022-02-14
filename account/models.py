@@ -126,3 +126,66 @@ class ProfessionalManager(models.Manager):
     def get_queryset(self, *args, **kwargs):
         return super().get_queryset(*args, **kwargs).filter(type=User.Types.PROFESSIONAL)
 
+
+class Professional(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+
+    region = models.CharField(verbose_name="Регион", max_length=255)
+    locality = models.CharField(verbose_name="Населенный пункт", max_length=255)
+    photo = models.ImageField(verbose_name="Фото")
+    phone = models.CharField(verbose_name="Мобильный телефон", max_length=255)
+    work_phone = models.CharField(verbose_name="Рабочий телефон", max_length=255)
+    birth_date = models.DateField(verbose_name="Дата рождения")
+    wage = models.CharField(verbose_name="Уровень заработной платы", max_length=255)
+    jobs_count = models.IntegerField(verbose_name="Количество мест работы") # TODO Char field?
+    speciality = models.CharField(verbose_name="Специальность по диплому", max_length=255)
+    education = models.CharField(verbose_name="Образование", max_length=255)
+    work_on_speciality = models.BooleanField(verbose_name="Работа по специальности")
+    work_on_speciality_tips = models.TextField(verbose_name="Почему стоит работаь по специальности")
+    graduation_exams = ArrayField(models.CharField(max_length=255), verbose_name="Экзаменационные предметы")
+    films = models.TextField(verbose_name="Фильмы")
+    books = models.TextField(verbose_name="Книги")
+    profession_hobbies = ArrayField(models.CharField(max_length=100), verbose_name="Увлечения для професси")
+    profession_qualities = ArrayField(models.CharField(max_length=100), verbose_name="Качества необходимые для профессии")
+    profession_technology = models.TextField(verbose_name="Техника использующаяся в профессии")
+    educational_institution = models.CharField(verbose_name="Образовательное учереждение", max_length=255)
+    required_professions_opinion = models.TextField(verbose_name="Мнение о востребованных профессиях")
+    professional_competencies = models.TextField(verbose_name="Какие профессиональные компетенции потребуется в будущем?")
+    not_required_professions_opinion = models.TextField(verbose_name="Какие профессии не будут востребованы в будущем?")
+    soft_skils = models.TextField(verbose_name="Надпрофессиональные компетенции")
+    is_ready_to_mentor = models.BooleanField(verbose_name="Готовность быть наставником")
+    is_ready_to_excursion = models.BooleanField(verbose_name="Готовность к проведению экскурсии")
+    is_ready_to_tell_about = models.BooleanField(verbose_name="Готовность рассказть о профессии")
+    favorite_school_subjects = models.TextField(verbose_name="Любимые школьные предметы")
+
+    # Work
+    scope = models.TextField(verbose_name="Сфера деятельность") # TODO Array field?
+    seniority = models.CharField(verbose_name="Стаж работы", max_length=100)
+    timetable = models.CharField(verbose_name="График работы", max_length=255)
+    profession_name = models.CharField(verbose_name="Название профессии", max_length=255)
+    profession_definition = models.TextField(verbose_name="Определение профессии")
+    employment_type = models.CharField(verbose_name="Тип занятости", max_length=100)
+    business_trips = models.TextField(verbose_name="Командировки")
+    time_of_work = models.CharField(verbose_name="Количество лет работы в организации", max_length=255)
+    workplace_environment = models.TextField(verbose_name="Предметы окружения на работе")
+    workplace_photo = models.ImageField(verbose_name="Фото рабочего места")
+    workplace_video = models.URLField(verbose_name="Видео рабочего места")
+    workday_description = models.TextField(verbose_name="Описание рабочего дня")
+    workday_start = models.CharField(verbose_name="Начало рабочего дня", max_length=100) # TODO Time field?
+    workday_end = models.CharField(verbose_name="Конец рабочего дня", max_length=100) # TODO Time field?
+    work_difficulties = models.TextField(verbose_name="Трудности на работе")
+    work_myths = models.TextField(verbose_name="Мифы и стереотипы о работе")
+    how_find_work = models.TextField(verbose_name="Как нашел эту работу?")
+
+    # Company
+    company_name = models.ForeignKey(Employer, to_field="company_name", related_name="employees", on_delete=models.PROTECT)
+    company_TIN = models.ForeignKey(Employer, to_field="company_TIN", related_name="employees_TIN", on_delete=models.PROTECT)
+    # PWD - People With Disabilities
+    has_pwd = models.BooleanField(verbose_name="Работают ли люди с ограниченными возможностями?")
+    has_corporate_training = models.BooleanField(verbose_name="Имеется корпоративное обучение?")
+
+    objects = ProfessionalManager
+
+    class Meta:
+        verbose_name = "Профессионал"
+        verbose_name_plural = "Профессионалы"
