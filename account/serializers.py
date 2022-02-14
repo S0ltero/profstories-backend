@@ -15,3 +15,13 @@ class UserSerializer(serializers.ModelSerializer):
         exclude = ("password", "last_login", "date_joined", 
                    "is_superuser", "is_staff", "is_active", 
                    "groups", "user_permissions")
+
+
+class CreateUserSerializer(DjoserUserCreateSerializer):
+
+    class Meta:
+        model = User
+        exclued = ("last_login", "date_joined",
+                   "is_superuser", "is_staff", "is_active", 
+                   "groups", "user_permissions")
+
