@@ -3,18 +3,15 @@ from django.contrib.postgres.fields import ArrayField
 
 from account.models import Employer
 class Event(models.Model):
-    class Modes(models.Choices):
-        ONLINE = "ONLINE", "Online"
-        OFFLINE = "OFFLINE", "Offline"
-        MIXED = "MIXED", "Mixed"
+    class Modes(models.TextChoices):
 
-    class Periodic(models.Choices):
+    class Periodic(models.TextChoices):
         FIRST = "FIRST", "Впервые"
         MONTH = "MONTH", "Ежемесячный"
         QUART = "QUART", "Ежеквартальный"
         YEAR = "YEAR", "Ежегодный"
 
-    class Verifiaction(models.Choices):
+    class Verifiaction(models.TextChoices):
         CREATED = "CREATED", "Создано"
         MODERATION = "MODERATION", "На модерации"
         VERIFIED = "VERIFIED", "Верифицировано"
