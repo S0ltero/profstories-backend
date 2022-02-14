@@ -120,3 +120,9 @@ class Employer(models.Model):
 
 
     objects = EmployerManager
+
+
+class ProfessionalManager(models.Manager):
+    def get_queryset(self, *args, **kwargs):
+        return super().get_queryset(*args, **kwargs).filter(type=User.Types.PROFESSIONAL)
+
