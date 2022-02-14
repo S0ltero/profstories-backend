@@ -103,7 +103,7 @@ class Employer(models.Model):
     professional_competencies = ArrayField(models.CharField(max_length=255), verbose_name="В будущем востребованные профессиональные компетенции")
 
     # Adaptation
-    has_adaptation = models.BooleanField(default=False)
+    has_adaptation = models.BooleanField(verbose_name="Имеется ли программа адаптации?", default=False)
     adaptation_stages = models.TextField(verbose_name="Стадии адаптации")
 
     # Support Programm
