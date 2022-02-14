@@ -112,6 +112,7 @@ class Employer(models.Model):
 
     educational_institution = ArrayField(models.TextField(), verbose_name="Какие обр. учереждения необходимо закончить?")
     educational_courses = ArrayField(models.TextField(), verbose_name="Какие обр. направление необходимо закончить?")
+    has_student_events = models.BooleanField(verbose_name="Проводит ли организация мероприятия для школьников/студентов?", default=False)
 
     soft_skils = ArrayField(models.CharField(max_length=255), verbose_name="Надпрофессиональные компетенции")
     has_work_practice = models.BooleanField(verbose_name="Есть ли практика?", default=False)
