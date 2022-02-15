@@ -39,7 +39,7 @@ class Event(models.Model):
     certificates = models.TextField(verbose_name="Сертификаты")
     speakers = models.TextField(verbose_name="Спикеры")
     additional_info = models.TextField(verbose_name="Дополнительная информация")
-    video = models.URLField(verbose_name="Видео о мероприятии")
+    video = models.URLField(verbose_name="Видео о мероприятии", blank=True)
     verification = models.CharField(
         verbose_name="Уровень верификации",
         max_length=50,
