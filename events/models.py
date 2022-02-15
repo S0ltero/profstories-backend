@@ -15,7 +15,6 @@ class Event(models.Model):
         YEAR = "YEAR", "Ежегодный"
 
     class Verifiaction(models.TextChoices):
-        CREATED = "CREATED", "Создано"
         MODERATION = "MODERATION", "На модерации"
         VERIFIED = "VERIFIED", "Верифицировано"
 
@@ -45,7 +44,7 @@ class Event(models.Model):
         verbose_name="Уровень верификации",
         max_length=50,
         choices=Verifiaction.choices,
-        default=Verifiaction.CREATED
+        default=Verifiaction.MODERATION
     )
 
     class Meta:
