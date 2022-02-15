@@ -40,7 +40,7 @@ class EmployerSerialzier(serializers.ModelSerializer):
 class EmployerCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employer
-        fields = ("company_logo", "company_name", "company_region")
+        fields = "__all__"
 
 
 class EmployerDetailSerializer(serializers.ModelSerializer):
@@ -65,8 +65,8 @@ class ProfessionalSerialzier(serializers.ModelSerializer):
 
 class ProfessionalCreateSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Employer
-        fields = ("company_logo", "company_name", "company_region")
+        model = Professional
+        fields = "__all__"
 
 
 class ProfessionalDetailSerializer(serializers.ModelSerializer):
