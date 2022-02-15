@@ -7,8 +7,8 @@ from .managers import UserManager
 
 class User(AbstractUser):
     class Types(models.TextChoices):
-        PROFESSIONAL = "PROFESSIONAL", "Professional"
-        EMPLOYER = "EMPLOYER", "Employer"
+        PROFESSIONAL = "PROFESSIONAL", "Профессионал"
+        EMPLOYER = "EMPLOYER", "Организация"
 
 
     CREATED = "CREATED"
