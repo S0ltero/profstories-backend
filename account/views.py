@@ -51,6 +51,7 @@ class EmployerViewset(viewsets.GenericViewSet):
         serializer = self.serializer_class(employer, data=request.data, partial=True)
         if serializer.is_valid(raise_exception=False):
             serializer.update(employer, serializer.validated_data)
+            return Response(serializer.data, status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -116,6 +117,7 @@ class ProfessionalViewset(viewsets.GenericViewSet):
         serializer = self.serializer_class(professional, data=request.data, partial=True)
         if serializer.is_valid(raise_exception=False):
             serializer.update(professional, serializer.validated_data)
+            return Response(serializer.data, status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
