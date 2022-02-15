@@ -115,6 +115,10 @@ class Employer(models.Model):
         verbose_name = "Организация"
         verbose_name_plural = "Организации"
 
+    def save(self, *args, **kwargs) -> None:
+        self.user.verification = User.Verifiaction.MODERATION
+        self.user.save()
+        return super().save(*args, **kwargs)
 
 class ProfessionalManager(models.Manager):
     def get_queryset(self, *args, **kwargs):
@@ -172,8 +176,8 @@ class Professional(models.Model):
     how_find_work = models.TextField(verbose_name="Как нашел эту работу?")
 
     # Company
-    company_name = models.ForeignKey(Employer, to_field="company_name", related_name="employees", on_delete=models.PROTECT)
-    company_TIN = models.ForeignKey(Employer, to_field="company_TIN", related_name="employees_TIN", on_delete=models.PROTECT)
+    company_name = models.CharField(verbose_name="Название организации", max_length=255)
+    company_TIN = models.CharField(verbose_name="ИНН организации", max_length=255)
     # PWD - People With Disabilities
     has_pwd = models.BooleanField(verbose_name="Работают ли люди с ограниченными возможностями?")
     has_corporate_training = models.BooleanField(verbose_name="Имеется корпоративное обучение?")
@@ -183,3 +187,8 @@ class Professional(models.Model):
     class Meta:
         verbose_name = "Профессионал"
         verbose_name_plural = "Профессионалы"
+
+    def save(self, *args, **kwargs) -> None:
+        self.user.verification = User.Verifiaction.MODERATION
+        self.user.save()
+        return super().save(*args, **kwargs)
