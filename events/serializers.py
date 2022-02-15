@@ -15,3 +15,10 @@ class EventCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         fields = "__all__"
+
+
+class EventDetailSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Event
+        fields = "__all__"
