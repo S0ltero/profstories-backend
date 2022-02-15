@@ -49,12 +49,6 @@ class EmployerManager(models.Manager):
 
 
 class Employer(models.Model):
-    VERIFICATION_LEVEL_CHOICES = [
-        ("CREATED", "created"),
-        ("NOT_VERIFIED", "not_verified"),
-        ("VERIFIED", "verified")
-    ]
-
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
 
     post = models.CharField(verbose_name="Должность", max_length=255)
