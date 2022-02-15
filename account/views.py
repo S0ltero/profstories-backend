@@ -41,10 +41,9 @@ class EmployerViewset(viewsets.GenericViewSet):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def update(self, request, *args, **kwargs):
-        pk = request.data["id"]
+    def update(self, request, pk=None):
         try:
-            employer = self.queryset.objects.get(id=pk)
+            employer = self.queryset.objects.get(user_id=pk)
         except Employer.DoesNotExist:
             return Response(f"Работодатель {pk} не найден", status=status.HTTP_404_NOT_FOUND)
 
@@ -108,9 +107,9 @@ class ProfessionalViewset(viewsets.GenericViewSet):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def update(self, request, *args, **kwargs):
-        pk = request.data["id"]
+    def update(self, request, pk=None):
         try:
+            professional = self.queryset.objects.get(user_id=pk)
         except Professional.DoesNotExist:
             return Response(f"Профессионал {pk} не найден", status=status.HTTP_404_NOT_FOUND)
 
