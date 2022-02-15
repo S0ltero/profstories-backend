@@ -67,7 +67,7 @@ class Employer(models.Model):
     company_TIN = models.CharField(verbose_name="ИНН организации", max_length=255, unique=True)
     company_description = models.TextField(verbose_name="Об организации")
     company_count_employees = models.CharField(verbose_name="Число сотрудников", max_length=255)
-    company_avg_wage = models.IntegerField(verbose_name="Средняя заработная плата")
+    company_avg_wage = models.CharField(verbose_name="Средняя заработная плата", max_length=255)
     company_site = models.URLField(verbose_name="Сайт организации")
     company_video = models.URLField(verbose_name="Видео")
     company_social = ArrayField(models.URLField(), verbose_name="Социальные сети")
