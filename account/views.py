@@ -16,7 +16,7 @@ class EmployerViewset(viewsets.GenericViewSet):
     pagination_class = PageNumberPagination
 
     def get_serializer_class(self):
-        if self.action == "create":
+        if self.action in ["create", "update"]:
             return EmployerCreateSerializer
         else:
             return EmployerSerialzier
@@ -81,7 +81,7 @@ class ProfessionalViewset(viewsets.GenericViewSet):
     pagination_class = PageNumberPagination
 
     def get_serializer_class(self):
-        if self.request.method == "POST":
+        if self.action in ["create", "update"]:
             return ProfessionalCreateSerializer
         else:
             return ProfessionalSerialzier
