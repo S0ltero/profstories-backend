@@ -57,6 +57,7 @@ DATABASES = {
 }
 
 # General
+AUTH_USER_MODEL = "account.User"
 APPEND_SLASH = True
 TIME_ZONE = "Europe/Moscow"
 LANGUAGE_CODE = "ru"
