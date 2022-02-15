@@ -48,7 +48,8 @@ class EmployerViewset(viewsets.GenericViewSet):
         except Employer.DoesNotExist:
             return Response(f"Работодатель {pk} не найден", status=status.HTTP_404_NOT_FOUND)
 
-        serializer = self.serializer_class(employer, data=request.data, partial=True)
+        serializer = self.get_serializer_class()
+        serializer = serializer(employer, data=request.data, partial=True)
         if serializer.is_valid(raise_exception=False):
             serializer.update(employer, serializer.validated_data)
             return Response(serializer.data, status=status.HTTP_200_OK)
@@ -114,7 +115,8 @@ class ProfessionalViewset(viewsets.GenericViewSet):
         except Employer.DoesNotExist:
             return Response(f"Работодатель {pk} не найден", status=status.HTTP_404_NOT_FOUND)
 
-        serializer = self.serializer_class(professional, data=request.data, partial=True)
+        serializer = self.get_serializer_class()
+        serializer = serializer(professional, data=request.data, partial=True)
         if serializer.is_valid(raise_exception=False):
             serializer.update(professional, serializer.validated_data)
             return Response(serializer.data, status=status.HTTP_200_OK)
