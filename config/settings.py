@@ -35,7 +35,7 @@ MIDDLEWARE = [
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
-DEBUG = True
+DEBUG = os.getenv("DJANGO_DEBUG")
 ALLOWED_HOSTS = []
 ROOT_URLCONF = "config.urls"
 WSGI_APPLICATION = "config.wsgi.application"
