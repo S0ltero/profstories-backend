@@ -27,14 +27,10 @@ class CreateUserSerializer(DjoserUserCreateSerializer):
 
 
 class EmployerSerialzier(serializers.ModelSerializer):
-    last_name = serializers.CharField(source="user.last_name")
-    first_name = serializers.CharField(source="user.first_name")
-    middle_name = serializers.CharField(source="user.middle_name")
 
     class Meta:
         model = Employer
-        fields = ("company_logo", "company_name", "company_region",
-                  "last_name", "first_name", "middle_name")
+        fields = ("company_logo", "company_name", "company_region")
 
 
 class EmployerCreateSerializer(serializers.ModelSerializer):
