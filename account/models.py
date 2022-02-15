@@ -10,15 +10,11 @@ class User(AbstractUser):
         PROFESSIONAL = "PROFESSIONAL", "Профессионал"
         EMPLOYER = "EMPLOYER", "Организация"
 
+    class Verifiaction(models.TextChoices):
+        CREATED = "CREATED", "Создан"
+        MODERATION = "MODERATION", "На модерации"
+        VERIFIED = "VERIFIED", "Верифицирован"
 
-    CREATED = "CREATED"
-    MODERATION = "MODERATION"
-    VERIFIED = "VERIFIED"
-    VERIFICATION_LEVEL_CHOICES = [
-        (CREATED, "created"),
-        (MODERATION, "on_moderation"),
-        (VERIFIED, "verified")
-    ]
 
     username = None
     email = models.EmailField(
@@ -37,8 +33,8 @@ class User(AbstractUser):
     verification = models.CharField(
         verbose_name="Уровень верификации",
         max_length=50,
-        choices=VERIFICATION_LEVEL_CHOICES,
-        default=CREATED
+        choices=Verifiaction.choices,
+        default=Verifiaction.CREATED
     )
 
     USERNAME_FIELD = "email"
