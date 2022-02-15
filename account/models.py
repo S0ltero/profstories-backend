@@ -54,7 +54,7 @@ class Employer(models.Model):
     post = models.CharField(verbose_name="Должность", max_length=255)
     phone = models.CharField(verbose_name="Мобильный телефон", max_length=255)
     work_phone = models.CharField(verbose_name="Рабочий телефон", max_length=255)
-    authorization = models.FileField(verbose_name="Доверенность", max_length=255)
+    authorization = models.FileField(verbose_name="Доверенность")
     privacy_policy = models.BooleanField(verbose_name="Политика конфиденциальности", default=False)
 
     # Company attributes
