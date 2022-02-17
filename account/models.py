@@ -193,3 +193,21 @@ class Professional(models.Model):
         self.user.verification = User.Verifiaction.MODERATION
         self.user.save()
         return super().save(*args, **kwargs)
+
+
+class UserEmployer(User):
+
+    objects = EmployerManager()
+    class Meta:
+        proxy = True
+        verbose_name = "Организация"
+        verbose_name_plural = "Организации"
+
+
+class UserProfessional(User):
+
+    objects = ProfessionalManager()
+    class Meta:
+        proxy = True
+        verbose_name = "Профессионал"
+        verbose_name_plural = "Профессионалы"
