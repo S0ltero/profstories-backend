@@ -16,6 +16,24 @@ class UserSerializer(serializers.ModelSerializer):
                    "is_superuser", "is_staff", "is_active", 
                    "groups", "user_permissions")
 
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        if instance.type == User.Types.EMPLOYER:
+            try:
+                employer = Employer.objects.get(pk=instance.id)
+            except Employer.DoesNotExist:
+                pass
+            else:
+                data.update(EmployerSerialzier(employer).data)
+        elif instance.type == User.Types.PROFESSIONAL:
+            try:
+                professional = Professional.objects.get(pk=instance.id)
+            except Professional.DoesNotExist:
+                pass
+            else:
+                data.update(ProfessionalSerialzier(professional).data)
+        return data
+
 
 class CreateUserSerializer(DjoserUserCreateSerializer):
 
