@@ -69,7 +69,7 @@ class Employer(models.Model):
     company_count_employees = models.CharField(verbose_name="Число сотрудников", max_length=255)
     company_avg_wage = models.PositiveIntegerField(verbose_name="Средняя заработная плата", max_length=255)
     company_site = models.URLField(verbose_name="Сайт организации")
-    company_video = models.URLField(verbose_name="Видео")
+    company_video = models.URLField(verbose_name="Видео", blank=True, null=True)
     company_social = ArrayField(models.URLField(), verbose_name="Социальные сети")
     company_professions = ArrayField(models.CharField(max_length=255), verbose_name="Востребованные профессии")
 
