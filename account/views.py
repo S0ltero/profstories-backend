@@ -15,6 +15,44 @@ class EmployerViewset(viewsets.GenericViewSet):
     serializer_class = EmployerSerialzier
     pagination_class = PageNumberPagination
 
+    def get_queryset(self):
+        queryset = Employer.objects.all()
+
+        if "video" in self.request.query_params.keys():
+            queryset = queryset.filter(company_video__isnull=False)
+    
+        if "training" in self.request.query_params.keys():
+            queryset = queryset.filter(has_corporate_training=True)
+
+        if "pwd" in self.request.query_params.keys():
+            queryset = queryset.filter(has_pwd=True)
+
+        if "adaptation" in self.request.query_params.keys():
+            queryset = queryset.filter(has_adaptation=True)
+
+        type = self.request.query_params.get("type")
+        if type:
+            queryset = queryset.filter(company_count_employees=type)
+
+        wage = self.request.query_params.get("wage")
+        if wage:
+            queryset = queryset.filter(company_avg_wage__gte=wage)
+
+        scope = self.request.query_params.get("scope")
+        if scope:
+            queryset = queryset.filter(company_scope=scope)
+
+        region = self.request.query_params.get("region")
+        if region:
+            queryset = queryset.filter(company_region=region)
+
+        professions = self.request.query_params.get("professions")
+        if professions:
+            professions = professions.split(",")
+            queryset = queryset.filter(company_professions__contained_by=professions)
+
+        return queryset
+
     def get_serializer_class(self):
         if self.action in ["create", "update"]:
             return EmployerCreateSerializer
@@ -57,7 +95,7 @@ class EmployerViewset(viewsets.GenericViewSet):
 
     def list(self, request, *args, **kwargs):
         try:
-            employers = self.queryset.objects.all()
+            employers = self.get_queryset()
             page = self.paginate_queryset(employers)
         except Employer.DoesNotExist:
             return Response("Работодатели не найдены", status=status.HTTP_404_NOT_FOUND)
