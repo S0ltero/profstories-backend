@@ -195,6 +195,18 @@ class Professional(models.Model):
         return super().save(*args, **kwargs)
 
 
+class Callback(models.Model):
+    name = models.CharField(verbose_name="Имя", max_length=255)
+    email = models.EmailField(verbose_name="Почта")
+    phone = models.CharField(verbose_name="Номер телефона", max_length=255)
+    text = models.TextField(verbose_name="Текст")
+
+    class Meta:
+        verbose_name = "Обратная связь"
+        verbose_name_plural = "Обратная связь"
+
+
+# Proxy models
 class UserEmployer(User):
 
     objects = EmployerManager()
