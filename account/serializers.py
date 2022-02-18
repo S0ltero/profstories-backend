@@ -13,8 +13,8 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        exclude = ("password", "last_login", "date_joined", 
-                   "is_superuser", "is_staff", "is_active", 
+        exclude = ("password", "last_login", "date_joined",
+                   "is_superuser", "is_staff", "is_active",
                    "groups", "user_permissions")
 
     def to_representation(self, instance):
