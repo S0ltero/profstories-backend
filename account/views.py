@@ -139,6 +139,53 @@ class ProfessionalViewset(viewsets.GenericViewSet):
     serializer_class = ProfessionalSerialzier
     pagination_class = PageNumberPagination
 
+    def get_queryset(self):
+        queryset = Employer.objects.all()
+
+        scope = self.request.query_params.get("scope")
+        if scope:
+            queryset = queryset.filter(company_scope=scope)
+
+        region = self.request.query_params.get("region")
+        if region:
+            queryset = queryset.filter(company_region=region)
+
+        timetable = self.request.query_params.get("timetable")
+        if timetable:
+            queryset = queryset.filter(timetable=timetable)
+
+        employment = self.request.query_params.get("employment")
+        if employment:
+            queryset = queryset.filter(employment_type=employment)
+
+        trips = self.request.query_params.get("trips")
+        if trips:
+            queryset = queryset.filter(business_trips=trips)
+
+        if "pwd" in self.request.query_params.keys():
+            queryset = queryset.filter(has_pwd=True)
+
+        wage = self.request.query_params.get("wage")
+        if wage:
+            queryset = queryset.filter(wage=wage)
+
+        skils = self.request.query_params.get("skils")
+        if skils:
+            skils = skils.split(",")
+            queryset = queryset.filter(soft_skils__contained_by=skils)
+
+        hobbies = self.request.query_params.get("hobbies")
+        if hobbies:
+            hobbies = hobbies.split(",")
+            queryset = queryset.filter(profession_hobbies__contained_by=hobbies)
+
+        school_subjects = self.request.query_params.get("school-subjects")
+        if school_subjects:
+            school_subjects = school_subjects.split(",")
+            queryset = queryset.filter(favorite_school_subjects__contained_by=school_subjects)
+
+        return queryset
+
     def get_serializer_class(self):
         if self.action in ["create", "update"]:
             return ProfessionalCreateSerializer
@@ -187,7 +234,7 @@ class ProfessionalViewset(viewsets.GenericViewSet):
 
     def list(self, request, *args, **kwargs):
         try:
-            professionals = self.queryset.objects.all()
+            professionals = self.get_queryset()
             page = self.paginate_queryset(professionals)
         except Professional.DoesNotExist:
             return Response("Профессионалы не найдены", status=status.HTTP_404_NOT_FOUND)
