@@ -5,9 +5,9 @@ from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 
 from .models import Employer, Professional
-from .serializers import (EmployerSerialzier, ProfessionalSerialzier,
+from .serializers import (UserSerializer, EmployerSerialzier, ProfessionalSerialzier,
                           EmployerCreateSerializer, ProfessionalCreateSerializer,
-                          EmployerDetailSerializer, ProfessionalDetailSerializer)
+                          EmployerDetailSerializer, ProfessionalDetailSerializer,)
 
 
 class EmployerViewset(viewsets.GenericViewSet):
@@ -71,9 +71,15 @@ class EmployerViewset(viewsets.GenericViewSet):
     def create(self, request, *args, **kwargs):
         data = request.data.copy()
         data["user"] = request.user.id
+
         serializer = self.get_serializer_class()
         serializer = serializer(data=data)
-        if serializer.is_valid(raise_exception=False):
+        if not serializer.is_valid(raise_exception=False):
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        user_serializer = UserSerializer(instance=request.user, data=data, partial=True)
+        if user_serializer.is_valid(raise_exception=False):
+            user_serializer.update(request.user, user_serializer.validated_data)
             serializer.save(user_id=request.user.id)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
@@ -137,9 +143,15 @@ class ProfessionalViewset(viewsets.GenericViewSet):
     def create(self, request, *args, **kwargs):
         data = request.data.copy()
         data["user"] = request.user.id
+
         serializer = self.get_serializer_class()
         serializer = serializer(data=data)
-        if serializer.is_valid(raise_exception=False):
+        if not serializer.is_valid(raise_exception=False):
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        user_serializer = UserSerializer(instance=request.user, data=data, partial=True)
+        if user_serializer.is_valid(raise_exception=False):
+            user_serializer.update(request.user, user_serializer.validated_data)
             serializer.save(user_id=request.user.id)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
