@@ -80,7 +80,7 @@ class EventViewset(viewsets.GenericViewSet):
             page = self.paginate_queryset(employers)
         except Event.DoesNotExist:
             return Response("Мероприятия не найдены", status=status.HTTP_404_NOT_FOUND)
-        
+
         serializer = self.serializer_class(page, many=True)
         return self.get_paginated_response(serializer.data)
 
@@ -90,6 +90,6 @@ class EventViewset(viewsets.GenericViewSet):
             event = self.queryset.objects.get(id=pk)
         except Event.DoesNotExist:
             return Response(f"Мероприятие {pk} не найдено", status=status.HTTP_404_NOT_FOUND)
-        
+
         serializer = self.serializer_class(event)
         return Response(serializer.data, status=status.HTTP_200_OK)
