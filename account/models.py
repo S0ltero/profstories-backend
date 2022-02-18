@@ -5,6 +5,7 @@ from django.contrib.auth.models import AbstractUser
 
 from .managers import UserManager
 
+
 class User(AbstractUser):
     class Types(models.TextChoices):
         PROFESSIONAL = "PROFESSIONAL", "Профессионал"
@@ -14,7 +15,6 @@ class User(AbstractUser):
         CREATED = "CREATED", "Создан"
         MODERATION = "MODERATION", "На модерации"
         VERIFIED = "VERIFIED", "Верифицирован"
-
 
     username = None
     email = models.EmailField(
@@ -34,7 +34,7 @@ class User(AbstractUser):
         verbose_name="Уровень верификации",
         max_length=50,
         choices=Verifiaction.choices,
-        default=Verifiaction.CREATED
+        default=Verifiaction.CREATED,
     )
 
     USERNAME_FIELD = "email"
@@ -198,6 +198,7 @@ class Professional(models.Model):
 class UserEmployer(User):
 
     objects = EmployerManager()
+
     class Meta:
         proxy = True
         verbose_name = "Организация"
@@ -207,6 +208,7 @@ class UserEmployer(User):
 class UserProfessional(User):
 
     objects = ProfessionalManager()
+
     class Meta:
         proxy = True
         verbose_name = "Профессионал"
