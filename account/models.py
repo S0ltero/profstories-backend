@@ -61,7 +61,7 @@ class Employer(models.Model):
     company_name = models.CharField(verbose_name="Название организации", max_length=255, unique=True)
     company_name_alt = models.CharField(verbose_name="Альтернативное название организации", max_length=255, unique=True)
     company_region = models.CharField(verbose_name="Регион организации", max_length=255)
-    company_admin_region = models.CharField(verbose_name="Административный регион организации", max_length=255)
+    company_admin_region = models.CharField(verbose_name="Административный регион организации", max_length=255, blank=True)
     company_scope = models.TextField(verbose_name="Сфера деятельности")
     company_logo = models.ImageField(verbose_name="Логотип организации")
     company_TIN = models.CharField(verbose_name="ИНН организации", max_length=255, unique=True)
@@ -84,12 +84,12 @@ class Employer(models.Model):
     excursion_employee_post = models.CharField(verbose_name="Должность сотруднка по экскурсии", max_length=255)
 
     # Corporate Training
-    has_corporate_training = models.BooleanField(verbose_name="Имеется корпоративное обучение?")
-    corporate_training_name = models.CharField(verbose_name="Название программы корпоративного обучения", max_length=255)
+    has_corporate_training = models.BooleanField(verbose_name="Имеется корпоративное обучение?", default=False)
+    corporate_training_name = models.CharField(verbose_name="Название программы корпоративного обучения", max_length=255, blank=True)
 
     # Look into the future
     professions_required = ArrayField(models.CharField(max_length=255), verbose_name="В будущем востребованные профессии")
-    professions_not_required = ArrayField(models.CharField(max_length=255), verbose_name="В будущем не востребованные профессии")
+    professions_not_required = ArrayField(models.CharField(max_length=255), verbose_name="В будущем не востребованные профессии", blank=True)
     professional_competencies = ArrayField(models.CharField(max_length=255), verbose_name="В будущем востребованные профессиональные компетенции")
 
     # Adaptation
@@ -97,8 +97,8 @@ class Employer(models.Model):
     adaptation_stages = models.TextField(verbose_name="Стадии адаптации")
 
     # Support Programm
-    support_programms = models.CharField(verbose_name="Программа поддержки", max_length=255)
-    support_conditions = models.TextField(verbose_name="Условия поддержки")
+    support_programms = models.CharField(verbose_name="Программа поддержки", max_length=255, blank=True)
+    support_conditions = models.TextField(verbose_name="Условия поддержки", blank=True)
 
     educational_institution = ArrayField(models.TextField(), verbose_name="Какие обр. учереждения необходимо закончить?")
     educational_courses = ArrayField(models.TextField(), verbose_name="Какие обр. направление необходимо закончить?")
