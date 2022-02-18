@@ -6,7 +6,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 
-from .models import Employer, Professional, Callback
+from .models import User, Employer, Professional, Callback
 from .serializers import (
     UserSerializer,
     EmployerSerialzier,
@@ -25,7 +25,7 @@ class EmployerViewset(viewsets.GenericViewSet):
     pagination_class = PageNumberPagination
 
     def get_queryset(self):
-        queryset = Employer.objects.all()
+        queryset = Employer.objects.filter(user__verification=User.Verifiaction.VERIFIED)
 
         if "video" in self.request.query_params.keys():
             queryset = queryset.filter(company_video__isnull=False)
@@ -140,7 +140,7 @@ class ProfessionalViewset(viewsets.GenericViewSet):
     pagination_class = PageNumberPagination
 
     def get_queryset(self):
-        queryset = Professional.objects.all()
+        queryset = Professional.objects.filter(user__verification=User.Verifiaction.VERIFIED)
 
         scope = self.request.query_params.get("scope")
         if scope:
