@@ -1,7 +1,7 @@
 from django.db import models
 from django.core import validators
 from django.contrib.postgres.fields import ArrayField
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, BaseUserManager
 
 from .managers import UserManager
 
@@ -43,7 +43,7 @@ class User(AbstractUser):
     objects = UserManager()
 
 
-class EmployerManager(models.Manager):
+class EmployerManager(BaseUserManager):
     def get_queryset(self, *args, **kwargs):
         return super().get_queryset(*args, **kwargs).filter(type=User.Types.EMPLOYER)
 
@@ -121,7 +121,7 @@ class Employer(models.Model):
         return super().save(*args, **kwargs)
 
 
-class ProfessionalManager(models.Manager):
+class ProfessionalManager(BaseUserManager):
     def get_queryset(self, *args, **kwargs):
         return super().get_queryset(*args, **kwargs).filter(type=User.Types.PROFESSIONAL)
 
@@ -209,7 +209,7 @@ class Callback(models.Model):
 # Proxy models
 class UserEmployer(User):
 
-    objects = EmployerManager()
+    objects = EmployerManager
 
     class Meta:
         proxy = True
@@ -219,7 +219,7 @@ class UserEmployer(User):
 
 class UserProfessional(User):
 
-    objects = ProfessionalManager()
+    objects = ProfessionalManager
 
     class Meta:
         proxy = True
