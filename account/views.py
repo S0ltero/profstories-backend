@@ -1,10 +1,12 @@
 from rest_framework import viewsets
 from rest_framework import status
+from rest_framework.generics import CreateAPIView
+from rest_framework.permissions import AllowAny
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 
-from .models import Employer, Professional
+from .models import Employer, Professional, Callback
 from .serializers import (
     UserSerializer,
     EmployerSerialzier,
@@ -13,6 +15,7 @@ from .serializers import (
     ProfessionalCreateSerializer,
     EmployerDetailSerializer,
     ProfessionalDetailSerializer,
+    CallbackSerializer,
 )
 
 
@@ -206,3 +209,17 @@ class ProfessionalViewset(viewsets.GenericViewSet):
         
         serializer = self.serializer_class(professional)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class CallbackCreateView(CreateAPIView):
+    queryset = Callback
+    serializer_class = CallbackSerializer
+    permission_classes = [AllowAny]
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid(raise_exception=False):
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
