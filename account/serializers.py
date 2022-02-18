@@ -4,7 +4,7 @@ from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 from djoser.serializers import UserCreateSerializer as DjoserUserCreateSerializer
 
-from .models import Employer, Professional
+from .models import Employer, Professional, Callback
 
 User = get_user_model()
 
@@ -103,3 +103,9 @@ class TokenSerializer(serializers.ModelSerializer):
     class Meta:
         model = Token
         fields = ("id", "auth_token", "type")
+
+
+class CallbackSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Callback
+        fields = "__all__"
