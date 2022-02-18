@@ -5,9 +5,15 @@ from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 
 from .models import Employer, Professional
-from .serializers import (UserSerializer, EmployerSerialzier, ProfessionalSerialzier,
-                          EmployerCreateSerializer, ProfessionalCreateSerializer,
-                          EmployerDetailSerializer, ProfessionalDetailSerializer,)
+from .serializers import (
+    UserSerializer,
+    EmployerSerialzier,
+    ProfessionalSerialzier,
+    EmployerCreateSerializer,
+    ProfessionalCreateSerializer,
+    EmployerDetailSerializer,
+    ProfessionalDetailSerializer,
+)
 
 
 class EmployerViewset(viewsets.GenericViewSet):
@@ -20,7 +26,7 @@ class EmployerViewset(viewsets.GenericViewSet):
 
         if "video" in self.request.query_params.keys():
             queryset = queryset.filter(company_video__isnull=False)
-    
+
         if "training" in self.request.query_params.keys():
             queryset = queryset.filter(has_corporate_training=True)
 
@@ -109,7 +115,12 @@ class EmployerViewset(viewsets.GenericViewSet):
         serializer = self.serializer_class(page, many=True)
         return self.get_paginated_response(serializer.data)
 
-    @action(detail=True, url_path='detail', url_name='detail', serializer_class=EmployerDetailSerializer)
+    @action(
+        detail=True,
+        url_path="detail",
+        url_name="detail",
+        serializer_class=EmployerDetailSerializer,
+    )
     def qdetail(self, request, pk=None):
         try:
             employer = self.queryset.objects.get(user_id=pk)
@@ -181,7 +192,12 @@ class ProfessionalViewset(viewsets.GenericViewSet):
         serializer = self.serializer_class(page, many=True)
         return self.get_paginated_response(serializer.data)
 
-    @action(detail=True, url_path='detail', url_name='detail', serializer_class=ProfessionalDetailSerializer)
+    @action(
+        detail=True,
+        url_path="detail",
+        url_name="detail",
+        serializer_class=ProfessionalDetailSerializer,
+    )
     def qdetail(self, request, pk=None):
         try:
             professional = self.queryset.objects.get(user_id=pk)
