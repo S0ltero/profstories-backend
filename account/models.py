@@ -148,7 +148,7 @@ class Professional(models.Model):
     profession_qualities = ArrayField(models.CharField(max_length=100), verbose_name="Качества необходимые для профессии")
     profession_technology = models.TextField(verbose_name="Техника использующаяся в профессии")
     educational_institution = models.CharField(verbose_name="Образовательное учереждение", max_length=255)
-    required_professions_opinion = models.TextField(verbose_name="Мнение о востребованных профессиях")
+    required_professions_opinion = models.TextField(verbose_name="Мнение о востребованных профессиях", blank=True)
     professional_competencies = models.TextField(verbose_name="Какие профессиональные компетенции потребуется в будущем?")
     not_required_professions_opinion = models.TextField(verbose_name="Какие профессии не будут востребованы в будущем?")
     soft_skils = models.TextField(verbose_name="Надпрофессиональные компетенции")
@@ -167,8 +167,8 @@ class Professional(models.Model):
     business_trips = models.TextField(verbose_name="Командировки")
     time_of_work = models.CharField(verbose_name="Количество лет работы в организации", max_length=255)
     workplace_environment = models.TextField(verbose_name="Предметы окружения на работе")
-    workplace_photo = models.ImageField(verbose_name="Фото рабочего места")
-    workplace_video = models.URLField(verbose_name="Видео рабочего места")
+    workplace_photo = models.ImageField(verbose_name="Фото рабочего места", blank=True)
+    workplace_video = models.URLField(verbose_name="Видео рабочего места", blank=True)
     workday_description = models.TextField(verbose_name="Описание рабочего дня")
     workday_start = models.CharField(verbose_name="Начало рабочего дня", max_length=100) # TODO Time field?
     workday_end = models.CharField(verbose_name="Конец рабочего дня", max_length=100) # TODO Time field?
