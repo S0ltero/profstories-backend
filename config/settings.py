@@ -71,9 +71,9 @@ LOGIN_REDIRECT_URL = "/"
 
 # Djoser settings
 DJOSER = {
-    'USER_CREATE_PASSWORD_RETYPE': True,
-    'LOGIN_FIELD': "email",
-    'SERIALIZERS': {
+    "USER_CREATE_PASSWORD_RETYPE": True,
+    "LOGIN_FIELD": "email",
+    "SERIALIZERS": {
         "user": "account.serializers.UserSerializer",
         "user_create": "account.serializers.CreateUserSerializer",
         "user_create_password_retype": "account.serializers.CreateUserSerializer",
