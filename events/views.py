@@ -1,3 +1,6 @@
+from distutils.util import strtobool
+
+from django.utils import timezone
 from rest_framework import viewsets
 from rest_framework import status
 from rest_framework.decorators import action
@@ -12,6 +15,28 @@ class EventViewset(viewsets.GenericViewSet):
     queryset = Event
     serializer_class = EventSerialzier
     pagination_class = PageNumberPagination
+
+    def get_queryset(self):
+        queryset = Event.objects.filter(verification=Event.Verifiaction.VERIFIED)
+
+        mode = self.request.query_params.get("mode")
+        if mode:
+            queryset = queryset.filter(mode=mode)
+
+        terms = self.request.query_params.get("terms")
+        if terms:
+            terms = list(map(strtobool, terms.split(",")))
+            queryset = queryset.filter(is_free__in=terms)
+
+        status = self.request.query_params.get("status")
+        if status:
+            status = strtobool(status)
+            if status:
+                queryset = queryset.filter(date__gte=timezone.now())
+            elif not status:
+                queryset = queryset.filter(date__lt=timezone.now())
+
+        return queryset
 
     def get_serializer_class(self):
         if self.request.method == "POST":
@@ -51,7 +76,7 @@ class EventViewset(viewsets.GenericViewSet):
 
     def list(self, request, *args, **kwargs):
         try:
-            employers = self.queryset.objects.all()
+            employers = self.get_queryset()
             page = self.paginate_queryset(employers)
         except Event.DoesNotExist:
             return Response("Мероприятия не найдены", status=status.HTTP_404_NOT_FOUND)
