@@ -140,7 +140,7 @@ class ProfessionalViewset(viewsets.GenericViewSet):
     pagination_class = PageNumberPagination
 
     def get_queryset(self):
-        queryset = Employer.objects.all()
+        queryset = Professional.objects.all()
 
         scope = self.request.query_params.get("scope")
         if scope:
