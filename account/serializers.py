@@ -99,10 +99,11 @@ class TokenSerializer(serializers.ModelSerializer):
     id = serializers.CharField(source="user.id")
     auth_token = serializers.CharField(source="key")
     type = serializers.CharField(source="user.type")
+    verification = serializers.CharField(source="user.verification")
 
     class Meta:
         model = Token
-        fields = ("id", "auth_token", "type")
+        fields = ("id", "auth_token", "type", "verification")
 
 
 class CallbackSerializer(serializers.ModelSerializer):
