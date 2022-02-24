@@ -10,6 +10,7 @@ class User(AbstractUser):
     class Types(models.TextChoices):
         PROFESSIONAL = "PROFESSIONAL", "Профессионал"
         EMPLOYER = "EMPLOYER", "Организация"
+        NPO = "NPO", "НКО"
 
     class Verifiaction(models.TextChoices):
         CREATED = "CREATED", "Создан"
