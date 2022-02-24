@@ -266,3 +266,13 @@ class UserProfessional(User):
         proxy = True
         verbose_name = "Профессионал"
         verbose_name_plural = "Профессионалы"
+
+
+class UserNPO(User):
+
+    objects = NPOManager()
+
+    class Meta:
+        proxy = True
+        verbose_name = "НКО"
+        verbose_name_plural = "НКО"
