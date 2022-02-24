@@ -200,6 +200,42 @@ class NPOManager(BaseUserManager):
     def get_queryset(self, *args, **kwargs):
         return super().get_queryset(*args, **kwargs).filter(type=User.Types.NPO)
 
+
+class NPO(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+
+    post = models.CharField(verbose_name="Должность", max_length=255)
+    phone = models.CharField(verbose_name="Мобильный телефон", max_length=255)
+    work_phone = models.CharField(verbose_name="Рабочий телефон", max_length=255)
+    authorization = models.FileField(verbose_name="Доверенность")
+    privacy_policy = models.BooleanField(verbose_name="Политика конфиденциальности", default=False)
+
+    # Company attributes
+    company_name = models.CharField(verbose_name="Название организации", max_length=255, unique=True)
+    company_region = models.CharField(verbose_name="Регион организации", max_length=255)
+    company_TIN = models.CharField(verbose_name="ИНН организации", max_length=255, unique=True)
+    company_address = models.TextField(verbose_name="Адрес организации")
+    company_logo = models.ImageField(verbose_name="Логотип организации")
+    company_director = models.CharField(verbose_name="ФИО руководителя", max_length=255)
+    company_count_employees = models.CharField(verbose_name="Число сотрудников", max_length=255)
+    company_avg_wage = models.PositiveIntegerField(verbose_name="Средняя заработная плата")
+    company_site = models.URLField(verbose_name="Сайт организации")
+    company_video = models.URLField(verbose_name="Видео", blank=True, null=True)
+    company_social = ArrayField(models.URLField(), verbose_name="Социальные сети")
+    company_professions = ArrayField(models.CharField(max_length=255), verbose_name="Востребованные профессии")
+    
+    objects = NPOManager
+
+    class Meta:
+        verbose_name = "НКО"
+        verbose_name_plural = "НКО"
+
+    def save(self, *args, **kwargs) -> None:
+        self.user.verification = User.Verifiaction.MODERATION
+        self.user.save()
+        return super().save(*args, **kwargs)
+
+
 class Callback(models.Model):
     name = models.CharField(verbose_name="Имя", max_length=255)
     email = models.EmailField(verbose_name="Почта")
