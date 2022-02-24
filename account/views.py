@@ -76,7 +76,7 @@ class EmployerViewset(viewsets.GenericViewSet):
             employer = self.queryset.objects.get(user_id=pk)
         except Employer.DoesNotExist:
             return Response(f"Работодатель {pk} не найден", status=status.HTTP_404_NOT_FOUND)
-        
+
         serializer = self.serializer_class(employer)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -117,7 +117,7 @@ class EmployerViewset(viewsets.GenericViewSet):
             page = self.paginate_queryset(employers)
         except Employer.DoesNotExist:
             return Response("Работодатели не найдены", status=status.HTTP_404_NOT_FOUND)
-        
+
         serializer = self.serializer_class(page, many=True)
         return self.get_paginated_response(serializer.data)
 
@@ -132,7 +132,7 @@ class EmployerViewset(viewsets.GenericViewSet):
             employer = self.queryset.objects.get(user_id=pk)
         except Employer.DoesNotExist:
             return Response(f"Работодатель {pk} не найден", status=status.HTTP_404_NOT_FOUND)
-        
+
         serializer = self.serializer_class(employer)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -200,7 +200,7 @@ class ProfessionalViewset(viewsets.GenericViewSet):
             professional = self.queryset.objects.get(user_id=pk)
         except Employer.DoesNotExist:
             return Response(f"Работодатель {pk} не найден", status=status.HTTP_404_NOT_FOUND)
-        
+
         serializer = self.serializer_class(professional)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -241,7 +241,7 @@ class ProfessionalViewset(viewsets.GenericViewSet):
             page = self.paginate_queryset(professionals)
         except Professional.DoesNotExist:
             return Response("Профессионалы не найдены", status=status.HTTP_404_NOT_FOUND)
-        
+
         serializer = self.serializer_class(page, many=True)
         return self.get_paginated_response(serializer.data)
 
@@ -256,7 +256,7 @@ class ProfessionalViewset(viewsets.GenericViewSet):
             professional = self.queryset.objects.get(user_id=pk)
         except Professional.DoesNotExist:
             return Response(f"Профессионал {pk} не найден", status=status.HTTP_404_NOT_FOUND)
-        
+
         serializer = self.serializer_class(professional)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
