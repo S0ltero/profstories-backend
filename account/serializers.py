@@ -100,6 +100,13 @@ class NPOSerializer(serializers.ModelSerializer):
     class Meta:
         model = NPO
         fields = ("company_logo", "company_name", "company_region")
+
+
+class NPOCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = NPO
+        fields = "__all__"
+
 class TokenSerializer(serializers.ModelSerializer):
     id = serializers.CharField(source="user.id")
     auth_token = serializers.CharField(source="key")
