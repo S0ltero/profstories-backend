@@ -82,3 +82,10 @@ class AdminEmployer(admin.ModelAdmin):
     inlines = [EmployerInline]
     exclude = ("password", "is_active", "is_staff", "is_superuser",
                "last_login", "date_joined", "user_permissions", "groups")
+
+
+@admin.register(UserNPO)
+class AdminNPO(admin.ModelAdmin):
+    inlines = [NPOInline]
+    exclude = ("password", "is_active", "is_staff", "is_superuser",
+               "last_login", "date_joined", "user_permissions", "groups")
