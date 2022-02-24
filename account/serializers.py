@@ -107,6 +107,17 @@ class NPOCreateSerializer(serializers.ModelSerializer):
         model = NPO
         fields = "__all__"
 
+
+class NPODetailSerializer(serializers.ModelSerializer):
+    last_name = serializers.CharField(source="user.last_name")
+    first_name = serializers.CharField(source="user.first_name")
+    middle_name = serializers.CharField(source="user.middle_name")
+
+    class Meta:
+        model = NPO
+        fields = "__all__"
+
+
 class TokenSerializer(serializers.ModelSerializer):
     id = serializers.CharField(source="user.id")
     auth_token = serializers.CharField(source="key")
