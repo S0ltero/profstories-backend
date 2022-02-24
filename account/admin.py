@@ -3,10 +3,10 @@ from django.contrib import admin
 from .models import *
 
 
-@admin.register(Employer)
-class AdminEmployer(admin.ModelAdmin):
-    actions = None
-    list_display = ("user", "company_name")
+class ProfessionalInline(admin.StackedInline):
+    model = Professional
+    extra = 0
+
     fieldsets = (
         ("Представитель",
             {"fields": (
