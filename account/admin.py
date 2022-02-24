@@ -63,3 +63,12 @@ class EmployerInline(admin.StackedInline):
             )}
         )
     )
+
+
+
+@admin.register(UserProfessional)
+class AdminProfessional(admin.ModelAdmin):
+    inlines = [ProfessionalInline]
+    exclude = ("password", "is_active", "is_staff", "is_superuser",
+               "last_login", "date_joined", "user_permissions", "groups")
+
