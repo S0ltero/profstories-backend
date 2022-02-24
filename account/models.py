@@ -159,7 +159,7 @@ class Professional(models.Model):
     favorite_school_subjects = models.TextField(verbose_name="Любимые школьные предметы")
 
     # Work
-    scope = models.TextField(verbose_name="Сфера деятельности") # TODO Array field?
+    scope = ArrayField(models.TextField(), verbose_name="Сфера деятельности")
     seniority = models.CharField(verbose_name="Стаж работы", max_length=100)
     timetable = models.CharField(verbose_name="График работы", max_length=255)
     profession_name = models.CharField(verbose_name="Название профессии", max_length=255)
