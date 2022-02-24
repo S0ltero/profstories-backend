@@ -209,7 +209,7 @@ class Callback(models.Model):
 # Proxy models
 class UserEmployer(User):
 
-    objects = EmployerManager
+    objects = EmployerManager()
 
     class Meta:
         proxy = True
@@ -219,7 +219,7 @@ class UserEmployer(User):
 
 class UserProfessional(User):
 
-    objects = ProfessionalManager
+    objects = ProfessionalManager()
 
     class Meta:
         proxy = True
