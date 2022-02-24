@@ -7,8 +7,13 @@ class ProfessionalInline(admin.StackedInline):
     model = Professional
     extra = 0
 
+
+class EmployerInline(admin.StackedInline):
+    model = Employer
+    extra = 0
+
     fieldsets = (
-        ("Представитель",
+        (None,
             {"fields": (
                 "post", "phone", "work_phone", "authorization"
             )}
