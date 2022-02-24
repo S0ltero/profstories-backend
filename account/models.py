@@ -98,7 +98,7 @@ class Employer(models.Model):
     adaptation_stages = models.TextField(verbose_name="Стадии адаптации")
 
     # Support Programm
-    support_programms = models.CharField(verbose_name="Программа поддержки", max_length=255, blank=True)
+    support_programms = ArrayField(models.CharField(max_length=255), blank=True, default=list, verbose_name="Программа поддержки")
     support_conditions = models.TextField(verbose_name="Условия поддержки", blank=True)
 
     educational_institution = ArrayField(models.TextField(), verbose_name="Какие обр. учереждения необходимо закончить?")
