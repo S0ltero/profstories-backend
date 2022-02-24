@@ -65,6 +65,10 @@ class EmployerInline(admin.StackedInline):
     )
 
 
+class NPOInline(admin.StackedInline):
+    model = NPO
+    extra = 0
+
 
 @admin.register(UserProfessional)
 class AdminProfessional(admin.ModelAdmin):
