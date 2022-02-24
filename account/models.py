@@ -152,7 +152,7 @@ class Professional(models.Model):
     required_professions_opinion = models.TextField(verbose_name="Мнение о востребованных профессиях", blank=True)
     professional_competencies = models.TextField(verbose_name="Какие профессиональные компетенции потребуется в будущем?")
     not_required_professions_opinion = models.TextField(verbose_name="Какие профессии не будут востребованы в будущем?")
-    soft_skils = models.TextField(verbose_name="Надпрофессиональные компетенции")
+    soft_skils = ArrayField(models.CharField(max_length=255), verbose_name="Надпрофессиональные компетенции")
     is_ready_to_mentor = models.BooleanField(verbose_name="Готовность быть наставником")
     is_ready_to_excursion = models.BooleanField(verbose_name="Готовность к проведению экскурсии")
     is_ready_to_tell_about = models.BooleanField(verbose_name="Готовность рассказать о профессии")
