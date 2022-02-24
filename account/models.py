@@ -61,8 +61,7 @@ class Employer(models.Model):
     # Company attributes
     company_name = models.CharField(verbose_name="Название организации", max_length=255, unique=True)
     company_name_alt = models.CharField(verbose_name="Альтернативное название организации", max_length=255, unique=True)
-    company_region = models.CharField(verbose_name="Регион организации", max_length=255)
-    company_admin_region = models.CharField(verbose_name="Административный регион организации", max_length=255, blank=True)
+    company_admin_region = ArrayField(models.CharField(max_length=255), blank=True, default=list, verbose_name="Административный регион организации")
     company_scope = models.TextField(verbose_name="Сфера деятельности")
     company_logo = models.ImageField(verbose_name="Логотип организации")
     company_TIN = models.CharField(verbose_name="ИНН организации", max_length=255, unique=True)
