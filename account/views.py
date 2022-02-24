@@ -261,6 +261,83 @@ class ProfessionalViewset(viewsets.GenericViewSet):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+class NPOViewset(viewsets.GenericViewSet):
+    queryset = NPO
+    serializer_class = NPOSerializer
+    pagination_class = PageNumberPagination
+
+    def get_serializer_class(self):
+        if self.action in ["create", "update"]:
+            return NPOCreateSerializer
+        else:
+            return NPOSerializer
+
+    def retrieve(self, request, pk):
+        try:
+            npo = self.queryset.objects.get(user_id=pk)
+        except NPO.DoesNotExist:
+            return Response(f"Работодатель {pk} не найден", status=status.HTTP_404_NOT_FOUND)
+
+        serializer = self.serializer_class(npo)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def create(self, request, *args, **kwargs):
+        data = request.data.copy()
+        data["user"] = request.user.id
+
+        serializer = self.get_serializer_class()
+        serializer = serializer(data=data)
+        if not serializer.is_valid(raise_exception=False):
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        user_serializer = UserSerializer(instance=request.user, data=data, partial=True)
+        if user_serializer.is_valid(raise_exception=False):
+            user_serializer.update(request.user, user_serializer.validated_data)
+            serializer.save(user_id=request.user.id)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def update(self, request, pk=None):
+        try:
+            npo = self.queryset.objects.get(user_id=pk)
+        except NPO.DoesNotExist:
+            return Response(f"Работодатель {pk} не найден", status=status.HTTP_404_NOT_FOUND)
+
+        serializer = self.get_serializer_class()
+        serializer = serializer(npo, data=request.data, partial=True)
+        if serializer.is_valid(raise_exception=False):
+            serializer.update(npo, serializer.validated_data)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def list(self, request, *args, **kwargs):
+        try:
+            npo = self.queryset.objects.all()
+            page = self.paginate_queryset(npo)
+        except NPO.DoesNotExist:
+            return Response("Работодатели не найдены", status=status.HTTP_404_NOT_FOUND)
+
+        serializer = self.serializer_class(page, many=True)
+        return self.get_paginated_response(serializer.data)
+
+    @action(
+        detail=True,
+        url_path="detail",
+        url_name="detail",
+        serializer_class=NPODetailSerializer,
+    )
+    def qdetail(self, request, pk=None):
+        try:
+            npo = self.queryset.objects.get(user_id=pk)
+        except NPO.DoesNotExist:
+            return Response(f"Работодатель {pk} не найден", status=status.HTTP_404_NOT_FOUND)
+
+        serializer = self.serializer_class(npo)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
 class CallbackCreateView(CreateAPIView):
     queryset = Callback
     serializer_class = CallbackSerializer
