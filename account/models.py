@@ -156,7 +156,7 @@ class Professional(models.Model):
     is_ready_to_mentor = models.BooleanField(verbose_name="Готовность быть наставником")
     is_ready_to_excursion = models.BooleanField(verbose_name="Готовность к проведению экскурсии")
     is_ready_to_tell_about = models.BooleanField(verbose_name="Готовность рассказать о профессии")
-    favorite_school_subjects = models.TextField(verbose_name="Любимые школьные предметы")
+    favorite_school_subjects = ArrayField(models.CharField(max_length=255), verbose_name="Любимые школьные предметы")
 
     # Work
     scope = ArrayField(models.TextField(), verbose_name="Сфера деятельности")
