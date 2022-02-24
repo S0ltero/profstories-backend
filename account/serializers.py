@@ -4,7 +4,7 @@ from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 from djoser.serializers import UserCreateSerializer as DjoserUserCreateSerializer
 
-from .models import Employer, Professional, Callback
+from .models import Employer, Professional, NPO, Callback
 
 User = get_user_model()
 
@@ -95,6 +95,11 @@ class ProfessionalDetailSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class NPOSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = NPO
+        fields = ("company_logo", "company_name", "company_region")
 class TokenSerializer(serializers.ModelSerializer):
     id = serializers.CharField(source="user.id")
     auth_token = serializers.CharField(source="key")
