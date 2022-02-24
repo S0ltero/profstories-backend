@@ -196,6 +196,10 @@ class Professional(models.Model):
         return super().save(*args, **kwargs)
 
 
+class NPOManager(BaseUserManager):
+    def get_queryset(self, *args, **kwargs):
+        return super().get_queryset(*args, **kwargs).filter(type=User.Types.NPO)
+
 class Callback(models.Model):
     name = models.CharField(verbose_name="Имя", max_length=255)
     email = models.EmailField(verbose_name="Почта")
