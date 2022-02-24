@@ -6,15 +6,18 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 
-from .models import User, Employer, Professional, Callback
+from .models import User, Employer, Professional, NPO, Callback
 from .serializers import (
     UserSerializer,
     EmployerSerialzier,
-    ProfessionalSerialzier,
     EmployerCreateSerializer,
-    ProfessionalCreateSerializer,
     EmployerDetailSerializer,
+    ProfessionalSerialzier,
+    ProfessionalCreateSerializer,
     ProfessionalDetailSerializer,
+    NPOSerializer,
+    NPOCreateSerializer,
+    NPODetailSerializer,
     CallbackSerializer,
 )
 
