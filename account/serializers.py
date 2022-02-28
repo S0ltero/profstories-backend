@@ -46,10 +46,11 @@ class CreateUserSerializer(DjoserUserCreateSerializer):
 
 
 class EmployerSerialzier(serializers.ModelSerializer):
+    id = serializers.IntegerField(source="user.id")
 
     class Meta:
         model = Employer
-        fields = ("company_logo", "company_name", "company_region")
+        fields = ("id", "company_logo", "company_name", "company_region")
 
 
 class EmployerCreateSerializer(serializers.ModelSerializer):
@@ -69,13 +70,14 @@ class EmployerDetailSerializer(serializers.ModelSerializer):
 
 
 class ProfessionalSerialzier(serializers.ModelSerializer):
+    id = serializers.IntegerField(source="user.id")
     last_name = serializers.CharField(source="user.last_name")
     first_name = serializers.CharField(source="user.first_name")
     middle_name = serializers.CharField(source="user.middle_name")
 
     class Meta:
         model = Professional
-        fields = ("photo", "company_name", "region", "speciality",
+        fields = ("id", "photo", "company_name", "region", "speciality",
                   "last_name", "first_name", "middle_name")
 
 
