@@ -8,6 +8,7 @@ router = DefaultRouter()
 router.register(r"employers", EmployerViewset, basename="employers")
 router.register(r"professionals", ProfessionalViewset, basename="professionals")
 router.register(r"non-profit", NPOViewset, basename="non-profit")
+router.register(r"colleges", CollegeViewset, basename="colleges")
 
 urlpatterns = [
 ] + router.urls
