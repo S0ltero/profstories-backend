@@ -26,6 +26,9 @@ from .serializers import (
     NPOSerializer,
     NPOCreateSerializer,
     NPODetailSerializer,
+    CollegeSerializer,
+    CollegeCreateSerializer,
+    CollegeDetailSerializer,
     CallbackSerializer,
 )
 
