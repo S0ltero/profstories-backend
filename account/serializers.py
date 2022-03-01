@@ -132,6 +132,12 @@ class CollegeSerializer(serializers.ModelSerializer):
         fields = ("company_logo", "company_name", "company_region")
 
 
+class CollegeCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = College
+        fields = "__all__"
+
+
 class TokenSerializer(serializers.ModelSerializer):
     id = serializers.CharField(source="user.id")
     auth_token = serializers.CharField(source="key")
