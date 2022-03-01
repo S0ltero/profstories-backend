@@ -354,6 +354,54 @@ class NPOViewset(viewsets.GenericViewSet):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+class CollegeViewset(viewsets.GenericViewSet):
+    queryset = College
+    serializer_class = CollegeSerializer
+    pagination_class = PageNumberPagination
+
+    def get_serializer_class(self):
+        if self.action in ["create", "update"]:
+            return CollegeCreateSerializer
+        else:
+            return CollegeSerializer
+
+    def create(self, request, *args, **kwargs):
+        data = request.data.copy()
+        data["user"] = request.user.id
+
+        serializer = self.get_serializer_class()
+        serializer = serializer(data=data)
+        if not serializer.is_valid(raise_exception=False):
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        user_serializer = UserSerializer(instance=request.user, data=data, partial=True)
+        if not user_serializer.is_valid(raise_exception=False):
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        bulk_inserts = []
+        for file in request.FILES.getlist("images"):
+            bulk_inserts.append(Upload(user_id=request.user.id, file=file, type="images"))
+
+        user_serializer.update(request.user, user_serializer.validated_data)
+        serializer.save(user_id=request.user.id)
+        Upload.objects.bulk_create(bulk_inserts)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    def update(self, request, pk=None):
+        try:
+            college = self.queryset.objects.get(user_id=pk)
+        except College.DoesNotExist:
+            return Response(f"Колледж {pk} не найден", status=status.HTTP_404_NOT_FOUND)
+
+        serializer = self.get_serializer_class()
+        serializer = serializer(college, data=request.data, partial=True)
+        if serializer.is_valid(raise_exception=False):
+            serializer.update(college, serializer.validated_data)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 class CallbackCreateView(CreateAPIView):
     queryset = Callback
     serializer_class = CallbackSerializer
