@@ -54,9 +54,12 @@ class EventViewset(viewsets.GenericViewSet):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def create(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
+        data = request.data.copy()
+        data["user"] = request.user.id
+
+        serializer = self.serializer_class(data=data)
         if serializer.is_valid(raise_exception=False):
-            serializer.save(employer_id=request.user.id)
+            serializer.save(user_id=request.user.id)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
