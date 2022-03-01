@@ -91,6 +91,11 @@ class ProfessionalDetailSerializer(serializers.ModelSerializer):
     last_name = serializers.CharField(source="user.last_name")
     first_name = serializers.CharField(source="user.first_name")
     middle_name = serializers.CharField(source="user.middle_name")
+    workplace_photo = serializers.SerializerMethodField()
+
+    def get_workplace_photo(self, obj):
+        uploads = Upload.objects.filter(user_id=obj.user.id, type="workplace")
+        return (obj.file.url for obj in uploads)
 
     class Meta:
         model = Professional
