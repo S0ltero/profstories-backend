@@ -4,7 +4,7 @@ from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 from djoser.serializers import UserCreateSerializer as DjoserUserCreateSerializer
 
-from .models import Employer, Professional, NPO, Callback
+from .models import Employer, Professional, NPO, Upload, Callback
 
 User = get_user_model()
 
