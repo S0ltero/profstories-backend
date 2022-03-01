@@ -1,7 +1,8 @@
 from django.db import models
+from django.conf import settings
 from django.contrib.postgres.fields import ArrayField
 
-from account.models import Employer
+
 class Event(models.Model):
     class Modes(models.TextChoices):
         ONLINE = "ONLINE", "Онлайн"
@@ -18,7 +19,7 @@ class Event(models.Model):
         MODERATION = "MODERATION", "На модерации"
         VERIFIED = "VERIFIED", "Верифицировано"
 
-    employer = models.ForeignKey(Employer, verbose_name="Организация", on_delete=models.CASCADE, related_name="events")
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name="Организатор", on_delete=models.CASCADE, related_name="events")
     title = models.CharField(verbose_name="Название мероприятия", max_length=255)
     photo = models.ImageField(verbose_name="Фото мероприятия")
     description = models.TextField(verbose_name="Краткое описание мероприятия")
