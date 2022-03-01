@@ -129,7 +129,7 @@ class CollegeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = College
-        fields = ("company_logo", "company_name", "company_region")
+        fields = "__all__"
 
 
 class CollegeCreateSerializer(serializers.ModelSerializer):
