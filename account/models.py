@@ -236,6 +236,16 @@ class NPO(models.Model):
         return super().save(*args, **kwargs)
 
 
+class Upload(models.Model):
+    user = models.ForeignKey(User, verbose_name="Пользователь", related_name="uploads", on_delete=models.CASCADE)
+    file = models.FileField(verbose_name="Файл")
+    type = models.CharField(verbose_name="Тип загрузки", max_length=70)
+
+    class Meta:
+        verbose_name = "Загрузка"
+        verbose_name_plural = "Загрузки"
+
+
 class Callback(models.Model):
     name = models.CharField(verbose_name="Имя", max_length=255)
     email = models.EmailField(verbose_name="Почта")
