@@ -242,6 +242,73 @@ class CollegeManager(BaseUserManager):
         return super().get_queryset(*args, **kwargs).filter(type=User.Types.COLLEGE)
 
 
+class College(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+
+    post = models.CharField(verbose_name="Должность", max_length=255)
+    phone = models.CharField(verbose_name="Мобильный телефон", max_length=255)
+    work_phone = models.CharField(verbose_name="Рабочий телефон", max_length=255)
+    authorization = models.FileField(verbose_name="Доверенность")
+
+    # College attributes
+    college_TIN = models.CharField(verbose_name="ИНН колледжа", max_length=255)
+    college_logo = models.ImageField(verbose_name="Логотип колледжа")
+    college_name = models.CharField(verbose_name="Название колледжа", max_length=255)
+    college_address = models.TextField(verbose_name="Адрес колледжа")
+    college_name_abr = models.CharField(verbose_name="Сокращенное название колледжа", max_length=255)
+    college_description = models.TextField(verbose_name="Описание колледжа")
+    college_region = models.CharField(verbose_name="Регион колледжа", max_length=255)
+    college_site = models.URLField(verbose_name="Сайт колледжа")
+    college_video = models.URLField(verbose_name="Видео о колледже")
+    college_social = ArrayField(models.URLField(), blank=True, default=list, verbose_name="Социальные сети")
+    college_employers = ArrayField(models.CharField(max_length=255), blank=True, default=list, verbose_name="Работадатели")
+
+    # Educational
+    educational_level = models.CharField(verbose_name="Уровень получаемого образования", max_length=255)
+    educational_professions = ArrayField(models.CharField(max_length=255), blank=True, default=list, verbose_name="Профессии преподаваемые в колледже")
+    educational_cost = models.PositiveSmallIntegerField(verbose_name="Стоимость обучения в год")
+
+    # State-funded places
+    has_state_funded_place = models.BooleanField(verbose_name="Есть ли бюджетные места?")
+    count_state_funded_place = models.PositiveSmallIntegerField(verbose_name="Количество бюджетных мест", blank=True)
+
+    # Events
+    has_events = models.BooleanField(verbose_name="Проводятся ли профориентационные мероприятия?")
+    event_types = ArrayField(models.CharField(max_length=255), blank=True, default=list, verbose_name="Виды мероприятий")
+    event_regularity = models.CharField(max_length=255, verbose_name="Частота мероприятий", blank=True)
+    event_format = models.CharField(max_length=255, verbose_name="Формат мероприятий", blank=True)
+    event_employer_name = models.CharField(max_length=255, verbose_name="ФИО сотрудника по мероприятиям", blank=True)
+    event_employer_post = models.CharField(max_length=255, verbose_name="Должность сотрудника по мероприятиям", blank=True)
+    event_employer_phone = models.CharField(max_length=255, verbose_name="Номер телефона сотрудника по мепроприятиям", blank=True)
+
+    # Graduates monitoring
+    has_monitoring = models.BooleanField(verbose_name="Проводится ли мониторинг трудоустройства выпускников?")
+    monitoring_url = models.URLField(verbose_name="Ссылка на данные мониторинга", blank=True)
+    employment_percent = models.CharField(max_length=255, verbose_name="Какой процент выпускников трудоустраивается в первый год?", blank=True)
+
+    # Special conditions
+    has_special_conditions = models.BooleanField(verbose_name="Имеются ли особые условия поступления")
+    special_conditions = models.TextField(verbose_name="Особые условия поступления", blank=True)
+
+    has_dormitory = models.BooleanField(verbose_name="Есть ли общежитие?")
+    famous_graduates = ArrayField(models.CharField(max_length=255), verbose_name="Известные выпускники")
+    has_foreign_practice = models.BooleanField(verbose_name="Наличие зарубежной практики")
+    has_targeted_training = models.BooleanField(verbose_name="Возможно ли поступление по целевому обучению")
+    has_pwd_education = models.BooleanField(verbose_name="Обучение студентов с ограниченными возможностями")
+    extracurricular_activity = ArrayField(models.TextField(), verbose_name="Внеучебная работа")
+
+    objects = CollegeManager()
+
+    class Meta:
+        verbose_name = "ССУЗ"
+        verbose_name_plural = "ССУЗы"
+
+    def save(self, *args, **kwargs) -> None:
+        self.user.verification = User.Verifiaction.MODERATION
+        self.user.save()
+        return super().save(*args, **kwargs)
+
+
 class Upload(models.Model):
     user = models.ForeignKey(User, verbose_name="Пользователь", related_name="uploads", on_delete=models.CASCADE)
     file = models.FileField(verbose_name="Файл")
