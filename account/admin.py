@@ -3,6 +3,11 @@ from django.contrib import admin
 from .models import *
 
 
+class UploadInline(admin.StackedInline):
+    model = Upload
+    extra = 0
+
+
 class ProfessionalInline(admin.StackedInline):
     model = Professional
     extra = 0
