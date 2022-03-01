@@ -98,12 +98,17 @@ class EmployerViewset(viewsets.GenericViewSet):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         user_serializer = UserSerializer(instance=request.user, data=data, partial=True)
-        if user_serializer.is_valid(raise_exception=False):
-            user_serializer.update(request.user, user_serializer.validated_data)
-            serializer.save(user_id=request.user.id)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        else:
+        if not user_serializer.is_valid(raise_exception=False)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        bulk_inserts = []
+        for file in request.FILES.getlist("workplace"):
+            bulk_inserts.append(Upload(user_id=request.user.id, file=file, type="workplace"))
+
+        user_serializer.update(request.user, user_serializer.validated_data)
+        serializer.save(user_id=request.user.id)
+        Upload.objects.bulk_create(bulk_inserts)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def update(self, request, pk=None):
         try:
@@ -222,12 +227,17 @@ class ProfessionalViewset(viewsets.GenericViewSet):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         user_serializer = UserSerializer(instance=request.user, data=data, partial=True)
-        if user_serializer.is_valid(raise_exception=False):
-            user_serializer.update(request.user, user_serializer.validated_data)
-            serializer.save(user_id=request.user.id)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        else:
+        if not user_serializer.is_valid(raise_exception=False)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        bulk_inserts = []
+        for file in request.FILES.getlist("workplace"):
+            bulk_inserts.append(Upload(user_id=request.user.id, file=file, type="workplace"))
+
+        user_serializer.update(request.user, user_serializer.validated_data)
+        serializer.save(user_id=request.user.id)
+        Upload.objects.bulk_create(bulk_inserts)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def update(self, request, pk=None):
         try:
@@ -299,12 +309,17 @@ class NPOViewset(viewsets.GenericViewSet):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         user_serializer = UserSerializer(instance=request.user, data=data, partial=True)
-        if user_serializer.is_valid(raise_exception=False):
-            user_serializer.update(request.user, user_serializer.validated_data)
-            serializer.save(user_id=request.user.id)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        else:
+        if not user_serializer.is_valid(raise_exception=False)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        bulk_inserts = []
+        for file in request.FILES.getlist("workplace"):
+            bulk_inserts.append(Upload(user_id=request.user.id, file=file, type="workplace"))
+
+        user_serializer.update(request.user, user_serializer.validated_data)
+        serializer.save(user_id=request.user.id)
+        Upload.objects.bulk_create(bulk_inserts)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def update(self, request, pk=None):
         try:
