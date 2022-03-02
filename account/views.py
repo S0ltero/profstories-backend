@@ -12,6 +12,7 @@ from .models import (
     Professional,
     NPO,
     College,
+    EmploymentAgency,
     Upload,
     Callback
 )
@@ -29,6 +30,7 @@ from .serializers import (
     CollegeSerializer,
     CollegeCreateSerializer,
     CollegeDetailSerializer,
+    EmploymentAgencySerializer,
     CallbackSerializer,
 )
 
@@ -396,6 +398,41 @@ class CollegeViewset(viewsets.GenericViewSet):
         serializer = serializer(college, data=request.data, partial=True)
         if serializer.is_valid(raise_exception=False):
             serializer.update(college, serializer.validated_data)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class EmploymentAgencyViewset(viewsets.GenericViewSet):
+    queryset = EmploymentAgency
+    serializer_class = EmploymentAgencySerializer
+
+    def create(self, request, *args, **kwargs):
+        data = request.data.copy()
+        data["user"] = request.user.id
+
+        serializer = self.serializer_class(data=data)
+        if not serializer.is_valid(raise_exception=False):
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        user_serializer = UserSerializer(instance=request.user, data=data, partial=True)
+        if not user_serializer.is_valid(raise_exception=False):
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        user_serializer.update(request.user, user_serializer.validated_data)
+        serializer.save(user_id=request.user.id)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    def update(self, request, pk=None):
+        try:
+            employment_agency = self.queryset.objects.get(user_id=pk)
+        except EmploymentAgency.DoesNotExist:
+            return Response(f"Орган занятости {pk} не найден", status=status.HTTP_404_NOT_FOUND)
+
+        serializer = self.get_serializer_class()
+        serializer = serializer(employment_agency, data=request.data, partial=True)
+        if serializer.is_valid(raise_exception=False):
+            serializer.update(employment_agency, serializer.validated_data)
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
