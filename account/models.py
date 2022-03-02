@@ -239,7 +239,7 @@ class NPO(models.Model):
 
 class CollegeManager(BaseUserManager):
     def get_queryset(self, *args, **kwargs):
-        return super().get_queryset(*args, **kwargs).filter(type=User.Types.COLLEGE)
+        return super().get_queryset(*args, **kwargs).filter(user__type=User.Types.COLLEGE)
 
 
 class College(models.Model):
