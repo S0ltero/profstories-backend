@@ -322,7 +322,7 @@ class EmploymentAgency(models.Model):
     work_phone = models.CharField(verbose_name="Рабочий телефон", max_length=255)
     authorization = models.FileField(verbose_name="Доверенность")
 
-    college_TIN = models.CharField(verbose_name="ИНН организации", max_length=10, unique=True)
+    company_TIN = models.CharField(verbose_name="ИНН организации", max_length=10, unique=True)
     company_name = models.CharField(verbose_name="Название организации", max_length=255)
     company_name_abr = models.CharField(verbose_name="Сокращенное название организации", max_length=255, blank=True,)
     company_region = models.CharField(verbose_name="Регион организации", max_length=255)
