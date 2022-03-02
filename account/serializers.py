@@ -4,7 +4,15 @@ from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 from djoser.serializers import UserCreateSerializer as DjoserUserCreateSerializer
 
-from .models import Employer, Professional, NPO, College, Upload, Callback
+from .models import (
+    Employer,
+    Professional,
+    NPO,
+    College,
+    EmploymentAgency,
+    Upload,
+    Callback
+)
 
 User = get_user_model()
 
@@ -145,6 +153,13 @@ class CollegeDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = College
+        fields = "__all__"
+
+
+class EmploymentAgencySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = EmploymentAgency
         fields = "__all__"
 
 
