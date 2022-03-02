@@ -1,16 +1,35 @@
+version: "3.8"
+
 services:
   web:
     build: ./
     command: >
-      sh -c "python manage.py makemigrations &&
+      sh -c "python manage.py collectstatic --noinput &&
+             python manage.py makemigrations &&
              python manage.py migrate &&
-             python manage.py runserver 0.0.0.0:8000"
+             gunicorn config.wsgi:application --bind 0.0.0.0:8000"
     ports:
-      - "5433:5432"
-      - "8000:8000"
+      - 5432
+    expose:
+      - 8000
     volumes:
-      - ./:/app
+      - ./:/home/app/
+      - static_volume:/home/app/staticfiles
+      - media_volume:/home/app/mediafiles
     env_file:
       - ./.env
     extra_hosts:
       - "host.docker.internal:host-gateway"
+  nginx:
+    build: ./nginx
+    volumes:
+      - static_volume:/app/web/staticfiles
+      - media_volume:/app/web/mediafiles
+    ports:
+      - 8000:80
+    depends_on:
+      - web
+
+volumes:
+  static_volume:
+  media_volume:
