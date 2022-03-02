@@ -314,6 +314,33 @@ class EmploymentAgencyManager(BaseUserManager):
         return super().get_queryset(*args, **kwargs).filter(type=User.Types.EMPAGENCY)
 
 
+class EmploymentAgency(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+
+    post = models.CharField(verbose_name="Должность", max_length=255)
+    phone = models.CharField(verbose_name="Мобильный телефон", max_length=255)
+    work_phone = models.CharField(verbose_name="Рабочий телефон", max_length=255)
+    authorization = models.FileField(verbose_name="Доверенность")
+
+    college_TIN = models.CharField(verbose_name="ИНН организации", max_length=10, unique=True)
+    company_name = models.CharField(verbose_name="Название организации", max_length=255)
+    company_name_abr = models.CharField(verbose_name="Сокращенное название организации", max_length=255, blank=True,)
+    company_region = models.CharField(verbose_name="Регион организации", max_length=255)
+    company_address = models.TextField(verbose_name="Адрес организации")
+    company_site = models.URLField(verbose_name="Сайт организации")
+
+    objects = EmploymentAgencyManager()
+
+    class Meta:
+        verbose_name = "Орган занятости"
+        verbose_name_plural = "Органы занятости"
+
+    def save(self, *args, **kwargs) -> None:
+        self.user.verification = User.Verifiaction.MODERATION
+        self.user.save()
+        return super().save(*args, **kwargs)
+
+
 class Upload(models.Model):
     user = models.ForeignKey(User, verbose_name="Пользователь", related_name="uploads", on_delete=models.CASCADE)
     file = models.FileField(verbose_name="Файл")
