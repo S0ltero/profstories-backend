@@ -309,6 +309,11 @@ class College(models.Model):
         return super().save(*args, **kwargs)
 
 
+class EmploymentAgencyManager(BaseUserManager):
+    def get_queryset(self, *args, **kwargs):
+        return super().get_queryset(*args, **kwargs).filter(type=User.Types.EMPAGENCY)
+
+
 class Upload(models.Model):
     user = models.ForeignKey(User, verbose_name="Пользователь", related_name="uploads", on_delete=models.CASCADE)
     file = models.FileField(verbose_name="Файл")
