@@ -420,3 +420,18 @@ class UserCollege(User):
         proxy = True
         verbose_name = "ССУЗ"
         verbose_name_plural = "ССУЗы"
+
+
+class UserEmploymentAgencyManager(BaseUserManager):
+    def get_queryset(self, *args, **kwargs):
+        return super().get_queryset(*args, **kwargs).filter(type=User.Types.EMPAGENCY)
+
+
+class UserEmploymentAgency(User):
+
+    objects = UserEmploymentAgencyManager()
+
+    class Meta:
+        proxy = True
+        verbose_name = "Орган занятости"
+        verbose_name_plural = "Органы занятости"
