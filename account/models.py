@@ -405,3 +405,18 @@ class UserNPO(User):
         proxy = True
         verbose_name = "НКО"
         verbose_name_plural = "НКО"
+
+
+class UserCollegeManager(BaseUserManager):
+    def get_queryset(self, *args, **kwargs):
+        return super().get_queryset(*args, **kwargs).filter(type=User.Types.COLLEGE)
+
+
+class UserCollege(User):
+
+    objects = UserCollegeManager()
+
+    class Meta:
+        proxy = True
+        verbose_name = "ССУЗ"
+        verbose_name_plural = "ССУЗы"
