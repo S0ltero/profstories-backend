@@ -324,7 +324,7 @@ class EmploymentAgency(models.Model):
 
     company_TIN = models.CharField(verbose_name="ИНН организации", max_length=10, unique=True)
     company_name = models.CharField(verbose_name="Название организации", max_length=255)
-    company_name_abr = models.CharField(verbose_name="Сокращенное название организации", max_length=255, blank=True,)
+    company_name_abr = models.CharField(verbose_name="Сокращенное название организации", max_length=255, blank=True)
     company_region = models.CharField(verbose_name="Регион организации", max_length=255)
     company_address = models.TextField(verbose_name="Адрес организации")
     company_site = models.URLField(verbose_name="Сайт организации")
