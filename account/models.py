@@ -363,9 +363,14 @@ class Callback(models.Model):
 
 
 # Proxy models
+class UserEmaployerManager(BaseUserManager):
+    def get_queryset(self, *args, **kwargs):
+        return super().get_queryset(*args, **kwargs).filter(type=User.Types.EMPLOYER)
+
+
 class UserEmployer(User):
 
-    objects = EmployerManager()
+    objects = UserEmaployerManager()
 
     class Meta:
         proxy = True
@@ -373,19 +378,28 @@ class UserEmployer(User):
         verbose_name_plural = "Организации"
 
 
+class UserProfessionalManager(BaseUserManager):
+    def get_queryset(self, *args, **kwargs):
+        return super().get_queryset(*args, **kwargs).filter(type=User.Types.PROFESSIONAL)
+
+
 class UserProfessional(User):
 
-    objects = ProfessionalManager()
+    objects = UserProfessionalManager()
 
     class Meta:
         proxy = True
         verbose_name = "Профессионал"
         verbose_name_plural = "Профессионалы"
 
+class UserNPOManager(BaseUserManager):
+    def get_queryset(self, *args, **kwargs):
+        return super().get_queryset(*args, **kwargs).filter(type=User.Types.NPO)
+
 
 class UserNPO(User):
 
-    objects = NPOManager()
+    objects = UserNPOManager()
 
     class Meta:
         proxy = True
