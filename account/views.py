@@ -254,12 +254,11 @@ class ProfessionalViewset(viewsets.GenericViewSet):
     def list(self, request, *args, **kwargs):
         try:
             professionals = self.get_queryset()
-            page = self.paginate_queryset(professionals)
         except Professional.DoesNotExist:
             return Response("Профессионалы не найдены", status=status.HTTP_404_NOT_FOUND)
 
-        serializer = self.serializer_class(page, many=True)
-        return self.get_paginated_response(serializer.data)
+        serializer = self.serializer_class(professionals, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     @action(
         detail=True,
