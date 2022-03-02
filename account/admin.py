@@ -111,3 +111,10 @@ class AdminCollege(admin.ModelAdmin):
     inlines = [CollegeInline]
     exclude = ("password", "is_active", "is_staff", "is_superuser",
                "last_login", "date_joined", "user_permissions", "groups")
+
+
+@admin.register(UserEmploymentAgency)
+class AdminEmploymentAgency(admin.ModelAdmin):
+    inlines = [EmploymentAgencyInline]
+    exclude = ("password", "is_active", "is_staff", "is_superuser",
+               "last_login", "date_joined", "user_permissions", "groups")
