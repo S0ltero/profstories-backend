@@ -170,7 +170,6 @@ class Professional(models.Model):
     business_trips = models.TextField(verbose_name="Командировки")
     time_of_work = models.CharField(verbose_name="Количество лет работы в организации", max_length=255)
     workplace_environment = models.TextField(verbose_name="Предметы окружения на работе")
-    workplace_photo = models.ImageField(verbose_name="Фото рабочего места", blank=True)
     workplace_video = models.URLField(verbose_name="Видео рабочего места", blank=True)
     workday_description = models.TextField(verbose_name="Описание рабочего дня")
     workday_start = models.CharField(verbose_name="Начало рабочего дня", max_length=100) # TODO Time field?
