@@ -75,6 +75,11 @@ class NPOInline(admin.StackedInline):
     extra = 0
 
 
+class CollegeInline(admin.StackedInline):
+    model = College
+    extra = 0
+
+
 @admin.register(UserProfessional)
 class AdminProfessional(admin.ModelAdmin):
     inlines = (ProfessionalInline, UploadInline)
