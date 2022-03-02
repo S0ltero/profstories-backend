@@ -104,3 +104,10 @@ class AdminNPO(admin.ModelAdmin):
     inlines = [NPOInline]
     exclude = ("password", "is_active", "is_staff", "is_superuser",
                "last_login", "date_joined", "user_permissions", "groups")
+
+
+@admin.register(UserCollege)
+class AdminCollege(admin.ModelAdmin):
+    inlines = [CollegeInline]
+    exclude = ("password", "is_active", "is_staff", "is_superuser",
+               "last_login", "date_joined", "user_permissions", "groups")
