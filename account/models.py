@@ -67,7 +67,7 @@ class Employer(models.Model):
     company_admin_region = ArrayField(models.CharField(max_length=255), blank=True, default=list, verbose_name="Административный регион организации")
     company_scope = models.TextField(verbose_name="Сфера деятельности")
     company_logo = models.ImageField(verbose_name="Логотип организации")
-    company_TIN = models.CharField(verbose_name="ИНН организации", max_length=255, unique=True)
+    company_TIN = models.CharField(verbose_name="ИНН организации", max_length=10, unique=True)
     company_description = models.TextField(verbose_name="Об организации")
     company_count_employees = models.CharField(verbose_name="Число сотрудников", max_length=255)
     company_avg_wage = models.PositiveIntegerField(verbose_name="Средняя заработная плата")
@@ -180,7 +180,7 @@ class Professional(models.Model):
 
     # Company
     company_name = models.CharField(verbose_name="Название организации", max_length=255)
-    company_TIN = models.CharField(verbose_name="ИНН организации", max_length=255)
+    company_TIN = models.CharField(verbose_name="ИНН организации", max_length=10)
     # PWD - People With Disabilities
     has_pwd = models.BooleanField(verbose_name="Работают ли люди с ограниченными возможностями?")
     has_corporate_training = models.BooleanField(verbose_name="Имеется корпоративное обучение?")
@@ -214,7 +214,7 @@ class NPO(models.Model):
     # Company attributes
     company_name = models.CharField(verbose_name="Название организации", max_length=255, unique=True)
     company_region = models.CharField(verbose_name="Регион организации", max_length=255)
-    company_TIN = models.CharField(verbose_name="ИНН организации", max_length=255, unique=True)
+    company_TIN = models.CharField(verbose_name="ИНН организации", max_length=10, unique=True)
     company_address = models.TextField(verbose_name="Адрес организации")
     company_logo = models.ImageField(verbose_name="Логотип организации")
     company_director = models.CharField(verbose_name="ФИО руководителя", max_length=255)
@@ -251,7 +251,7 @@ class College(models.Model):
     authorization = models.FileField(verbose_name="Доверенность")
 
     # College attributes
-    college_TIN = models.CharField(verbose_name="ИНН колледжа", max_length=255)
+    college_TIN = models.CharField(verbose_name="ИНН колледжа", max_length=10)
     college_logo = models.ImageField(verbose_name="Логотип колледжа")
     college_name = models.CharField(verbose_name="Название колледжа", max_length=255)
     college_address = models.TextField(verbose_name="Адрес колледжа")
