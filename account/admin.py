@@ -80,6 +80,11 @@ class CollegeInline(admin.StackedInline):
     extra = 0
 
 
+class EmploymentAgencyInline(admin.StackedInline):
+    model = EmploymentAgency
+    extra = 0
+
+
 @admin.register(UserProfessional)
 class AdminProfessional(admin.ModelAdmin):
     inlines = (ProfessionalInline, UploadInline)
