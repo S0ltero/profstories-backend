@@ -48,7 +48,7 @@ class User(AbstractUser):
 
 class EmployerManager(BaseUserManager):
     def get_queryset(self, *args, **kwargs):
-        return super().get_queryset(*args, **kwargs).filter(type=User.Types.EMPLOYER)
+        return super().get_queryset(*args, **kwargs).filter(user__type=User.Types.EMPLOYER)
 
 
 class Employer(models.Model):
@@ -126,7 +126,7 @@ class Employer(models.Model):
 
 class ProfessionalManager(BaseUserManager):
     def get_queryset(self, *args, **kwargs):
-        return super().get_queryset(*args, **kwargs).filter(type=User.Types.PROFESSIONAL)
+        return super().get_queryset(*args, **kwargs).filter(user__type=User.Types.PROFESSIONAL)
 
 
 class Professional(models.Model):
@@ -199,7 +199,7 @@ class Professional(models.Model):
 
 class NPOManager(BaseUserManager):
     def get_queryset(self, *args, **kwargs):
-        return super().get_queryset(*args, **kwargs).filter(type=User.Types.NPO)
+        return super().get_queryset(*args, **kwargs).filter(user__type=User.Types.NPO)
 
 
 class NPO(models.Model):
@@ -311,7 +311,7 @@ class College(models.Model):
 
 class EmploymentAgencyManager(BaseUserManager):
     def get_queryset(self, *args, **kwargs):
-        return super().get_queryset(*args, **kwargs).filter(type=User.Types.EMPAGENCY)
+        return super().get_queryset(*args, **kwargs).filter(user__type=User.Types.EMPAGENCY)
 
 
 class EmploymentAgency(models.Model):
