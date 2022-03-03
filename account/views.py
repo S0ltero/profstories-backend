@@ -164,7 +164,7 @@ class ProfessionalViewset(viewsets.GenericViewSet):
 
         region = self.request.query_params.get("region")
         if region:
-            queryset = queryset.filter(company_region=region)
+            queryset = queryset.filter(region=region)
 
         timetable = self.request.query_params.get("timetable")
         if timetable:
