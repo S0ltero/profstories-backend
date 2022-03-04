@@ -14,6 +14,8 @@ class EventSerialzier(serializers.ModelSerializer):
             organizer = obj.user.employer.company_name
         elif obj.user.type == User.Types.COLLEGE:
             organizer = obj.user.college.college_name
+        elif obj.user.type == User.Types.NPO:
+            organizer = obj.user.npo.company_name
 
         return organizer
 
@@ -37,6 +39,8 @@ class EventDetailSerializer(serializers.ModelSerializer):
             organizer = obj.user.employer.company_name
         elif obj.user.type == User.Types.COLLEGE:
             organizer = obj.user.college.college_name
+        elif obj.user.type == User.Types.NPO:
+            organizer = obj.user.npo.company_name
 
         return organizer
 
