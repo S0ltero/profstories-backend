@@ -33,14 +33,14 @@ class UserSerializer(serializers.ModelSerializer):
             except Employer.DoesNotExist:
                 pass
             else:
-                data.update(EmployerSerialzier(employer).data)
+                data.update(EmployerDetailSerializer(employer).data)
         elif instance.type == User.Types.PROFESSIONAL:
             try:
                 professional = Professional.objects.get(pk=instance.id)
             except Professional.DoesNotExist:
                 pass
             else:
-                data.update(ProfessionalSerialzier(professional).data)
+                data.update(ProfessionalDetailSerializer(professional).data)
         return data
 
 
