@@ -69,7 +69,7 @@ class EmployerViewset(viewsets.GenericViewSet):
 
         region = self.request.query_params.get("region")
         if region:
-            queryset = queryset.filter(company_region=region)
+            queryset = queryset.filter(company_region__contained_by=region)
 
         professions = self.request.query_params.get("professions")
         if professions:
@@ -160,7 +160,8 @@ class ProfessionalViewset(viewsets.GenericViewSet):
 
         scope = self.request.query_params.get("scope")
         if scope:
-            queryset = queryset.filter(company_scope=scope)
+            scope = scope.split(",")
+            queryset = queryset.filter(scope__contained_by=scope)
 
         region = self.request.query_params.get("region")
         if region:
