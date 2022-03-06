@@ -41,6 +41,13 @@ class UserSerializer(serializers.ModelSerializer):
                 pass
             else:
                 data.update(ProfessionalDetailSerializer(professional).data)
+        elif instance.type == User.Types.COLLEGE:
+            try:
+                college = College.objects.get(pk=instance.id)
+            except College.DoesNotExist:
+                pass
+            else:
+                data.update(CollegeDetailSerializer(college).data)
         return data
 
 
