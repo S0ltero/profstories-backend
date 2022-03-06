@@ -93,6 +93,13 @@ class EmployerViewset(viewsets.GenericViewSet):
         else:
             return EmployerSerialzier
 
+    def get_permissions(self):
+        if self.action == "create":
+            self.permission_classes = [IsAuthenticated, IsEmployer]
+        elif self.action == "update":
+            self.permission_classes = [CurrentUserOrAdmin]
+        return super().get_permissions()
+
     def retrieve(self, request, pk):
         employer = self.get_object()
         serializer = self.serializer_class(employer)
@@ -206,6 +213,13 @@ class ProfessionalViewset(viewsets.GenericViewSet):
         else:
             return ProfessionalSerialzier
 
+    def get_permissions(self):
+        if self.action == "create":
+            self.permission_classes = [IsAuthenticated, IsProfessional]
+        elif self.action == "update":
+            self.permission_classes = [CurrentUserOrAdmin]
+        return super().get_permissions()
+
     def retrieve(self, request, pk):
         professional = self.get_object()
         serializer = self.serializer_class(professional)
@@ -275,6 +289,13 @@ class NPOViewset(viewsets.GenericViewSet):
         else:
             return NPOSerializer
 
+    def get_permissions(self):
+        if self.action == "create":
+            self.permission_classes = [IsAuthenticated, IsNPO]
+        elif self.action == "update":
+            self.permission_classes = [CurrentUserOrAdmin]
+        return super().get_permissions()
+
     def retrieve(self, request, pk):
         npo = self.get_object()
         serializer = self.serializer_class(npo)
@@ -340,6 +361,13 @@ class CollegeViewset(viewsets.GenericViewSet):
         else:
             return CollegeSerializer
 
+    def get_permissions(self):
+        if self.action == "create":
+            self.permission_classes = [IsAuthenticated, IsCollege]
+        elif self.action == "update":
+            self.permission_classes = [CurrentUserOrAdmin]
+        return super().get_permissions()
+
     def create(self, request, *args, **kwargs):
         data = request.data.copy()
         data["user"] = request.user.id
@@ -376,6 +404,13 @@ class CollegeViewset(viewsets.GenericViewSet):
 class EmploymentAgencyViewset(viewsets.GenericViewSet):
     queryset = EmploymentAgency.objects.all()
     serializer_class = EmploymentAgencySerializer
+
+    def get_permissions(self):
+        if self.action == "create":
+            self.permission_classes = [IsAuthenticated, IsEmploymentAgency]
+        elif self.action == "update":
+            self.permission_classes = [CurrentUserOrAdmin]
+        return super().get_permissions()
 
     def create(self, request, *args, **kwargs):
         data = request.data.copy()
