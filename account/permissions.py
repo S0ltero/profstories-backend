@@ -26,3 +26,9 @@ class IsCollege(BasePermission):
     def has_permission(self, request, view):
         user = request.user
         return user.type == User.Types.COLLEGE
+
+
+class IsEmploymentAgency(BasePermission):
+    def has_permission(self, request, view):
+        user = request.user
+        return user.type == User.Types.EMPAGENCY
