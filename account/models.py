@@ -119,8 +119,9 @@ class Employer(models.Model):
         verbose_name_plural = "Организации"
 
     def save(self, *args, **kwargs) -> None:
-        self.user.verification = User.Verifiaction.MODERATION
-        self.user.save()
+        if not self.pk:
+            self.user.verification = User.Verifiaction.MODERATION
+            self.user.save()
         return super().save(*args, **kwargs)
 
 
@@ -192,8 +193,9 @@ class Professional(models.Model):
         verbose_name_plural = "Профессионалы"
 
     def save(self, *args, **kwargs) -> None:
-        self.user.verification = User.Verifiaction.MODERATION
-        self.user.save()
+        if not self.pk:
+            self.user.verification = User.Verifiaction.MODERATION
+            self.user.save()
         return super().save(*args, **kwargs)
 
 
@@ -232,8 +234,9 @@ class NPO(models.Model):
         verbose_name_plural = "НКО"
 
     def save(self, *args, **kwargs) -> None:
-        self.user.verification = User.Verifiaction.MODERATION
-        self.user.save()
+        if not self.pk:
+            self.user.verification = User.Verifiaction.MODERATION
+            self.user.save()
         return super().save(*args, **kwargs)
 
 
@@ -304,8 +307,9 @@ class College(models.Model):
         verbose_name_plural = "ССУЗы"
 
     def save(self, *args, **kwargs) -> None:
-        self.user.verification = User.Verifiaction.MODERATION
-        self.user.save()
+        if not self.pk:
+            self.user.verification = User.Verifiaction.MODERATION
+            self.user.save()
         return super().save(*args, **kwargs)
 
 
@@ -336,8 +340,9 @@ class EmploymentAgency(models.Model):
         verbose_name_plural = "Органы занятости"
 
     def save(self, *args, **kwargs) -> None:
-        self.user.verification = User.Verifiaction.MODERATION
-        self.user.save()
+        if not self.pk:
+            self.user.verification = User.Verifiaction.MODERATION
+            self.user.save()
         return super().save(*args, **kwargs)
 
 
