@@ -21,3 +21,8 @@ class IsNPO(BasePermission):
         user = request.user
         return user.type == User.Types.NPO
 
+
+class IsCollege(BasePermission):
+    def has_permission(self, request, view):
+        user = request.user
+        return user.type == User.Types.COLLEGE
