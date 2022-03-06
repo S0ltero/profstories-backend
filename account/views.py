@@ -78,6 +78,7 @@ class EmployerViewset(viewsets.GenericViewSet):
 
         region = self.request.query_params.get("region")
         if region:
+            region = region.split(",")
             queryset = queryset.filter(company_region__contained_by=region)
 
         professions = self.request.query_params.get("professions")
