@@ -8,3 +8,9 @@ class IsEmployer(BasePermission):
     def has_permission(self, request, view):
         user = request.user
         return user.type == User.Types.EMPLOYER
+
+
+class IsProfessional(BasePermission):
+    def has_permission(self, request, view):
+        user = request.user
+        return user.type == User.Types.PROFESSIONAL
