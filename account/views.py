@@ -45,7 +45,7 @@ from .serializers import (
 
 
 class EmployerViewset(viewsets.GenericViewSet):
-    queryset = Employer
+    queryset = Employer.objects.all()
     serializer_class = EmployerSerialzier
     pagination_class = PageNumberPagination
 
@@ -160,7 +160,7 @@ class EmployerViewset(viewsets.GenericViewSet):
 
 
 class ProfessionalViewset(viewsets.GenericViewSet):
-    queryset = Professional
+    queryset = Professional.objects.all()
     serializer_class = ProfessionalSerialzier
     pagination_class = PageNumberPagination
 
@@ -289,7 +289,7 @@ class ProfessionalViewset(viewsets.GenericViewSet):
 
 
 class NPOViewset(viewsets.GenericViewSet):
-    queryset = NPO
+    queryset = NPO.objects.all()
     serializer_class = NPOSerializer
     pagination_class = PageNumberPagination
 
@@ -341,7 +341,7 @@ class NPOViewset(viewsets.GenericViewSet):
 
     def list(self, request, *args, **kwargs):
         try:
-            npo = self.queryset.objects.all()
+            npo = self.queryset.all()
             page = self.paginate_queryset(npo)
         except NPO.DoesNotExist:
             return Response("Работодатели не найдены", status=status.HTTP_404_NOT_FOUND)
@@ -366,7 +366,7 @@ class NPOViewset(viewsets.GenericViewSet):
 
 
 class CollegeViewset(viewsets.GenericViewSet):
-    queryset = College
+    queryset = College.objects.all()
     serializer_class = CollegeSerializer
     pagination_class = PageNumberPagination
 
@@ -414,7 +414,7 @@ class CollegeViewset(viewsets.GenericViewSet):
 
 
 class EmploymentAgencyViewset(viewsets.GenericViewSet):
-    queryset = EmploymentAgency
+    queryset = EmploymentAgency.objects.all()
     serializer_class = EmploymentAgencySerializer
 
     def create(self, request, *args, **kwargs):
