@@ -1,11 +1,20 @@
 from rest_framework import viewsets
 from rest_framework import status
 from rest_framework.generics import CreateAPIView
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 
+from djoser.permissions import CurrentUserOrAdmin
+
+from .permissions import (
+    IsEmployer,
+    IsProfessional,
+    IsNPO,
+    IsCollege,
+    IsEmploymentAgency,
+)
 from .models import (
     User,
     Employer,
