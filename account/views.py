@@ -94,11 +94,7 @@ class EmployerViewset(viewsets.GenericViewSet):
             return EmployerSerialzier
 
     def retrieve(self, request, pk):
-        try:
-            employer = self.queryset.objects.get(user_id=pk)
-        except Employer.DoesNotExist:
-            return Response(f"Работодатель {pk} не найден", status=status.HTTP_404_NOT_FOUND)
-
+        employer = self.get_object()
         serializer = self.serializer_class(employer)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -120,11 +116,7 @@ class EmployerViewset(viewsets.GenericViewSet):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def update(self, request, pk=None):
-        try:
-            employer = self.queryset.objects.get(user_id=pk)
-        except Employer.DoesNotExist:
-            return Response(f"Работодатель {pk} не найден", status=status.HTTP_404_NOT_FOUND)
-
+        employer = self.get_object()
         serializer = self.get_serializer_class()
         serializer = serializer(employer, data=request.data, partial=True)
         if serializer.is_valid(raise_exception=False):
@@ -150,11 +142,7 @@ class EmployerViewset(viewsets.GenericViewSet):
         serializer_class=EmployerDetailSerializer,
     )
     def qdetail(self, request, pk=None):
-        try:
-            employer = self.queryset.objects.get(user_id=pk)
-        except Employer.DoesNotExist:
-            return Response(f"Работодатель {pk} не найден", status=status.HTTP_404_NOT_FOUND)
-
+        employer = self.get_object()
         serializer = self.serializer_class(employer)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -219,11 +207,7 @@ class ProfessionalViewset(viewsets.GenericViewSet):
             return ProfessionalSerialzier
 
     def retrieve(self, request, pk):
-        try:
-            professional = self.queryset.objects.get(user_id=pk)
-        except Employer.DoesNotExist:
-            return Response(f"Работодатель {pk} не найден", status=status.HTTP_404_NOT_FOUND)
-
+        professional = self.get_object()
         serializer = self.serializer_class(professional)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -250,11 +234,7 @@ class ProfessionalViewset(viewsets.GenericViewSet):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def update(self, request, pk=None):
-        try:
-            professional = self.queryset.objects.get(user_id=pk)
-        except Professional.DoesNotExist:
-            return Response(f"Профессионал {pk} не найден", status=status.HTTP_404_NOT_FOUND)
-
+        professional = self.get_object()
         serializer = self.get_serializer_class()
         serializer = serializer(professional, data=request.data, partial=True)
         if serializer.is_valid(raise_exception=False):
@@ -279,11 +259,7 @@ class ProfessionalViewset(viewsets.GenericViewSet):
         serializer_class=ProfessionalDetailSerializer,
     )
     def qdetail(self, request, pk=None):
-        try:
-            professional = self.queryset.objects.get(user_id=pk)
-        except Professional.DoesNotExist:
-            return Response(f"Профессионал {pk} не найден", status=status.HTTP_404_NOT_FOUND)
-
+        professional = self.get_object()
         serializer = self.serializer_class(professional)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -300,11 +276,7 @@ class NPOViewset(viewsets.GenericViewSet):
             return NPOSerializer
 
     def retrieve(self, request, pk):
-        try:
-            npo = self.queryset.objects.get(user_id=pk)
-        except NPO.DoesNotExist:
-            return Response(f"Работодатель {pk} не найден", status=status.HTTP_404_NOT_FOUND)
-
+        npo = self.get_object()
         serializer = self.serializer_class(npo)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -326,11 +298,7 @@ class NPOViewset(viewsets.GenericViewSet):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def update(self, request, pk=None):
-        try:
-            npo = self.queryset.objects.get(user_id=pk)
-        except NPO.DoesNotExist:
-            return Response(f"Работодатель {pk} не найден", status=status.HTTP_404_NOT_FOUND)
-
+        npo = self.get_object()
         serializer = self.get_serializer_class()
         serializer = serializer(npo, data=request.data, partial=True)
         if serializer.is_valid(raise_exception=False):
@@ -356,11 +324,7 @@ class NPOViewset(viewsets.GenericViewSet):
         serializer_class=NPODetailSerializer,
     )
     def qdetail(self, request, pk=None):
-        try:
-            npo = self.queryset.objects.get(user_id=pk)
-        except NPO.DoesNotExist:
-            return Response(f"Работодатель {pk} не найден", status=status.HTTP_404_NOT_FOUND)
-
+        npo = self.get_object()
         serializer = self.serializer_class(npo)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -399,11 +363,7 @@ class CollegeViewset(viewsets.GenericViewSet):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def update(self, request, pk=None):
-        try:
-            college = self.queryset.objects.get(user_id=pk)
-        except College.DoesNotExist:
-            return Response(f"Колледж {pk} не найден", status=status.HTTP_404_NOT_FOUND)
-
+        college = self.get_object()
         serializer = self.get_serializer_class()
         serializer = serializer(college, data=request.data, partial=True)
         if serializer.is_valid(raise_exception=False):
@@ -434,11 +394,7 @@ class EmploymentAgencyViewset(viewsets.GenericViewSet):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def update(self, request, pk=None):
-        try:
-            employment_agency = self.queryset.objects.get(user_id=pk)
-        except EmploymentAgency.DoesNotExist:
-            return Response(f"Орган занятости {pk} не найден", status=status.HTTP_404_NOT_FOUND)
-
+        employment_agency = self.get_object()
         serializer = self.get_serializer_class()
         serializer = serializer(employment_agency, data=request.data, partial=True)
         if serializer.is_valid(raise_exception=False):
