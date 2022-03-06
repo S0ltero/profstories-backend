@@ -136,12 +136,11 @@ class EmployerViewset(viewsets.GenericViewSet):
     def list(self, request, *args, **kwargs):
         try:
             employers = self.get_queryset()
-            page = self.paginate_queryset(employers)
         except Employer.DoesNotExist:
             return Response("Работодатели не найдены", status=status.HTTP_404_NOT_FOUND)
 
-        serializer = self.serializer_class(page, many=True)
-        return self.get_paginated_response(serializer.data)
+        serializer = self.serializer_class(employers, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     @action(
         detail=True,
@@ -332,12 +331,11 @@ class NPOViewset(viewsets.GenericViewSet):
     def list(self, request, *args, **kwargs):
         try:
             npo = self.queryset.all()
-            page = self.paginate_queryset(npo)
         except NPO.DoesNotExist:
             return Response("Работодатели не найдены", status=status.HTTP_404_NOT_FOUND)
 
-        serializer = self.serializer_class(page, many=True)
-        return self.get_paginated_response(serializer.data)
+        serializer = self.serializer_class(npo, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     @action(
         detail=True,
