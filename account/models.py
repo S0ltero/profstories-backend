@@ -464,3 +464,18 @@ class UserEmploymentAgency(User):
         proxy = True
         verbose_name = "Орган занятости"
         verbose_name_plural = "Органы занятости"
+
+
+class UserTeacherManager(BaseUserManager):
+    def get_queryset(self, *args, **kwargs):
+        return super().get_queryset(*args, **kwargs).filter(type=User.Types.TEACHER)
+
+
+class UserTeacher(User):
+
+    objects = UserTeacherManager()
+
+    class Meta:
+        proxy = True
+        verbose_name = "Учитель"
+        verbose_name_plural = "Учителя"
