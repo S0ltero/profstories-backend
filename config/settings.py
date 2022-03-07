@@ -1,6 +1,5 @@
 import os
 from distutils.util import strtobool
-from os.path import join
 from pathlib import Path
 
 # Application definition
@@ -12,6 +11,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites",
 
     # Third party apps
     "rest_framework",
@@ -59,6 +59,7 @@ DATABASES = {
 
 # General
 AUTH_USER_MODEL = "account.User"
+SITE_ID = 1
 APPEND_SLASH = True
 TIME_ZONE = "Europe/Moscow"
 LANGUAGE_CODE = "ru"
