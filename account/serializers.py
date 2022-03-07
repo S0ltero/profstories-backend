@@ -1,7 +1,9 @@
 from django.contrib.auth import get_user_model
+from django.contrib.auth.base_user import BaseUserManager
 
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
+from rest_framework.exceptions import ValidationError
 from djoser.serializers import UserCreateSerializer as DjoserUserCreateSerializer
 
 from .models import (
@@ -52,12 +54,23 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class CreateUserSerializer(DjoserUserCreateSerializer):
+    password = serializers.CharField(style={"input_type": "password"}, write_only=True, required=False)
 
     class Meta:
         model = User
         exclude = ("last_login", "date_joined",
                    "is_superuser", "is_staff", "is_active", 
                    "groups", "user_permissions")
+
+    def validate(self, attrs):
+        if attrs.get("type") and not attrs.get("password"):
+            if attrs["type"] == User.Types.TEACHER:
+                attrs["password"] = BaseUserManager().make_random_password()
+            else:
+                raise ValidationError(detail={"password": "Поле не может быть пустым!"})
+        else:
+            raise ValidationError(detail={"password": "Поле не может быть пустым!"})
+        return super().validate(attrs)
 
 
 class EmployerSerialzier(serializers.ModelSerializer):
