@@ -1,7 +1,10 @@
+import string
+
 from django.db import models
 from django.core import validators
 from django.contrib.postgres.fields import ArrayField
 from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.utils.crypto import get_random_string
 
 from .managers import UserManager
 
@@ -344,6 +347,27 @@ class EmploymentAgency(models.Model):
             self.user.verification = User.Verifiaction.MODERATION
             self.user.save()
         return super().save(*args, **kwargs)
+
+
+class Teacher(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+
+    post = models.CharField(verbose_name="Должность", max_length=255)
+    region = models.CharField(verbose_name="Регион", max_length=255)
+    locality = models.CharField(verbose_name="Населенный пункт", max_length=255)
+    phone = models.CharField(verbose_name="Номер телефона", max_length=255)
+    count_members = models.IntegerField(verbose_name="Количество участников")
+    school_name = models.TextField(verbose_name="Название образовательной организации")
+    code = models.CharField(verbose_name="Код", max_length=6)
+
+    class Meta:
+        verbose_name = "Учитель"
+        verbose_name_plural = "Учителя"
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.code = get_random_string(6, allowed_chars=string.ascii_uppercase + string.digits)
+        super().save(*args, **kwargs)
 
 
 class Upload(models.Model):
