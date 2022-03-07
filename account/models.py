@@ -1,10 +1,7 @@
-import string
-
 from django.db import models
 from django.core import validators
 from django.contrib.postgres.fields import ArrayField
 from django.contrib.auth.models import AbstractUser, BaseUserManager
-from django.utils.crypto import get_random_string
 
 from .managers import UserManager
 
@@ -368,11 +365,6 @@ class Teacher(models.Model):
     class Meta:
         verbose_name = "Учитель"
         verbose_name_plural = "Учителя"
-
-    def save(self, *args, **kwargs):
-        if not self.pk:
-            self.code = get_random_string(6, allowed_chars=string.ascii_uppercase + string.digits)
-        super().save(*args, **kwargs)
 
 
 class Upload(models.Model):

@@ -189,6 +189,10 @@ class TeacherSerializer(serializers.ModelSerializer):
         model = Teacher
         fields = "__all__"
 
+    def save(self, **kwargs):
+        code = get_random_string(6, allowed_chars=string.ascii_uppercase + string.digits)
+        return super().save(**kwargs, code=code)
+
 
 class TokenSerializer(serializers.ModelSerializer):
     id = serializers.CharField(source="user.id")
