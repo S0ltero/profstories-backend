@@ -90,6 +90,9 @@ DJOSER = {
         "user_create_password_retype": "account.serializers.CreateUserSerializer",
         "current_user": "account.serializers.UserSerializer",
         "token": "account.serializers.TokenSerializer"
+    },
+    "EMAIL": {
+        'password_reset': 'account.email.PasswordResetEmail',
     }
 }
 
