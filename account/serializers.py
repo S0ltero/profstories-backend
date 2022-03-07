@@ -183,6 +183,13 @@ class EmploymentAgencySerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class TeacherSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Teacher
+        fields = "__all__"
+
+
 class TokenSerializer(serializers.ModelSerializer):
     id = serializers.CharField(source="user.id")
     auth_token = serializers.CharField(source="key")
