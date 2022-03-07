@@ -94,7 +94,7 @@ class EmployerViewset(viewsets.GenericViewSet):
         if self.action in ["create", "update"]:
             return EmployerCreateSerializer
         else:
-            return EmployerSerialzier
+            return EmployerSerializer
 
     def get_permissions(self):
         if self.action == "create":
