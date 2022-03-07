@@ -1,4 +1,7 @@
+import string
+
 from django.contrib.auth import get_user_model
+from django.utils.crypto import get_random_string
 from django.contrib.auth.base_user import BaseUserManager
 
 from rest_framework import serializers
@@ -12,6 +15,7 @@ from .models import (
     NPO,
     College,
     EmploymentAgency,
+    Teacher,
     Upload,
     Callback
 )
