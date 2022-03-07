@@ -13,6 +13,7 @@ class User(AbstractUser):
         NPO = "NPO", "НКО"
         EMPAGENCY = "EMPAGENCY", "Орган занятости"
         COLLEGE = "COLLEGE", "ССУЗ"
+        TEACHER = "TEACHER", "Учитель"
 
     class Verifiaction(models.TextChoices):
         CREATED = "CREATED", "Создан"
