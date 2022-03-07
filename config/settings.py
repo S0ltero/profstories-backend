@@ -81,6 +81,7 @@ EMAIL_HOST_PASSWORD = os.getenv("EMAIL_PASSWORD")
 
 # Djoser settings
 DJOSER = {
+    "PASSWORD_RESET_CONFIRM_URL": "password/reset/confirm/{uid}/{token}",
     "USER_CREATE_PASSWORD_RETYPE": True,
     "LOGIN_FIELD": "email",
     "SERIALIZERS": {
