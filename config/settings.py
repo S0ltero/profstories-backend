@@ -69,6 +69,16 @@ USE_L10N = True
 USE_TZ = True
 LOGIN_REDIRECT_URL = "/"
 
+# SMTP
+DEFAULT_FROM_EMAIL = os.getenv("EMAIL_USER")
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+EMAIL_PORT = os.getenv("EMAIL_PORT")
+EMAIL_HOST_USER = os.getenv("EMAIL_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_PASSWORD")
+
 # Djoser settings
 DJOSER = {
     "USER_CREATE_PASSWORD_RETYPE": True,
