@@ -48,6 +48,11 @@ class User(AbstractUser):
 
     objects = UserManager()
 
+    def save(self, *args, **kwargs):
+        if not self.pk and self.type == self.Types.TEACHER:
+            self.is_active = False
+        super().save(*args, **kwargs)
+
 
 class EmployerManager(BaseUserManager):
     def get_queryset(self, *args, **kwargs):
