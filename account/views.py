@@ -22,6 +22,7 @@ from .models import (
     NPO,
     College,
     EmploymentAgency,
+    Teacher,
     Upload,
     Callback
 )
@@ -40,6 +41,7 @@ from .serializers import (
     CollegeCreateSerializer,
     CollegeDetailSerializer,
     EmploymentAgencySerializer,
+    TeacherSerializer,
     CallbackSerializer,
 )
 
@@ -434,6 +436,30 @@ class EmploymentAgencyViewset(viewsets.GenericViewSet):
         if serializer.is_valid(raise_exception=False):
             serializer.update(employment_agency, serializer.validated_data)
             return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class TeacherViewset(viewsets.GenericViewSet):
+    queryset = Teacher.objects.all()
+    serializer_class = TeacherSerializer
+    permission_classes = (AllowAny,)
+
+    def create(self, request, *args, **kwargs):
+        data = request.data.copy()
+        data["user"] = request.user.id
+
+        user_serializer = UserSerializer(data=data)
+        if not user_serializer.is_valid(raise_exception=False):
+            return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        user_serializer.save()
+        data["user"] = user_serializer.data["id"]
+
+        serializer = self.serializer_class(data=data)
+        if serializer.is_valid(raise_exception=False):
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
