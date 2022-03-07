@@ -358,7 +358,7 @@ class Teacher(models.Model):
     phone = models.CharField(verbose_name="Номер телефона", max_length=255)
     count_members = models.IntegerField(verbose_name="Количество участников")
     school_name = models.TextField(verbose_name="Название образовательной организации")
-    code = models.CharField(verbose_name="Код", max_length=6)
+    code = models.CharField(verbose_name="Код", max_length=6, blank=True, unique=True)
 
     class Meta:
         verbose_name = "Учитель"
