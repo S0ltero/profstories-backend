@@ -72,7 +72,7 @@ class CreateUserSerializer(DjoserUserCreateSerializer):
                 attrs["password"] = BaseUserManager().make_random_password()
             else:
                 raise ValidationError(detail={"password": "Поле не может быть пустым!"})
-        else:
+        elif not attrs.get("password"):
             raise ValidationError(detail={"password": "Поле не может быть пустым!"})
         return super().validate(attrs)
 
