@@ -73,7 +73,7 @@ class CreateUserSerializer(DjoserUserCreateSerializer):
         return super().validate(attrs)
 
 
-class EmployerSerialzier(serializers.ModelSerializer):
+class EmployerSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(source="user.id")
 
     class Meta:

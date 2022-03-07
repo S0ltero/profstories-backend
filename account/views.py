@@ -27,7 +27,7 @@ from .models import (
 )
 from .serializers import (
     UserSerializer,
-    EmployerSerialzier,
+    EmployerSerializer,
     EmployerCreateSerializer,
     EmployerDetailSerializer,
     ProfessionalSerialzier,
@@ -46,7 +46,7 @@ from .serializers import (
 
 class EmployerViewset(viewsets.GenericViewSet):
     queryset = Employer.objects.all()
-    serializer_class = EmployerSerialzier
+    serializer_class = EmployerSerializer
     pagination_class = PageNumberPagination
 
     def get_queryset(self):
