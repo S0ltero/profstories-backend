@@ -173,6 +173,14 @@ class EmployerViewset(viewsets.GenericViewSet):
         serializer = self.serializer_class(employer)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    @action(
+        detail=False,
+    )
+    def random(self, request):
+        employers = self.queryset.filter(user__verification=User.Verifiaction.VERIFIED).order_by("?")[:3]
+        serializer = self.serializer_class(employers, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
 
 class ProfessionalViewset(viewsets.GenericViewSet):
     queryset = Professional.objects.all()
