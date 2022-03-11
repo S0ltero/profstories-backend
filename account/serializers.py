@@ -57,7 +57,7 @@ class UserSerializer(serializers.ModelSerializer):
         elif instance.type == User.Types.EMPAGENCY:
             try:
                 empagency = EmploymentAgency.objects.get(pk=instance.id)
-            except College.DoesNotExist:
+            except EmploymentAgency.DoesNotExist:
                 pass
             else:
                 data.update(EmploymentAgencySerializer(empagency).data)
