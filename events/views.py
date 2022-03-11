@@ -5,7 +5,6 @@ from rest_framework import viewsets
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from rest_framework.pagination import PageNumberPagination
 
 from .models import Event
 from .serializers import EventSerialzier, EventDetailSerializer, EventCreateSerializer
@@ -14,7 +13,6 @@ from .serializers import EventSerialzier, EventDetailSerializer, EventCreateSeri
 class EventViewset(viewsets.GenericViewSet):
     queryset = Event
     serializer_class = EventSerialzier
-    pagination_class = PageNumberPagination
 
     def get_queryset(self):
         queryset = Event.objects.filter(verification=Event.Verifiaction.VERIFIED)
@@ -49,7 +47,7 @@ class EventViewset(viewsets.GenericViewSet):
             event = self.queryset.objects.get(id=pk)
         except Event.DoesNotExist:
             return Response(f"Мероприятие {pk} не найдено", status=status.HTTP_404_NOT_FOUND)
-        
+
         serializer = self.serializer_class(event)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -79,13 +77,12 @@ class EventViewset(viewsets.GenericViewSet):
 
     def list(self, request, *args, **kwargs):
         try:
-            employers = self.get_queryset()
-            page = self.paginate_queryset(employers)
+            events = self.get_queryset()
         except Event.DoesNotExist:
             return Response("Мероприятия не найдены", status=status.HTTP_404_NOT_FOUND)
 
-        serializer = self.serializer_class(page, many=True)
-        return self.get_paginated_response(serializer.data)
+        serializer = self.serializer_class(events, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     @action(detail=True, url_path='detail', url_name='detail', serializer_class=EventDetailSerializer)
     def qdetail(self, request, pk=None):
