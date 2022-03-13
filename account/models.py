@@ -46,6 +46,10 @@ class User(AbstractUser):
 
     objects = UserManager()
 
+    class Meta:
+        verbose_name = "Пользователь"
+        verbose_name_plural = "Пользователи"
+
     def save(self, *args, **kwargs):
         if not self.pk and self.type == self.Types.TEACHER:
             self.is_active = False
