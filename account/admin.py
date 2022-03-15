@@ -96,41 +96,64 @@ class TeacherInline(admin.StackedInline):
 @admin.register(UserProfessional)
 class AdminProfessional(admin.ModelAdmin):
     inlines = (ProfessionalInline, UploadInline)
+    actions = None
+    list_display = ("id", "email", "last_name", "first_name", "middle_name", "verification")
+    list_display_links = ("id", "email")
+    list_filter = ("verification",)
     exclude = ("password", "is_active", "is_staff", "is_superuser",
                "last_login", "date_joined", "user_permissions", "groups")
 
 
 @admin.register(UserEmployer)
 class AdminEmployer(admin.ModelAdmin):
-    inlines = [EmployerInline]
+    inlines = (EmployerInline,)
+    actions = None
+    list_display = ("id", "email", "last_name", "first_name", "middle_name", "verification")
+    list_display_links = ("id", "email")
+    list_filter = ("verification",)
     exclude = ("password", "is_active", "is_staff", "is_superuser",
                "last_login", "date_joined", "user_permissions", "groups")
 
 
 @admin.register(UserNPO)
 class AdminNPO(admin.ModelAdmin):
-    inlines = [NPOInline]
+    inlines = (NPOInline,)
+    actions = None
+    list_display = ("id", "email", "last_name", "first_name", "middle_name", "verification")
+    list_display_links = ("id", "email")
+    list_filter = ("verification",)
     exclude = ("password", "is_active", "is_staff", "is_superuser",
                "last_login", "date_joined", "user_permissions", "groups")
 
 
 @admin.register(UserCollege)
 class AdminCollege(admin.ModelAdmin):
-    inlines = [CollegeInline]
+    inlines = (CollegeInline,)
+    actions = None
+    list_display = ("id", "email", "last_name", "first_name", "middle_name", "verification")
+    list_display_links = ("id", "email")
+    list_filter = ("verification",)
     exclude = ("password", "is_active", "is_staff", "is_superuser",
                "last_login", "date_joined", "user_permissions", "groups")
 
 
 @admin.register(UserEmploymentAgency)
 class AdminEmploymentAgency(admin.ModelAdmin):
-    inlines = [EmploymentAgencyInline]
+    inlines = (EmploymentAgencyInline,)
+    actions = None
+    list_display = ("id", "email", "last_name", "first_name", "middle_name", "verification")
+    list_display_links = ("id", "email")
+    list_filter = ("verification",)
     exclude = ("password", "is_active", "is_staff", "is_superuser",
                "last_login", "date_joined", "user_permissions", "groups")
 
 
-
 @admin.register(UserTeacher)
 class AdminTeacher(admin.ModelAdmin):
-    inlines = [TeacherInline]
+    inlines = (TeacherInline,)
+    actions = None
+    list_display = ("id", "email", "last_name", "first_name", "middle_name", "verification")
+    list_display_links = ("id", "email")
+    list_filter = ("verification",)
     exclude = ("password", "is_active", "is_staff", "is_superuser",
                "last_login", "date_joined", "user_permissions", "groups")
