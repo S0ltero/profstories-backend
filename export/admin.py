@@ -15,3 +15,8 @@ from .models import (
 class EmployerResource(resources.ModelResource):
     class Meta:
         model = EmployerExport
+
+
+class ProfessionalResource(resources.ModelResource):
+    class Meta:
+        model = ProfessionalExport
