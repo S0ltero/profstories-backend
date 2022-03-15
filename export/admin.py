@@ -9,3 +9,9 @@ from .models import (
     TeacherExport,
     UserExport
 )
+
+# Resources
+
+class EmployerResource(resources.ModelResource):
+    class Meta:
+        model = EmployerExport
