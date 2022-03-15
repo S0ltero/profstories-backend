@@ -28,3 +28,11 @@ class ProfessionalExport(Professional):
         app_label = "export"
         verbose_name = Professional._meta.verbose_name
         verbose_name_plural = Professional._meta.verbose_name_plural
+
+
+class TeacherExport(Teacher):
+    class Meta:
+        proxy = True
+        app_label = "export"
+        verbose_name = Teacher._meta.verbose_name
+        verbose_name_plural = Teacher._meta.verbose_name_plural
