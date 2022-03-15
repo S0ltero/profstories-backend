@@ -25,3 +25,8 @@ class ProfessionalResource(resources.ModelResource):
 class TeacherResource(resources.ModelResource):
     class Meta:
         model = TeacherExport
+
+
+class UserResource(resources.ModelResource):
+    class Meta:
+        model = UserExport
