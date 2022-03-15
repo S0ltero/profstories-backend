@@ -76,3 +76,14 @@ class AdminTeacher(ImportExportActionModelAdmin):
     @admin.display(description="Уровень верификации")
     def verification(self, obj):
         return str(obj.user.get_verification_display())
+
+
+@admin.register(UserExport)
+class AdminUser(ImportExportActionModelAdmin):
+    resource_class = UserResource
+    actions = None
+    list_display = ("id", "email", "last_name", "first_name", "middle_name", "verification")
+    list_display_links = ("id", "email")
+    list_filter = ("type", "verification")
+    exclude = ("password", "is_active", "is_staff", "is_superuser",
+               "last_login", "date_joined", "user_permissions", "groups")
