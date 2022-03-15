@@ -20,3 +20,8 @@ class EmployerResource(resources.ModelResource):
 class ProfessionalResource(resources.ModelResource):
     class Meta:
         model = ProfessionalExport
+
+
+class TeacherResource(resources.ModelResource):
+    class Meta:
+        model = TeacherExport
