@@ -30,3 +30,19 @@ class TeacherResource(resources.ModelResource):
 class UserResource(resources.ModelResource):
     class Meta:
         model = UserExport
+
+# Admin models
+
+@admin.register(EmployerExport)
+class AdminEmployer(ImportExportActionModelAdmin):
+    resource_class = EmployerResource
+    actions = None
+    list_display = ("user", "fullname", "verification")
+
+    @admin.display(description="Полное имя")
+    def fullname(self, obj):
+        return str(f"{obj.user.last_name} {obj.user.first_name} {obj.user.middle_name}")
+
+    @admin.display(description="Уровень верификации")
+    def verification(self, obj):
+        return str(obj.user.get_verification_display())
