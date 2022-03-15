@@ -3,6 +3,9 @@ from django.contrib import admin
 from .models import *
 
 
+admin.site.register(Callback)
+
+
 class UploadInline(admin.StackedInline):
     model = Upload
     extra = 0
