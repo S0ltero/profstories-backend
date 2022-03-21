@@ -17,7 +17,9 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "djoser",
+    # Utility
     "import_export",
+    "nested_admin",
 
     # Local apps
     "account",
