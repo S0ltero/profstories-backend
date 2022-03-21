@@ -9,6 +9,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.exceptions import ValidationError
 from djoser.serializers import UserCreateSerializer as DjoserUserCreateSerializer
 
+from helper.serializers import SkillSerializer
 from .models import (
     Employer,
     Professional,
@@ -16,6 +17,7 @@ from .models import (
     College,
     EmploymentAgency,
     Teacher,
+    Student,
     Upload,
     Callback
 )
@@ -203,6 +205,14 @@ class TeacherSerializer(serializers.ModelSerializer):
     def save(self, **kwargs):
         code = get_random_string(6, allowed_chars=string.ascii_uppercase + string.digits)
         return super().save(**kwargs, code=code)
+
+
+class StudentSerializer(serializers.ModelSerializer):
+    skills = SkillSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Student
+        fields = "__all__"
 
 
 class TokenSerializer(serializers.ModelSerializer):
