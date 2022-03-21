@@ -15,3 +15,10 @@ class StudentMissionInline(nested_admin.NestedStackedInline):
     formfield_overrides = {
         models.JSONField: {'widget': JSONEditorWidget},
     }
+
+
+class StudentSkillInline(nested_admin.NestedStackedInline):
+    model = StudentSkill
+    extra = 0
+    classes = ["collapse"]
+
