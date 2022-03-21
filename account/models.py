@@ -521,3 +521,18 @@ class UserTeacher(User):
         proxy = True
         verbose_name = "Учитель"
         verbose_name_plural = "Учителя"
+
+
+class UserStudentManager(BaseUserManager):
+    def get_queryset(self, *args, **kwargs):
+        return super().get_queryset(*args, **kwargs).filter(type=User.Types.STUDENT)
+
+
+class UserStudent(User):
+
+    objects = UserStudentManager()
+
+    class Meta:
+        proxy = True
+        verbose_name = "Учащийся"
+        verbose_name_plural = "Учащиеся"
