@@ -36,3 +36,8 @@ class MissionQuestionInline(admin.StackedInline):
 @admin.register(Mission)
 class AdminMission(admin.ModelAdmin):
     inlines = (MissionQuestionInline,)
+
+
+@admin.register(SkillScope)
+class AdminSkillScope(admin.ModelAdmin):
+    actions = None
