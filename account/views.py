@@ -8,12 +8,16 @@ from rest_framework.pagination import PageNumberPagination
 
 from djoser.permissions import CurrentUserOrAdmin
 
+from helper.serializers import StudentMissionSerializer
+from helper.models import StudentMission, SkillScope
+
 from .permissions import (
     IsEmployer,
     IsProfessional,
     IsNPO,
     IsCollege,
     IsEmploymentAgency,
+    IsStudent,
 )
 from .models import (
     User,
@@ -23,6 +27,7 @@ from .models import (
     College,
     EmploymentAgency,
     Teacher,
+    Student,
     Upload,
     Callback
 )
@@ -42,6 +47,7 @@ from .serializers import (
     CollegeDetailSerializer,
     EmploymentAgencySerializer,
     TeacherSerializer,
+    StudentSerializer,
     CallbackSerializer,
 )
 
