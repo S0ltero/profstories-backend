@@ -24,3 +24,20 @@ class MissionQuestion(models.Model):
     def __str__(self) -> str:
         return self.question
 
+
+class StudentSkill(models.Model):
+    class Object(models.TextChoices):
+        SOCIAL = "SOCIAL", "Работа с людьми"
+        RESEARCH = "RESEARCH", "Иследовательская деятельность"
+        PRACTIC = "PRACTIC", "Практическая деятельность"
+        CREATIVE = "CREATIVE", "Творческая деятельность"
+        EXTREMAL = "EXTREMAL", "Экстремальная деятельность"
+        INFORMATION = "INFORMATION", "Работа с информацией"
+
+    student = models.ForeignKey("account.Student", on_delete=models.CASCADE, related_name="skills")
+    object = models.CharField(verbose_name="Объект", max_length=255, choices=Object.choices)
+    points = models.PositiveIntegerField(verbose_name="Баллы", default=0)
+
+    class Meta:
+        verbose_name = "Суперспособность"
+        verbose_name_plural = "Суперспособности"
