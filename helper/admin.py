@@ -31,3 +31,8 @@ class MissionQuestionInline(admin.StackedInline):
     formfield_overrides = {
         models.JSONField: {'widget': JSONEditorWidget},
     }
+
+
+@admin.register(Mission)
+class AdminMission(admin.ModelAdmin):
+    inlines = (MissionQuestionInline,)
