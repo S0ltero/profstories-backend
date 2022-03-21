@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     # Utility
     "import_export",
     "nested_admin",
+    "django_json_widget",
 
     # Local apps
     "account",
