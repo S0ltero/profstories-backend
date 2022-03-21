@@ -4,6 +4,11 @@ from django.contrib.postgres.fields import ArrayField
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 
 from .managers import UserManager
+from helper.models import (
+    Mission,
+    StudentMission,
+    StudentSkill,
+)
 
 
 class User(AbstractUser):
@@ -394,6 +399,23 @@ class Student(models.Model):
         verbose_name = "Учащийся"
         verbose_name_plural = "Учащиеся"
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        if self.user.verification == User.Verifiaction.CREATED:
+            self.user.verification = User.Verifiaction.MODERATION
+            self.user.save()
+
+            missions_bulk = []
+            for object in Mission.objects.all():
+                missions_bulk.append(StudentMission(student=self, mission=object))
+
+            skills_bulk = []
+            for object in StudentSkill.Object.names:
+                skills_bulk.append(StudentSkill(student=self, object=object))
+
+            StudentMission.objects.bulk_create(missions_bulk)
+            StudentSkill.objects.bulk_create(skills_bulk)
 
 
 class Teacher(models.Model):
