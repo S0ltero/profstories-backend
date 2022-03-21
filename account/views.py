@@ -609,6 +609,25 @@ class StudentViewset(viewsets.GenericViewSet):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+    @action(
+        detail=True,
+        url_path="employers",
+        url_name="employers",
+        serializer_class=EmployerSerializer
+    )
+    def employers(self, request, pk=None):
+        student = self.get_object()
+        skill = student.skills.order_by("-points").first()
+        scope = SkillScope.objects.get(object=skill.object).scope
+
+        employers = Employer.objects.filter(
+            company_region__contained_by=[student.region],
+            company_scope__in=scope
+        )[:6]
+        serializer = self.serializer_class(employers, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
 class CallbackCreateView(CreateAPIView):
     queryset = Callback
     serializer_class = CallbackSerializer
