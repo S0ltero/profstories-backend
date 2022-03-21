@@ -27,3 +27,10 @@ class StudentMissionSerializer(serializers.ModelSerializer):
         instance.reaction = validated_data.get("reaction", instance.reaction)
         instance.save()
         return instance
+
+
+class QuestionSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = MissionQuestion
+        exclude = ("mission",)
