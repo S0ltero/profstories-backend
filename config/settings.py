@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     "account",
     "events",
     "helper",
+    "export",
 ]
 
 MIDDLEWARE = [
