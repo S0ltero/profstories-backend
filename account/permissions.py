@@ -32,3 +32,9 @@ class IsEmploymentAgency(BasePermission):
     def has_permission(self, request, view):
         user = request.user
         return user.type == User.Types.EMPAGENCY
+
+
+class IsStudent(BasePermission):
+    def has_permission(self, request, view):
+        user = request.user
+        return user.type == User.Types.STUDENT
