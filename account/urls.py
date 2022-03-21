@@ -11,6 +11,7 @@ router.register(r"non-profit", NPOViewset, basename="non-profit")
 router.register(r"colleges", CollegeViewset, basename="colleges")
 router.register(r"agencies", EmploymentAgencyViewset, basename="agencies")
 router.register(r"teachers", TeacherViewset, basename="teachers")
+router.register(r"students", StudentViewset, basename="students")
 
 urlpatterns = [
 ] + router.urls
