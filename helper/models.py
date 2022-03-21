@@ -57,14 +57,28 @@ class StudentMission(models.Model):
         self.stage = len(self.answers)
         if self.stage == self.mission.questions.count() and not self.is_complete:
             self.is_complete = True
+            # Add coins to student
             self.student.coins += self.mission.coins
             self.student.save()
+            # Unlock next mission
+            try:
+                next_mission = StudentMission.objects.get(
+                    mission__order=(self.mission.order + 1)
+                )
+            except StudentMission.DoesNotExist:
+                pass
+            else:
+                next_mission.is_unlocked = True
+                next_mission.save()
 
         super().save(*args, **kwargs)
 
         if not self.student.missions.exclude(is_complete=True).exists():
             self.student.completed_at = timezone.now()
             self.student.save()
+
+        if not self.answers.items():
+            return
 
         answer_data = []
 
