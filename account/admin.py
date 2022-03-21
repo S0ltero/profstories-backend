@@ -166,3 +166,14 @@ class AdminTeacher(admin.ModelAdmin):
     list_filter = ("verification",)
     exclude = ("password", "is_active", "is_staff", "is_superuser",
                "last_login", "date_joined", "user_permissions", "groups")
+
+
+@admin.register(UserStudent)
+class AdminStudent(nested_admin.NestedModelAdmin):
+    inlines = (StudentInline,)
+    actions = None
+    list_display = ("id", "email", "last_name", "first_name", "middle_name", "verification")
+    list_display_links = ("id", "email")
+    list_filter = ("verification",)
+    exclude = ("password", "is_active", "is_staff", "is_superuser",
+               "last_login", "date_joined", "user_permissions", "groups")
