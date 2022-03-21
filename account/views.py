@@ -566,6 +566,30 @@ class StudentViewset(viewsets.GenericViewSet):
         serializer = self.serializer_class(student.missions.all(), many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    @action(
+        methods=["get", "patch"],
+        detail=True,
+        url_path=r"missions/(?P<mission_id>[^/.]+)",
+        url_name="mission-detail",
+        serializer_class=StudentMissionSerializer
+    )
+    def mission(self, request, pk=None, mission_id=None):
+        student = self.get_object()
+        try:
+            mission = student.missions.get(pk=mission_id)
+        except StudentMission.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        if request.method == "GET":
+            serializer = self.serializer_class(mission)
+        elif request.method == "PATCH":
+            serializer = self.serializer_class(mission, data=request.data, partial=True)
+            if serializer.is_valid(raise_exception=False):
+                serializer.update(mission, serializer.validated_data)
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class CallbackCreateView(CreateAPIView):
