@@ -514,6 +514,49 @@ class TeacherViewset(viewsets.GenericViewSet):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class StudentViewset(viewsets.GenericViewSet):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+
+    def get_permissions(self):
+        if self.action == "create":
+            self.permission_classes = [IsAuthenticated, IsStudent]
+        elif self.action == "update":
+            self.permission_classes = [CurrentUserOrAdmin]
+        return super().get_permissions()
+
+    def retrieve(self, request, pk):
+        student = self.get_object()
+        serializer = self.serializer_class(student)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def create(self, request, *args, **kwargs):
+        data = request.data.copy()
+        data["user"] = request.user.id
+
+        serializer = self.serializer_class(data=data)
+        if not serializer.is_valid(raise_exception=False):
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        user_serializer = UserSerializer(instance=request.user, data=data, partial=True)
+        if not user_serializer.is_valid(raise_exception=False):
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        user_serializer.update(request.user, user_serializer.validated_data)
+        serializer.save(user_id=request.user.id)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    def update(self, request, pk=None):
+        student = self.get_object()
+        serializer = self.serializer_class(student, data=request.data, partial=True)
+        if serializer.is_valid(raise_exception=False):
+            serializer.update(student, serializer.validated_data)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
 class CallbackCreateView(CreateAPIView):
     queryset = Callback
     serializer_class = CallbackSerializer
