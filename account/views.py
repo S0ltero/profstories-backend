@@ -555,6 +555,17 @@ class StudentViewset(viewsets.GenericViewSet):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    @action(
+        detail=True,
+        url_path="missions",
+        url_name="missions",
+        serializer_class=StudentMissionSerializer
+    )
+    def missions(self, request, pk=None):
+        student = self.get_object()
+        serializer = self.serializer_class(student.missions.all(), many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
 
 
 class CallbackCreateView(CreateAPIView):
