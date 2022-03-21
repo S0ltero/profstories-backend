@@ -1,4 +1,8 @@
+from collections import Counter
+
 from django.db import models
+from django.utils import timezone
+from django.contrib.postgres.fields import ArrayField
 
 
 class Mission(models.Model):
@@ -23,6 +27,68 @@ class MissionQuestion(models.Model):
 
     def __str__(self) -> str:
         return self.question
+
+
+class StudentMission(models.Model):
+    class Reaction(models.TextChoices):
+        FIRE = "FIRE", "🔥"
+        HEART = "HEART", "❤️"
+        FIVE = "FIVE", "🖐"
+        SAD = "SAD", "🙁"
+
+    mission = models.ForeignKey(Mission, on_delete=models.CASCADE)
+    student = models.ForeignKey("account.Student", on_delete=models.CASCADE, related_name="missions")
+    stage = models.PositiveIntegerField(verbose_name="Стадия", default=0)
+    answers = models.JSONField(verbose_name="Ответы", null=True)
+    reaction = models.CharField(verbose_name="Реакция", max_length=255, choices=Reaction.choices, blank=True)
+    is_complete = models.BooleanField(verbose_name="Пройдена?", default=False)
+    is_unlocked = models.BooleanField(verbose_name="Разблокировано?", default=False)
+
+    class Meta:
+        verbose_name = "Миссия"
+        verbose_name_plural = "Миссии"
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            if self.mission.order == 1:
+                self.is_unlocked = True
+            return super().save(*args, **kwargs)
+
+        self.stage = len(self.answers)
+        if self.stage == self.mission.questions.count() and not self.is_complete:
+            self.is_complete = True
+            self.student.coins += self.mission.coins
+            self.student.save()
+
+        super().save(*args, **kwargs)
+
+        if not self.student.missions.exclude(is_complete=True).exists():
+            self.student.completed_at = timezone.now()
+            self.student.save()
+
+        answer_data = []
+
+        for question, answer in self.answers.items():
+            question = self.mission.questions.get(question=question)
+            answer_data.append(*question.answers.get(answer))
+
+        answer_data = Counter(answer_data)
+        skills_bulk = []
+        for value, count in answer_data.items():
+            if value.startswith("entrepreneurship"):
+                if value.endswith("1"):
+                    self.student.entrepreneurship = 16
+                elif value.endswith("2"):
+                    self.student.entrepreneurship = 57
+                else:
+                    self.student.entrepreneurship = 87
+                continue
+
+            skill = self.student.skills.get(object=value.upper())
+            skill.points = count
+            skills_bulk.append(skill)
+
+        StudentSkill.objects.bulk_update(skills_bulk, ["points"])
 
 
 class StudentSkill(models.Model):
