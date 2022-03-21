@@ -18,7 +18,7 @@ class MissionQuestion(models.Model):
     mission = models.ForeignKey(Mission, on_delete=models.CASCADE, related_name="questions")
     question = models.TextField(verbose_name="Вопрос")
     order = models.PositiveIntegerField(verbose_name="Номер вопроса")
-    answers = models.JSONField(verbose_name="Ответы")
+    answers = models.JSONField(verbose_name="Ответы", default=dict, blank=True)
 
     class Meta:
         verbose_name = "Вопрос"
@@ -39,7 +39,7 @@ class StudentMission(models.Model):
     mission = models.ForeignKey(Mission, on_delete=models.CASCADE)
     student = models.ForeignKey("account.Student", on_delete=models.CASCADE, related_name="missions")
     stage = models.PositiveIntegerField(verbose_name="Стадия", default=0)
-    answers = models.JSONField(verbose_name="Ответы", null=True)
+    answers = models.JSONField(verbose_name="Ответы", default=dict, blank=True)
     reaction = models.CharField(verbose_name="Реакция", max_length=255, choices=Reaction.choices, blank=True)
     is_complete = models.BooleanField(verbose_name="Пройдена?", default=False)
     is_unlocked = models.BooleanField(verbose_name="Разблокировано?", default=False)
