@@ -34,3 +34,11 @@ class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = MissionQuestion
         exclude = ("mission",)
+
+
+class MissionSerializer(serializers.ModelSerializer):
+    questions = QuestionSerializer(many=True)
+
+    class Meta:
+        model = Mission
+        exclude = ("coins",)
