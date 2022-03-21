@@ -1,5 +1,8 @@
 from django.contrib import admin
 
+import nested_admin
+
+from helper.admin import StudentMissionInline, StudentSkillInline
 from .models import *
 
 
