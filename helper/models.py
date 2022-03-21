@@ -41,3 +41,22 @@ class StudentSkill(models.Model):
     class Meta:
         verbose_name = "Суперспособность"
         verbose_name_plural = "Суперспособности"
+
+
+class SkillScope(models.Model):
+    object = models.CharField(
+        verbose_name="Объект",
+        max_length=255,
+        choices=StudentSkill.Object.choices,
+        unique=True
+    )
+    scope = ArrayField(models.CharField(max_length=255), verbose_name="Сферы деятельности")
+
+    class Meta:
+        verbose_name = "Суперспособность"
+        verbose_name_plural = "Суперспособности"
+
+    def __str__(self) -> str:
+        return self.get_object_display()
+
+
