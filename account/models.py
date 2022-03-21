@@ -362,6 +362,40 @@ class StudentManager(BaseUserManager):
         return super().get_queryset(*args, **kwargs).filter(user__type=User.Types.STUDENT)
 
 
+class Student(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    photo = models.ImageField(verbose_name="Фото")
+    region = models.CharField(verbose_name="Регион", max_length=255)
+    locality = models.CharField(verbose_name="Населенный пункт", max_length=255)
+    phone = models.CharField(verbose_name="Мобильный телефон", max_length=255)
+    school = models.CharField(verbose_name="Школа", max_length=255)
+    school_class = models.CharField(verbose_name="Класс", max_length=5)
+    birth_date = models.DateField(verbose_name="Дата рождения")
+
+    # Gamification
+    coins = models.PositiveIntegerField(verbose_name="Монеты", default=0)
+    achievements = ArrayField(models.CharField(max_length=75), blank=True, default=list)
+    role = models.JSONField(verbose_name="Роль в команде", null=True, blank=True)
+    motivation = models.JSONField(verbose_name="Тип мотивации", null=True, blank=True)
+    entrepreneurship = models.PositiveIntegerField(verbose_name="Предпринимательство", default=0)
+    completed_at = models.DateTimeField(verbose_name="Время окончания прохождения", null=True, blank=True)
+    rate = models.PositiveIntegerField(
+        verbose_name="Оценка",
+        validators=[validators.MaxValueValidator(5)],
+        default=0
+    )
+
+    employers = ArrayField(models.CharField(max_length=10), blank=True, default=list)
+    professionals = ArrayField(models.CharField(max_length=255), blank=True, default=list)
+
+    objects = StudentManager()
+
+    class Meta:
+        verbose_name = "Учащийся"
+        verbose_name_plural = "Учащиеся"
+
+
+
 class Teacher(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
 
