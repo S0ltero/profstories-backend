@@ -96,6 +96,12 @@ class TeacherInline(admin.StackedInline):
     extra = 0
 
 
+class StudentInline(nested_admin.NestedStackedInline):
+    model = Student
+    extra = 0
+    inlines = (StudentMissionInline, StudentSkillInline)
+
+
 @admin.register(UserProfessional)
 class AdminProfessional(admin.ModelAdmin):
     inlines = (ProfessionalInline, UploadInline)
