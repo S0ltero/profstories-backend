@@ -591,6 +591,23 @@ class StudentViewset(viewsets.GenericViewSet):
 
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    @action(
+        detail=True,
+        url_path="professionals",
+        url_name="professionals",
+        serializer_class=ProfessionalSerialzier
+    )
+    def professionals(self, request, pk=None):
+        student = self.get_object()
+        skill = student.skills.order_by("-points").first()
+        scope = SkillScope.objects.get(object=skill.object).scope
+
+        professionals = Professional.objects.filter(
+            scope__contained_by=scope
+        )[:6]
+        serializer = self.serializer_class(professionals, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
 
 class CallbackCreateView(CreateAPIView):
     queryset = Callback
