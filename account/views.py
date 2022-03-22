@@ -523,6 +523,8 @@ class StudentViewset(viewsets.GenericViewSet):
             self.permission_classes = [IsAuthenticated, IsStudent]
         elif self.action == "update":
             self.permission_classes = [CurrentUserOrAdmin]
+        else:
+            self.permission_classes = [IsAuthenticated]
         return super().get_permissions()
 
     def retrieve(self, request, pk):
