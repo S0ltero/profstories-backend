@@ -32,6 +32,16 @@ class MissionQuestion(models.Model):
         return self.question
 
 
+class QuestionVideo(models.Model):
+    question = models.ForeignKey(MissionQuestion, on_delete=models.CASCADE, related_name="videos")
+    url = models.URLField(verbose_name="Ссылка на видео")
+    text = models.TextField(verbose_name="Текст к видео")
+
+    class Meta:
+        verbose_name = "Видео"
+        verbose_name_plural = "Видео"
+
+
 class StudentMission(models.Model):
     class Reaction(models.TextChoices):
         FIRE = "FIRE", "🔥"
