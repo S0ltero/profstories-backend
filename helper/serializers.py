@@ -28,11 +28,6 @@ class StudentMissionSerializer(serializers.ModelSerializer):
         model = StudentMission
         exclude = ("student", "reaction", "answers")
 
-    def update(self, instance, validated_data):
-        instance.answers.update(validated_data.get("answers"))
-        instance.reaction = validated_data.get("reaction", instance.reaction)
-        instance.save()
-        return instance
 
 
 class QuestionSerializer(serializers.ModelSerializer):
