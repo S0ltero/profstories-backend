@@ -1,3 +1,4 @@
+from django import forms
 from django.db import models
 from django.contrib import admin
 from django_json_widget.widgets import JSONEditorWidget
@@ -23,7 +24,19 @@ class StudentSkillInline(nested_admin.NestedStackedInline):
     classes = ["collapse"]
 
 
-class MissionQuestionInline(admin.StackedInline):
+class StudentEventInline(nested_admin.NestedStackedInline):
+    model = StudentEvent
+    extra = 0
+    classes = ["collapse"]
+
+
+class QuestionVideoInline(nested_admin.NestedStackedInline):
+    model = QuestionVideo
+    extra = 0
+
+
+class MissionQuestionInline(nested_admin.NestedStackedInline):
+    inlines = (QuestionVideoInline,)
     model = MissionQuestion
     ordering = ("order",)
     extra = 0
@@ -34,7 +47,7 @@ class MissionQuestionInline(admin.StackedInline):
 
 
 @admin.register(Mission)
-class AdminMission(admin.ModelAdmin):
+class AdminMission(nested_admin.NestedModelAdmin):
     inlines = (MissionQuestionInline,)
 
 
