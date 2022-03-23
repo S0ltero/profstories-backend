@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import StudentSkill, StudentMission, Mission, MissionQuestion
+from .models import StudentSkill, StudentMission, Mission, MissionQuestion, QuestionVideo
 
 
 class SkillSerializer(serializers.ModelSerializer):
@@ -13,6 +13,12 @@ class SkillSerializer(serializers.ModelSerializer):
 
     def get_percent(self, obj):
         return 100 * (obj.points / 12)
+
+
+class VideoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = QuestionVideo
+        exclude = ("question", "id")
 
 
 class StudentMissionSerializer(serializers.ModelSerializer):
