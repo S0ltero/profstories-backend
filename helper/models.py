@@ -13,6 +13,9 @@ class Mission(models.Model):
         verbose_name = "Миссия"
         verbose_name_plural = "Миссии"
 
+    def __str__(self) -> str:
+        return f"Миссия #{self.order}"
+
 
 class MissionQuestion(models.Model):
     mission = models.ForeignKey(Mission, on_delete=models.CASCADE, related_name="questions")
