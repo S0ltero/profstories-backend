@@ -21,6 +21,18 @@ class VideoSerializer(serializers.ModelSerializer):
         exclude = ("question", "id")
 
 
+class QuestionSerializer(serializers.ModelSerializer):
+    answers = serializers.SerializerMethodField()
+    videos = VideoSerializer(many=True)
+
+    class Meta:
+        model = MissionQuestion
+        exclude = ("mission",)
+
+    def get_answers(self, obj):
+        return obj.answers.keys()
+
+
 class StudentMissionSerializer(serializers.ModelSerializer):
     questions_count = serializers.IntegerField(source="mission.questions.count")
 
@@ -30,11 +42,18 @@ class StudentMissionSerializer(serializers.ModelSerializer):
 
 
 
-class QuestionSerializer(serializers.ModelSerializer):
+class StudentMissionCreateSerializer(serializers.ModelSerializer):
+    questions_count = serializers.IntegerField(source="mission.questions.count")
 
     class Meta:
-        model = MissionQuestion
-        exclude = ("mission",)
+        model = StudentMission
+        exclude = ("student", "reaction")
+
+    def update(self, instance, validated_data):
+        instance.answers.update(validated_data.pop("answers"))
+        instance.reaction = validated_data.pop("reaction", instance.reaction)
+        instance.save()
+        return instance
 
 
 class MissionSerializer(serializers.ModelSerializer):
