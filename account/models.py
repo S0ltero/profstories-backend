@@ -86,6 +86,7 @@ class Employer(models.Model):
     company_logo = models.ImageField(verbose_name="Логотип организации")
     company_TIN = models.CharField(verbose_name="ИНН организации", max_length=10, unique=True)
     company_description = models.TextField(verbose_name="Об организации")
+    company_description_other = models.TextField(verbose_name="Другое описание")
     company_count_employees = models.CharField(verbose_name="Число сотрудников", max_length=255)
     company_avg_wage = models.PositiveIntegerField(verbose_name="Средняя заработная плата")
     company_site = models.URLField(verbose_name="Сайт организации")
