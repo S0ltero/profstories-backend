@@ -86,7 +86,7 @@ class Employer(models.Model):
     company_logo = models.ImageField(verbose_name="Логотип организации")
     company_TIN = models.CharField(verbose_name="ИНН организации", max_length=10, unique=True)
     company_description = models.TextField(verbose_name="Об организации")
-    company_description_other = models.TextField(verbose_name="Другое описание")
+    company_description_other = models.TextField(verbose_name="Другое описание", blank=True)
     company_count_employees = models.CharField(verbose_name="Число сотрудников", max_length=255)
     company_avg_wage = models.PositiveIntegerField(verbose_name="Средняя заработная плата")
     company_site = models.URLField(verbose_name="Сайт организации")
@@ -387,6 +387,7 @@ class Student(models.Model):
     achievements = ArrayField(models.CharField(max_length=75), blank=True, default=list)
     role = models.JSONField(verbose_name="Роль в команде", null=True, blank=True)
     motivation = models.JSONField(verbose_name="Тип мотивации", null=True, blank=True)
+    competencies = ArrayField(models.CharField(max_length=255), blank=True, default=list)
     entrepreneurship = models.PositiveIntegerField(verbose_name="Предпринимательство", default=0)
     completed_at = models.DateTimeField(verbose_name="Время окончания прохождения", null=True, blank=True)
     rate = models.PositiveIntegerField(
