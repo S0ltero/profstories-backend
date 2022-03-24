@@ -41,17 +41,18 @@ class StudentMissionSerializer(serializers.ModelSerializer):
         exclude = ("student", "reaction", "answers")
 
 
-
 class StudentMissionCreateSerializer(serializers.ModelSerializer):
     questions_count = serializers.IntegerField(source="mission.questions.count")
 
     class Meta:
         model = StudentMission
-        exclude = ("student", "reaction")
+        exclude = ("student",)
 
     def update(self, instance, validated_data):
-        instance.answers.update(validated_data.pop("answers"))
-        instance.reaction = validated_data.pop("reaction", instance.reaction)
+        if validated_data.get("answers"):
+            instance.answers.update(validated_data.pop("answers"))
+        if validated_data.get("reaction"):
+            instance.reaction = validated_data.pop("reaction")
         instance.save()
         return instance
 
