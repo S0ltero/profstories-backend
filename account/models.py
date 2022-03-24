@@ -79,6 +79,7 @@ class Employer(models.Model):
     # Company attributes
     company_name = models.CharField(verbose_name="Название организации", max_length=255, unique=True)
     company_name_alt = models.CharField(verbose_name="Альтернативное название организации", max_length=255, unique=True)
+    company_name_other = models.CharField(verbose_name="Другое название", max_length=255, blank=True)
     company_region = ArrayField(models.CharField(max_length=255), verbose_name="Регион организации")
     company_admin_region = ArrayField(models.CharField(max_length=255), blank=True, default=list, verbose_name="Административный регион организации")
     company_scope = models.TextField(verbose_name="Сфера деятельности")
