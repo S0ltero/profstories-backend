@@ -8,8 +8,9 @@ from rest_framework.pagination import PageNumberPagination
 
 from djoser.permissions import CurrentUserOrAdmin
 
-from helper.serializers import StudentMissionSerializer
-from helper.models import StudentMission, SkillScope
+from helper.models import StudentMission, SkillScope, StudentEvent
+from events.serializers import EventSerialzier
+from events.models import Event
 
 from .permissions import (
     IsEmployer,
@@ -628,6 +629,25 @@ class StudentViewset(viewsets.GenericViewSet):
         )[:6]
         serializer = self.serializer_class(employers, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @action(
+        methods=["get", "post"],
+        detail=True,
+        url_path="events",
+        url_name="events",
+        serializer_class=EventSerialzier,
+        permission_classes=(CurrentUserOrAdmin,)
+    )
+    def events(self, request, pk=None):
+        student = self.get_object()
+        if request.method == "GET":
+            events = Event.objects.filter(pk__in=student.events.values("event"))
+            serializer = self.serializer_class(events, many=True)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        elif request.method == "POST":
+            event_id = request.data["event_id"]
+            StudentEvent.objects.create(student=student, event_id=event_id)
+            return Response(status=status.HTTP_201_CREATED)
 
 
 class CallbackCreateView(CreateAPIView):
