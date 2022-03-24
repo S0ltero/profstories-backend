@@ -8,6 +8,7 @@ from rest_framework.pagination import PageNumberPagination
 
 from djoser.permissions import CurrentUserOrAdmin
 
+from helper.serializers import StudentMissionSerializer, StudentMissionCreateSerializer
 from helper.models import StudentMission, SkillScope, StudentEvent
 from events.serializers import EventSerialzier
 from events.models import Event
@@ -574,7 +575,7 @@ class StudentViewset(viewsets.GenericViewSet):
         detail=True,
         url_path=r"missions/(?P<mission_id>[^/.]+)",
         url_name="mission-detail",
-        serializer_class=StudentMissionSerializer
+        serializer_class=StudentMissionCreateSerializer
     )
     def mission(self, request, pk=None, mission_id=None):
         student = self.get_object()
