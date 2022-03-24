@@ -567,7 +567,7 @@ class StudentViewset(viewsets.GenericViewSet):
     )
     def missions(self, request, pk=None):
         student = self.get_object()
-        serializer = self.serializer_class(student.missions.all(), many=True)
+        serializer = self.serializer_class(student.missions.order_by("mission__order"), many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @action(
