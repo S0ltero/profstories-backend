@@ -33,6 +33,7 @@ class StudentEventInline(nested_admin.NestedStackedInline):
 class QuestionVideoInline(nested_admin.NestedStackedInline):
     model = QuestionVideo
     extra = 0
+    max_num = 1
 
 
 class MissionQuestionInline(nested_admin.NestedStackedInline):
