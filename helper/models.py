@@ -4,6 +4,8 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.postgres.fields import ArrayField
 
+from events.models import Event
+
 
 class Mission(models.Model):
     coins = models.PositiveIntegerField(verbose_name="Монеты")
@@ -153,3 +155,6 @@ class SkillScope(models.Model):
         return self.get_object_display()
 
 
+class StudentEvent(models.Model):
+    student = models.ForeignKey("account.Student", on_delete=models.CASCADE, related_name="events")
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="+")
