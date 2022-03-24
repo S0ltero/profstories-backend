@@ -23,7 +23,7 @@ class VideoSerializer(serializers.ModelSerializer):
 
 class QuestionSerializer(serializers.ModelSerializer):
     answers = serializers.SerializerMethodField()
-    videos = VideoSerializer(many=True)
+    video = VideoSerializer(source="videos.first")
 
     class Meta:
         model = MissionQuestion
