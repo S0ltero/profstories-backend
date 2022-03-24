@@ -131,6 +131,8 @@ class Employer(models.Model):
     has_educational_products = models.BooleanField(verbose_name="Есть ли образовательные продукты?", default=False)
     has_targeted_training = models.BooleanField(verbose_name="Есть ли целевое обучение?", default=False)
 
+    whitelist = models.BooleanField(verbose_name="Белый список", default=False)
+
     objects = EmployerManager
 
     class Meta:
