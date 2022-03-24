@@ -75,7 +75,8 @@ class StudentMission(models.Model):
             # Add coins to student
             self.student.coins += self.mission.coins
             self.student.save()
-            # Unlock next mission
+
+        if self.is_complete:
             try:
                 next_mission = StudentMission.objects.get(
                     mission__order=(self.mission.order + 1)
