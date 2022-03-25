@@ -53,6 +53,8 @@ class StudentMissionCreateSerializer(serializers.ModelSerializer):
             instance.answers.update(validated_data.pop("answers"))
         if validated_data.get("reaction"):
             instance.reaction = validated_data.pop("reaction")
+        if validated_data.get("is_complete"):
+            instance.is_complete = validated_data.pop("is_complete")
         instance.save()
         return instance
 
