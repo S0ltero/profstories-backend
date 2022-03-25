@@ -7,7 +7,7 @@ from django.contrib.auth.base_user import BaseUserManager
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 from rest_framework.exceptions import ValidationError
-from djoser.serializers import UserCreateSerializer as DjoserUserCreateSerializer
+from djoser.serializers import UserCreatePasswordRetypeSerializer as DjoserUserCreateSerializer
 
 from helper.serializers import SkillSerializer
 from .models import (
