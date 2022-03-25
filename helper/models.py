@@ -70,13 +70,13 @@ class StudentMission(models.Model):
             return super().save(*args, **kwargs)
 
         self.stage = len(self.answers)
-        if self.stage == self.mission.questions.count() and not self.is_complete:
-            self.is_complete = True
-            # Add coins to student
+
+        super().save(*args, **kwargs)
+
+        if self.is_complete:
             self.student.coins += self.mission.coins
             self.student.save()
 
-        if self.is_complete:
             try:
                 next_mission = StudentMission.objects.get(
                     student=self.student,
@@ -87,8 +87,6 @@ class StudentMission(models.Model):
             else:
                 next_mission.is_unlocked = True
                 next_mission.save()
-
-        super().save(*args, **kwargs)
 
         if not self.student.missions.exclude(is_complete=True).exists():
             self.student.completed_at = timezone.now()
