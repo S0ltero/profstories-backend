@@ -79,6 +79,7 @@ class StudentMission(models.Model):
         if self.is_complete:
             try:
                 next_mission = StudentMission.objects.get(
+                    student=self.student,
                     mission__order=(self.mission.order + 1)
                 )
             except StudentMission.DoesNotExist:
