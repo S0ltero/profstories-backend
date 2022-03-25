@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 
 from djoser.permissions import CurrentUserOrAdmin
+from djoser.signals import user_registered
 
 from helper.serializers import StudentMissionSerializer, StudentMissionCreateSerializer
 from helper.models import StudentMission, SkillScope, StudentEvent
@@ -35,6 +36,7 @@ from .models import (
 )
 from .serializers import (
     UserSerializer,
+    CreateUserSerializer,
     EmployerSerializer,
     EmployerCreateSerializer,
     EmployerDetailSerializer,
@@ -505,12 +507,15 @@ class TeacherViewset(viewsets.GenericViewSet):
         if not user_serializer.is_valid(raise_exception=False):
             return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        user_serializer.save()
-        data["user"] = user_serializer.data["id"]
+        user = user_serializer.save()
+        data["user"] = user.id
 
         serializer = self.serializer_class(data=data)
         if serializer.is_valid(raise_exception=False):
             serializer.save()
+            user_registered.send(
+                sender=self.__class__, user=user, request=self.request
+            )
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
