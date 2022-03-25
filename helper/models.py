@@ -97,9 +97,55 @@ class StudentMission(models.Model):
 
         answer_data = []
 
-        for question, answer in self.answers.items():
+        points_dict = {
+            1: 52,
+            2: 30,
+            3: 7,
+            4: 6,
+            5: 5
+        }
+        roles = {
+            "leader": "Лидер",
+            "specialist": "Специалист",
+            "idea": "Генератор идей",
+            "party": "Душа компании",
+            "expert": "Эксперт"
+        }
+        motivation = {
+            "achievement": "Достиженческий",
+            "process": "Процессный",
+            "material": "Материальный",
+            "ideological": "Идейный",
+            "team": "Командный"
+        }
+
+        for question, answers in self.answers.items():
             question = self.mission.questions.get(question=question)
-            answer_data.append(*question.answers.get(answer))
+            data = []
+            for answer in answers:
+                if not question.answers.get(answer):
+                    continue
+                else:
+                    data.extend(question.answers.get(answer))
+
+            if any(x in data for x in roles.keys()):
+                data.extend([key for key in roles.keys() if key not in data])
+
+                for i, key in enumerate(data, start=1):
+                    self.student.role[roles[key]] = points_dict[i]
+
+                self.student.save()
+                continue
+            elif any(x in data for x in motivation.keys()):
+                data.extend([key for key in motivation.keys() if key not in data])
+
+                for i, key in enumerate(data, start=1):
+                    self.student.motivation[motivation[key]] = points_dict[i]
+
+                self.student.save()
+                continue
+
+            answer_data.extend(data)
 
         answer_data = Counter(answer_data)
         skills_bulk = []
