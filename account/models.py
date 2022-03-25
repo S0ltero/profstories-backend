@@ -247,7 +247,7 @@ class NPO(models.Model):
     company_video = models.URLField(verbose_name="Видео", blank=True, null=True)
     company_social = ArrayField(models.URLField(), verbose_name="Социальные сети")
     company_professions = ArrayField(models.CharField(max_length=255), verbose_name="Востребованные профессии")
-    
+
     objects = NPOManager
 
     class Meta:
