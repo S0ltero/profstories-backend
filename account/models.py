@@ -385,8 +385,8 @@ class Student(models.Model):
     # Gamification
     coins = models.PositiveIntegerField(verbose_name="Монеты", default=0)
     achievements = ArrayField(models.CharField(max_length=75), blank=True, default=list)
-    role = models.JSONField(verbose_name="Роль в команде", null=True, blank=True)
-    motivation = models.JSONField(verbose_name="Тип мотивации", null=True, blank=True)
+    role = models.JSONField(verbose_name="Роль в команде", blank=True, default=dict)
+    motivation = models.JSONField(verbose_name="Тип мотивации", blank=True, default=dict)
     competencies = ArrayField(models.CharField(max_length=255), blank=True, default=list)
     entrepreneurship = models.PositiveIntegerField(verbose_name="Предпринимательство", default=0)
     completed_at = models.DateTimeField(verbose_name="Время окончания прохождения", null=True, blank=True)
