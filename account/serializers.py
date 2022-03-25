@@ -208,9 +208,9 @@ class TeacherSerializer(serializers.ModelSerializer):
 
 
 class StudentSerializer(serializers.ModelSerializer):
-    last_name = serializers.CharField(source="user.last_name")
-    first_name = serializers.CharField(source="user.first_name")
-    middle_name = serializers.CharField(source="user.middle_name")
+    last_name = serializers.CharField(source="user.last_name", read_only=True)
+    first_name = serializers.CharField(source="user.first_name", read_only=True)
+    middle_name = serializers.CharField(source="user.middle_name", read_only=True)
     skills = SkillSerializer(many=True, read_only=True)
 
     class Meta:
