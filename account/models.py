@@ -426,6 +426,16 @@ class Student(models.Model):
             StudentSkill.objects.bulk_create(skills_bulk)
 
 
+class StudentEmployer(models.Model):
+    student = models.ForeignKey(Student, verbose_name="Школьник", on_delete=models.CASCADE)
+    employer = models.ForeignKey(Employer, verbose_name="Организация", on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = "Организация"
+        verbose_name_plural = "Организации"
+        unique_together = ("student", "employer")
+
+
 class StudentProfessional(models.Model):
     student = models.ForeignKey(Student, verbose_name="Школьник", on_delete=models.CASCADE)
     professional = models.ForeignKey(Professional, verbose_name="Профессионал", on_delete=models.CASCADE)
