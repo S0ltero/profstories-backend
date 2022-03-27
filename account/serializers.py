@@ -225,6 +225,8 @@ class StudentSerializer(serializers.ModelSerializer):
     first_name = serializers.CharField(source="user.first_name", read_only=True)
     middle_name = serializers.CharField(source="user.middle_name", read_only=True)
     skills = SkillSerializer(many=True, read_only=True)
+    employers = StudentEmployerSerializer(many=True, read_only=True)
+    professionals = StudentProfessionalSerializer(many=True, read_only=True)
 
     class Meta:
         model = Student
