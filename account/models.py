@@ -398,8 +398,8 @@ class Student(models.Model):
         default=0
     )
 
-    employers = ArrayField(models.CharField(max_length=10), blank=True, default=list)
-    professionals = ArrayField(models.CharField(max_length=255), blank=True, default=list)
+    employers = models.ManyToManyField(Employer, through="StudentEmployer")
+    professionals = models.ManyToManyField(Professional, through="StudentProfessional")
 
     objects = StudentManager()
 
