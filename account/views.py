@@ -557,6 +557,25 @@ class StudentViewset(viewsets.GenericViewSet):
 
     def update(self, request, pk=None):
         student = self.get_object()
+
+        if request.data.get("employers"):
+            employer_ids = request.data["employers"]
+            employers_bulk = []
+            for id in employer_ids:
+                employers_bulk.append(
+                    StudentEmployer(student_id=student.pk, employer_id=id)
+                )
+            StudentEmployer.objects.bulk_create(employers_bulk)
+
+        if request.data.get("professionals"):
+            professional_ids = request.data["professionals"]
+            professionals_bulk = []
+            for id in professional_ids:
+                employers_bulk.append(
+                    StudentProfessional(student_id=student.pk, professional_id=id)
+                )
+            StudentProfessional.objects.bulk_create(professionals_bulk)
+
         serializer = self.serializer_class(student, data=request.data, partial=True)
         if serializer.is_valid(raise_exception=False):
             serializer.update(student, serializer.validated_data)
