@@ -157,6 +157,7 @@ class StudentMission(models.Model):
                     self.student.entrepreneurship = 57
                 else:
                     self.student.entrepreneurship = 87
+                self.student.save()
                 continue
 
             skill = self.student.skills.get(object=value.upper())

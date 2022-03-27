@@ -542,7 +542,7 @@ class StudentViewset(viewsets.GenericViewSet):
     def create(self, request, *args, **kwargs):
         data = request.data.copy()
 
-        user_serializer = UserSerializer(data=data)
+        user_serializer = CreateUserSerializer(data=data)
         if not user_serializer.is_valid(raise_exception=False):
             return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
