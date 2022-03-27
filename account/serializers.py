@@ -207,6 +207,12 @@ class TeacherSerializer(serializers.ModelSerializer):
         return super().save(**kwargs, code=code)
 
 
+class StudentEmployerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Employer
+        fields = ("pk", "company_name_other", "company_logo")
+
+
 class StudentSerializer(serializers.ModelSerializer):
     last_name = serializers.CharField(source="user.last_name", read_only=True)
     first_name = serializers.CharField(source="user.first_name", read_only=True)
