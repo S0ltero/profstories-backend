@@ -426,6 +426,16 @@ class Student(models.Model):
             StudentSkill.objects.bulk_create(skills_bulk)
 
 
+class StudentProfessional(models.Model):
+    student = models.ForeignKey(Student, verbose_name="Школьник", on_delete=models.CASCADE)
+    professional = models.ForeignKey(Professional, verbose_name="Профессионал", on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = "Профессия"
+        verbose_name_plural = "Профессии"
+        unique_together = ("student", "professional")
+
+
 class Teacher(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
 
