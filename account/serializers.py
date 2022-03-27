@@ -213,6 +213,12 @@ class StudentEmployerSerializer(serializers.ModelSerializer):
         fields = ("pk", "company_name_other", "company_logo")
 
 
+class StudentProfessionalSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Professional
+        fields = ("pk", "speciality")
+
+
 class StudentSerializer(serializers.ModelSerializer):
     last_name = serializers.CharField(source="user.last_name", read_only=True)
     first_name = serializers.CharField(source="user.first_name", read_only=True)
