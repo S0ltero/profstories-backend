@@ -9,5 +9,6 @@ urlpatterns = [
     path("api/auth/", include("account.urls")),
     path("api/auth/", include("djoser.urls.authtoken")),
     path("api/", include("events.urls")),
+    path("api/helper/", include("helper.urls")),
     path("api/callback/", CallbackCreateView.as_view())
 ]
