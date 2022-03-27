@@ -31,6 +31,8 @@ from .models import (
     EmploymentAgency,
     Teacher,
     Student,
+    StudentEmployer,
+    StudentProfessional,
     Upload,
     Callback
 )
