@@ -573,7 +573,7 @@ class StudentViewset(viewsets.GenericViewSet):
             professional_ids = request.data["professionals"]
             professionals_bulk = []
             for id in professional_ids:
-                employers_bulk.append(
+                professionals_bulk.append(
                     StudentProfessional(student_id=student.pk, professional_id=id)
                 )
             StudentProfessional.objects.bulk_create(professionals_bulk)
