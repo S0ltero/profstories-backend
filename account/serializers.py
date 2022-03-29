@@ -216,7 +216,7 @@ class StudentEmployerSerializer(serializers.ModelSerializer):
 class StudentProfessionalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Professional
-        fields = ("pk", "profession_name_other")
+        fields = ("pk", "profession_name_other", "profession_definition_other")
 
 
 class StudentSerializer(serializers.ModelSerializer):
