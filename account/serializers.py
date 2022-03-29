@@ -210,7 +210,7 @@ class TeacherSerializer(serializers.ModelSerializer):
 class StudentEmployerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employer
-        fields = ("pk", "company_name_other", "company_logo")
+        fields = ("pk", "company_name_other", "company_logo", "company_description_other")
 
 
 class StudentProfessionalSerializer(serializers.ModelSerializer):
