@@ -170,7 +170,7 @@ class StudentMission(models.Model):
 class StudentSkill(models.Model):
     class Object(models.TextChoices):
         SOCIAL = "SOCIAL", "Работа с людьми"
-        RESEARCH = "RESEARCH", "Иследовательская деятельность"
+        RESEARCH = "RESEARCH", "Исследовательская деятельность"
         PRACTIC = "PRACTIC", "Практическая деятельность"
         CREATIVE = "CREATIVE", "Творческая деятельность"
         EXTREMAL = "EXTREMAL", "Экстремальная деятельность"
