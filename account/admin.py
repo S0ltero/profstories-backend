@@ -91,9 +91,15 @@ class EmploymentAgencyInline(admin.StackedInline):
     extra = 0
 
 
-class TeacherInline(admin.StackedInline):
+class TeacherStudentInline(nested_admin.NestedStackedInline):
+    model = TeacherStudent
+    extra = 0
+
+
+class TeacherInline(nested_admin.NestedStackedInline):
     model = Teacher
     extra = 0
+    inlines = (TeacherStudentInline,)
 
 
 class StudentInline(nested_admin.NestedStackedInline):
@@ -158,7 +164,7 @@ class AdminEmploymentAgency(admin.ModelAdmin):
 
 
 @admin.register(UserTeacher)
-class AdminTeacher(admin.ModelAdmin):
+class AdminTeacher(nested_admin.NestedModelAdmin):
     inlines = (TeacherInline,)
     actions = None
     list_display = ("id", "email", "last_name", "first_name", "middle_name", "verification")
