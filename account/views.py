@@ -55,6 +55,7 @@ from .serializers import (
     TeacherSerializer,
     StudentSerializer,
     StudentEmployerSerializer,
+    StudentProfessionalSerializer,
     CallbackSerializer,
 )
 
@@ -629,7 +630,7 @@ class StudentViewset(viewsets.GenericViewSet):
         detail=True,
         url_path="professionals",
         url_name="professionals",
-        serializer_class=ProfessionalSerialzier
+        serializer_class=StudentProfessionalSerializer
     )
     def professionals(self, request, pk=None):
         student = self.get_object()
