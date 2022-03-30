@@ -465,6 +465,16 @@ class Teacher(models.Model):
         verbose_name_plural = "Учителя"
 
 
+class TeacherStudent(models.Model):
+    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = "Ученик"
+        verbose_name_plural = "Ученики"
+        unique_together = ("teacher", "student")
+
+
 class Upload(models.Model):
     user = models.ForeignKey(User, verbose_name="Пользователь", related_name="uploads", on_delete=models.CASCADE)
     file = models.FileField(verbose_name="Файл")
