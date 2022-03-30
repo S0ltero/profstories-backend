@@ -467,8 +467,8 @@ class Teacher(models.Model):
 
 
 class TeacherStudent(models.Model):
-    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
-    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    teacher = models.ForeignKey(Teacher, verbose_name="Учитель", on_delete=models.CASCADE)
+    student = models.ForeignKey(Student, verbose_name="Ученик", on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = "Ученик"
