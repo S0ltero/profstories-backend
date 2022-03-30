@@ -636,7 +636,8 @@ class StudentViewset(viewsets.GenericViewSet):
         scope = SkillScope.objects.get(object=skill.object).scope
 
         professionals = Professional.objects.filter(
-            scope__contained_by=scope
+            scope__contained_by=scope,
+            whitelist=True
         )[:6]
         serializer = self.serializer_class(professionals, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -654,7 +655,8 @@ class StudentViewset(viewsets.GenericViewSet):
 
         employers = Employer.objects.filter(
             company_region__contained_by=[student.region],
-            company_scope__in=scope
+            company_scope__in=scope,
+            whitelist=True
         )[:6]
         serializer = self.serializer_class(employers, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
