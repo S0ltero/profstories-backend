@@ -1,5 +1,7 @@
+import os
 import string
 
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.utils.crypto import get_random_string
 from django.contrib.auth.base_user import BaseUserManager
@@ -253,6 +255,12 @@ class StudentSerializer(serializers.ModelSerializer):
             teacher = Teacher.objects.get(code=code)
             TeacherStudent.objects.create(student=student, teacher=teacher)
         return student
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        if not instance.photo:
+            data["photo"] = os.path.join(settings.STATIC_URL, "images/default-photo.png")
+        return data
 
 
 class TokenSerializer(serializers.ModelSerializer):
