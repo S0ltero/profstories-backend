@@ -17,6 +17,7 @@ from .models import (
     College,
     EmploymentAgency,
     Teacher,
+    TeacherStudent,
     Student,
     Upload,
     Callback
@@ -227,10 +228,31 @@ class StudentSerializer(serializers.ModelSerializer):
     skills = SkillSerializer(many=True, read_only=True)
     employers = StudentEmployerSerializer(many=True, read_only=True)
     professionals = StudentProfessionalSerializer(many=True, read_only=True)
+    code = serializers.CharField(write_only=True, required=False)
 
     class Meta:
         model = Student
         fields = "__all__"
+
+    def validate(self, attrs):
+        if attrs.get("code"):
+            code = attrs["code"]
+            try:
+                Teacher.objects.get(code=code)
+            except Teacher.DoesNotExist:
+                raise serializers.ValidationError(
+                    {"code_not_found": "Указанный промокод не найден"}
+                )
+
+        return super().validate(attrs)
+
+    def create(self, validated_data):
+        code = validated_data.pop("code", None)
+        student = super().create(validated_data)
+        if code:
+            teacher = Teacher.objects.get(code=code)
+            TeacherStudent.objects.create(student=student, teacher=teacher)
+        return student
 
 
 class TokenSerializer(serializers.ModelSerializer):
