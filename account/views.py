@@ -529,7 +529,7 @@ class StudentViewset(viewsets.GenericViewSet):
 
     def get_permissions(self):
         if self.action == "create":
-            self.permission_classes = [IsAuthenticated, IsStudent]
+            self.permission_classes = [AllowAny]
         elif self.action == "update":
             self.permission_classes = [CurrentUserOrAdmin]
         else:
@@ -545,17 +545,20 @@ class StudentViewset(viewsets.GenericViewSet):
         data = request.data.copy()
         data["user"] = request.user.id
 
-        serializer = self.serializer_class(data=data)
-        if not serializer.is_valid(raise_exception=False):
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-        user_serializer = UserSerializer(instance=request.user, data=data, partial=True)
+        user_serializer = CreateUserSerializer(data=data)
         if not user_serializer.is_valid(raise_exception=False):
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        user_serializer.update(request.user, user_serializer.validated_data)
-        serializer.save(user_id=request.user.id)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        user = user_serializer.save()
+        data["user"] = user.id
+
+        serializer = self.serializer_class(data=data)
+        if serializer.is_valid(raise_exception=False):
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            user.delete()
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def update(self, request, pk=None):
         student = self.get_object()
