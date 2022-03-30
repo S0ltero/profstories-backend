@@ -48,6 +48,8 @@ class Event(models.Model):
         default=Verifiaction.MODERATION
     )
 
+    whitelist = models.BooleanField(verbose_name="Белый список", default=False)
+
     class Meta:
         verbose_name = "Мероприятие"
         verbose_name_plural = "Мероприятия"
