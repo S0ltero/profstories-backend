@@ -459,6 +459,7 @@ class Teacher(models.Model):
     count_members = models.IntegerField(verbose_name="Количество участников")
     school_name = models.TextField(verbose_name="Название образовательной организации")
     code = models.CharField(verbose_name="Код", max_length=6, blank=True, unique=True)
+    students = models.ManyToManyField(Student, through="TeacherStudent", verbose_name="Ученики")
 
     class Meta:
         verbose_name = "Учитель"
