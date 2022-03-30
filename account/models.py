@@ -376,7 +376,7 @@ class StudentManager(BaseUserManager):
 
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    photo = models.ImageField(verbose_name="Фото")
+    photo = models.ImageField(verbose_name="Фото", blank=True)
     region = models.CharField(verbose_name="Регион", max_length=255)
     locality = models.CharField(verbose_name="Населенный пункт", max_length=255)
     phone = models.CharField(verbose_name="Мобильный телефон", max_length=255)
