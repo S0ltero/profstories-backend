@@ -1,6 +1,7 @@
 from distutils.util import strtobool
 
 from django.utils import timezone
+from django.contrib.auth import get_user_model
 from rest_framework import viewsets
 from rest_framework import status
 from rest_framework.decorators import action
@@ -9,6 +10,8 @@ from rest_framework.response import Response
 from .models import Event
 from .serializers import EventSerialzier, EventDetailSerializer, EventCreateSerializer
 
+User = get_user_model()
+
 
 class EventViewset(viewsets.GenericViewSet):
     queryset = Event
@@ -16,6 +19,10 @@ class EventViewset(viewsets.GenericViewSet):
 
     def get_queryset(self):
         queryset = Event.objects.filter(verification=Event.Verifiaction.VERIFIED)
+
+        if not self.request.user.is_anonymous:
+            if self.request.user.type == User.Types.STUDENT:
+                queryset = queryset.filter(whitelist=True)
 
         mode = self.request.query_params.get("mode")
         if mode:
