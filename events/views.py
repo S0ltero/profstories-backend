@@ -34,6 +34,10 @@ class EventViewset(viewsets.GenericViewSet):
             elif not status:
                 queryset = queryset.filter(date__lt=timezone.now())
 
+        date = self.request.query_params.get("date")
+        if date:
+            queryset = queryset.filter(date__date=date)
+
         return queryset
 
     def get_serializer_class(self):
