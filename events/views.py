@@ -41,9 +41,10 @@ class EventViewset(viewsets.GenericViewSet):
             elif not status:
                 queryset = queryset.filter(date__lt=timezone.now())
 
-        date = self.request.query_params.get("date")
-        if date:
-            queryset = queryset.filter(date__date=date)
+        year = self.request.query_params.get("year")
+        month = self.request.query_params.get("month")
+        if year and month:
+            queryset = queryset.filter(date__year=year, date__month=month)
 
         return queryset
 
