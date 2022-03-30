@@ -425,6 +425,9 @@ class Student(models.Model):
             StudentMission.objects.bulk_create(missions_bulk)
             StudentSkill.objects.bulk_create(skills_bulk)
 
+    def __str__(self) -> str:
+        return f"{self.user.last_name} {self.user.first_name}"
+
 
 class StudentEmployer(models.Model):
     student = models.ForeignKey(Student, verbose_name="Школьник", on_delete=models.CASCADE)
