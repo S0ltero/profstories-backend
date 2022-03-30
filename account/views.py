@@ -638,7 +638,6 @@ class StudentViewset(viewsets.GenericViewSet):
         serializer = self.serializer_class(professionals, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-
     @action(
         detail=True,
         url_path="employers",
