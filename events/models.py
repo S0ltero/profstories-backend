@@ -37,6 +37,7 @@ class Event(models.Model):
     url = models.URLField(verbose_name="Ссылка на сайт")
     audience = models.CharField(verbose_name="Целевая аудитория", max_length=255)
     audience_level = models.CharField(verbose_name="Класс/возраст школьников", max_length=255)
+    audience_level_other = models.CharField(verbose_name="Другой класс/возраст школьников", max_length=255, blank=True)
     periodic = models.CharField(verbose_name="Периодичность проведения", max_length=255, choices=Periodic.choices)
     regularity = models.CharField(verbose_name="Регулярность проведения", max_length=255)
     is_free = models.BooleanField(verbose_name="Бесплатно?")
