@@ -209,6 +209,8 @@ class Professional(models.Model):
     has_pwd = models.BooleanField(verbose_name="Работают ли люди с ограниченными возможностями?")
     has_corporate_training = models.BooleanField(verbose_name="Имеется корпоративное обучение?")
 
+    tags = ArrayField(models.CharField(max_length=255), verbose_name="Теги", blank=True, default=list)
+
     whitelist = models.BooleanField(verbose_name="Белый список", default=False)
 
     objects = ProfessionalManager
