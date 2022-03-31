@@ -24,6 +24,7 @@ class Event(models.Model):
     title_other = models.CharField(verbose_name="Другое название мероприятия", max_length=255, blank=True)
     photo = models.ImageField(verbose_name="Фото мероприятия")
     description = models.TextField(verbose_name="Краткое описание мероприятия")
+    description_other = models.TextField(verbose_name="Другое краткое описание мероприятия", blank=True)
     format = models.CharField(verbose_name="Формат мероприятия", max_length=255)
     date = models.DateTimeField(verbose_name="Дата проведения")
     profile = models.CharField(verbose_name="Профиль мероприятия", max_length=255)
