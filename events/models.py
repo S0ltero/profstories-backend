@@ -26,6 +26,7 @@ class Event(models.Model):
     description = models.TextField(verbose_name="Краткое описание мероприятия")
     description_other = models.TextField(verbose_name="Другое краткое описание мероприятия", blank=True)
     format = models.CharField(verbose_name="Формат мероприятия", max_length=255)
+    format_other = models.CharField(verbose_name="Другой формат мероприятия", max_length=255, blank=True)
     date = models.DateTimeField(verbose_name="Дата проведения")
     profile = models.CharField(verbose_name="Профиль мероприятия", max_length=255)
     mode = models.CharField(verbose_name="Режим мероприятия", max_length=255, choices=Modes.choices)
