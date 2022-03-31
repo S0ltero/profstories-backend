@@ -29,6 +29,7 @@ class MissionQuestion(models.Model):
         verbose_name = "Вопрос"
         verbose_name_plural = "Вопросы"
         unique_together = ("mission", "order")
+        ordering = ("order",)
 
     def __str__(self) -> str:
         return self.question
