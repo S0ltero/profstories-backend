@@ -31,6 +31,7 @@ class Event(models.Model):
     profile = models.CharField(verbose_name="Профиль мероприятия", max_length=255)
     mode = models.CharField(verbose_name="Режим мероприятия", max_length=255, choices=Modes.choices)
     address = models.TextField(verbose_name="Адрес проведения")
+    address_other = models.TextField(verbose_name="Другой адрес проведения", blank=True)
     geography = ArrayField(models.CharField(max_length=255), verbose_name="География проведения")
     territorial_limits = models.TextField(verbose_name="Территориальные ограничения")
     url = models.URLField(verbose_name="Ссылка на сайт")
