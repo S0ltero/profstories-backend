@@ -73,7 +73,7 @@ class Employer(models.Model):
     post = models.CharField(verbose_name="Должность", max_length=255)
     phone = models.CharField(verbose_name="Мобильный телефон", max_length=255)
     work_phone = models.CharField(verbose_name="Рабочий телефон", max_length=255)
-    authorization = models.FileField(verbose_name="Доверенность")
+    authorization = models.FileField(verbose_name="Доверенность", upload_to="employers")
     privacy_policy = models.BooleanField(verbose_name="Политика конфиденциальности", default=False)
 
     # Company attributes
@@ -83,7 +83,7 @@ class Employer(models.Model):
     company_region = ArrayField(models.CharField(max_length=255), verbose_name="Регион организации")
     company_admin_region = ArrayField(models.CharField(max_length=255), blank=True, default=list, verbose_name="Административный регион организации")
     company_scope = models.TextField(verbose_name="Сфера деятельности")
-    company_logo = models.ImageField(verbose_name="Логотип организации")
+    company_logo = models.ImageField(verbose_name="Логотип организации", upload_to="employers")
     company_TIN = models.CharField(verbose_name="ИНН организации", max_length=10, unique=True)
     company_description = models.TextField(verbose_name="Об организации")
     company_description_other = models.TextField(verbose_name="Другое описание", blank=True)
@@ -156,7 +156,7 @@ class Professional(models.Model):
 
     region = models.CharField(verbose_name="Регион", max_length=255)
     locality = models.CharField(verbose_name="Населенный пункт", max_length=255)
-    photo = models.ImageField(verbose_name="Фото")
+    photo = models.ImageField(verbose_name="Фото", upload_to="professionals")
     phone = models.CharField(verbose_name="Мобильный телефон", max_length=255)
     work_phone = models.CharField(verbose_name="Рабочий телефон", max_length=255)
     birth_date = models.DateField(verbose_name="Дата рождения")
@@ -482,7 +482,7 @@ class TeacherStudent(models.Model):
 
 class Upload(models.Model):
     user = models.ForeignKey(User, verbose_name="Пользователь", related_name="uploads", on_delete=models.CASCADE)
-    file = models.FileField(verbose_name="Файл")
+    file = models.FileField(verbose_name="Файл", upload_to="professionals")
     type = models.CharField(verbose_name="Тип загрузки", max_length=70)
 
     class Meta:

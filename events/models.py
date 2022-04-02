@@ -22,7 +22,7 @@ class Event(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name="Организатор", on_delete=models.CASCADE, related_name="events")
     title = models.CharField(verbose_name="Название мероприятия", max_length=255)
     title_other = models.CharField(verbose_name="Другое название мероприятия", max_length=255, blank=True)
-    photo = models.ImageField(verbose_name="Фото мероприятия")
+    photo = models.ImageField(verbose_name="Фото мероприятия", upload_to="events")
     description = models.TextField(verbose_name="Краткое описание мероприятия")
     description_other = models.TextField(verbose_name="Другое краткое описание мероприятия", blank=True)
     format = models.CharField(verbose_name="Формат мероприятия", max_length=255)
