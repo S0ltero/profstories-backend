@@ -66,6 +66,13 @@ class UserSerializer(serializers.ModelSerializer):
                 pass
             else:
                 data.update(EmploymentAgencySerializer(empagency).data)
+        elif instance.type == User.Types.TEACHER:
+            try:
+                teacher = TeacherSerializer.objects.get(pk=instance.id)
+            except Teacher.DoesNotExist:
+                pass
+            else:
+                data.update(TeacherSerializer(teacher).data)
         return data
 
 
