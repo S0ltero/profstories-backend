@@ -6,6 +6,7 @@ from import_export.admin import ImportExportActionModelAdmin
 from .models import (
     EmployerExport,
     ProfessionalExport,
+    EmploymentAgencyExport,
     TeacherExport,
     UserExport,
     EventExport
@@ -22,6 +23,12 @@ class EmployerResource(resources.ModelResource):
 class ProfessionalResource(resources.ModelResource):
     class Meta:
         model = ProfessionalExport
+        import_id_fields = ("user",)
+
+
+class EmploymentAgencyResource(resources.ModelResource):
+    class Meta:
+        model = EmploymentAgencyExport
         import_id_fields = ("user",)
 
 
