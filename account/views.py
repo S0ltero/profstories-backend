@@ -616,7 +616,7 @@ class StudentViewset(viewsets.GenericViewSet):
     def mission(self, request, pk=None, mission_id=None):
         student = self.get_object()
         try:
-            mission = student.missions.get(pk=mission_id)
+            mission = student.missions.get(mission__order=mission_id)
         except StudentMission.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
