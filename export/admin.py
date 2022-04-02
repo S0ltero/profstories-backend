@@ -8,6 +8,7 @@ from .models import (
     ProfessionalExport,
     EmploymentAgencyExport,
     CollegeExport,
+    NPOExport,
     TeacherExport,
     UserExport,
     EventExport
@@ -36,6 +37,12 @@ class EmploymentAgencyResource(resources.ModelResource):
 class CollegeResource(resources.ModelResource):
     class Meta:
         model = CollegeExport
+        import_id_fields = ("user",)
+
+
+class NPOResource(resources.ModelResource):
+    class Meta:
+        model = NPOExport
         import_id_fields = ("user",)
 
 
