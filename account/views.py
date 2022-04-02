@@ -583,8 +583,13 @@ class StudentViewset(viewsets.GenericViewSet):
                 )
             StudentProfessional.objects.bulk_create(professionals_bulk)
 
+        user_serializer = UserSerializer(student.user, data=request.data, partial=True)
+        if not user_serializer.is_valid(raise_exception=False):
+            return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
         serializer = self.serializer_class(student, data=request.data, partial=True)
         if serializer.is_valid(raise_exception=False):
+            serializer.update(student.user, user_serializer.validated_data)
             serializer.update(student, serializer.validated_data)
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:
