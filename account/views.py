@@ -10,8 +10,7 @@ from djoser.permissions import CurrentUserOrAdmin
 from djoser.signals import user_registered
 
 from helper.serializers import StudentMissionSerializer, StudentMissionCreateSerializer
-from helper.models import StudentMission, SkillScope, StudentEvent
-from events.serializers import EventSerialzier
+from events.serializers import EventStudentSerializer
 from events.models import Event
 
 from .permissions import (
