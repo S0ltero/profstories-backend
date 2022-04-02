@@ -2,6 +2,7 @@ from account.models import (
     Employer,
     Professional,
     EmploymentAgency,
+    College,
     Teacher,
     User
 )
@@ -38,6 +39,14 @@ class EmploymentAgencyExport(EmploymentAgency):
         app_label = "export"
         verbose_name = EmploymentAgency._meta.verbose_name
         verbose_name_plural = EmploymentAgency._meta.verbose_name_plural
+
+
+class CollegeExport(College):
+    class Meta:
+        proxy = True
+        app_label = "export"
+        verbose_name = College._meta.verbose_name
+        verbose_name_plural = College._meta.verbose_name_plural
 
 
 class TeacherExport(Teacher):
