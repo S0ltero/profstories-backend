@@ -26,7 +26,7 @@ class EmployerInline(admin.StackedInline):
     fieldsets = (
         (None,
             {"fields": (
-                "post", "phone", "work_phone", "authorization"
+                "post", "phone", "work_phone", "authorization", "whitelist"
             )}
         ),
         ("Организация", {
