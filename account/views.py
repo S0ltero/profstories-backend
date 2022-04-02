@@ -673,7 +673,7 @@ class StudentViewset(viewsets.GenericViewSet):
         detail=True,
         url_path="events",
         url_name="events",
-        serializer_class=EventSerialzier,
+        serializer_class=EventStudentSerializer,
         permission_classes=(CurrentUserOrAdmin,)
     )
     def events(self, request, pk=None):
