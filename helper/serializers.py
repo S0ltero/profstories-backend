@@ -1,6 +1,11 @@
 from rest_framework import serializers
 
-from .models import StudentSkill, StudentMission, Mission, MissionQuestion, QuestionVideo
+from .models import (
+    StudentSkill,
+    StudentMission,
+    Mission,
+    MissionQuestion,
+)
 
 
 class SkillSerializer(serializers.ModelSerializer):
@@ -15,15 +20,8 @@ class SkillSerializer(serializers.ModelSerializer):
         return 100 * (obj.points / 12)
 
 
-class VideoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = QuestionVideo
-        exclude = ("question", "id")
-
-
 class QuestionSerializer(serializers.ModelSerializer):
     answers = serializers.SerializerMethodField()
-    video = VideoSerializer(source="videos.first")
 
     class Meta:
         model = MissionQuestion
