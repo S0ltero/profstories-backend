@@ -24,6 +24,16 @@ class EventSerialzier(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class EventStudentSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Event
+        fields = (
+            "title_other", "description_other", "format_other",
+            "address_other", "audience_level_other", "mode", 
+            "date", "is_free",)
+
+
 class EventCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
