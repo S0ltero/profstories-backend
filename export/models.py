@@ -3,6 +3,7 @@ from account.models import (
     Professional,
     EmploymentAgency,
     College,
+    NPO,
     Teacher,
     User
 )
@@ -47,6 +48,14 @@ class CollegeExport(College):
         app_label = "export"
         verbose_name = College._meta.verbose_name
         verbose_name_plural = College._meta.verbose_name_plural
+
+
+class NPOExport(NPO):
+    class Meta:
+        proxy = True
+        app_label = "export"
+        verbose_name = NPO._meta.verbose_name
+        verbose_name_plural = NPO._meta.verbose_name_plural
 
 
 class TeacherExport(Teacher):
