@@ -4,6 +4,7 @@ from account.models import (
     Teacher,
     User
 )
+from events.models import Event
 
 
 class UserExport(User):
@@ -36,3 +37,11 @@ class TeacherExport(Teacher):
         app_label = "export"
         verbose_name = Teacher._meta.verbose_name
         verbose_name_plural = Teacher._meta.verbose_name_plural
+
+
+class EventExport(Event):
+    class Meta:
+        proxy = True
+        app_label = "export"
+        verbose_name = Event._meta.verbose_name
+        verbose_name_plural = Event._meta.verbose_name_plural
