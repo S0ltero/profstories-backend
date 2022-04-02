@@ -8,7 +8,12 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from .models import Event
-from .serializers import EventSerialzier, EventDetailSerializer, EventCreateSerializer
+from .serializers import (
+    EventSerialzier,
+    EventCreateSerializer,
+    EventDetailSerializer,
+    EventStudentSerializer
+)
 
 User = get_user_model()
 
@@ -93,7 +98,11 @@ class EventViewset(viewsets.GenericViewSet):
         except Event.DoesNotExist:
             return Response("Мероприятия не найдены", status=status.HTTP_404_NOT_FOUND)
 
-        serializer = self.serializer_class(events, many=True)
+        if not self.request.user.is_anonymous:
+            if self.request.user.type == User.Types.STUDENT:
+                serializer = EventStudentSerializer(events, many=True)
+        else:
+            serializer = self.serializer_class(events, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @action(detail=True, url_path='detail', url_name='detail', serializer_class=EventDetailSerializer)
