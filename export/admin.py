@@ -15,6 +15,7 @@ from .models import (
 class EmployerResource(resources.ModelResource):
     class Meta:
         model = EmployerExport
+        import_id_fields = ("user",)
 
 
 class ProfessionalResource(resources.ModelResource):
