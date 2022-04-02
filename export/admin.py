@@ -21,6 +21,7 @@ class EmployerResource(resources.ModelResource):
 class ProfessionalResource(resources.ModelResource):
     class Meta:
         model = ProfessionalExport
+        import_id_fields = ("user",)
 
 
 class TeacherResource(resources.ModelResource):
