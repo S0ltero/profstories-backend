@@ -2,7 +2,7 @@ from django.contrib import admin
 
 import nested_admin
 
-from helper.admin import StudentMissionInline, StudentSkillInline
+from helper.admin import StudentMissionInline, StudentSkillInline, StudentEventInline
 from .models import *
 
 
@@ -105,7 +105,7 @@ class TeacherInline(nested_admin.NestedStackedInline):
 class StudentInline(nested_admin.NestedStackedInline):
     model = Student
     extra = 0
-    inlines = (StudentMissionInline, StudentSkillInline)
+    inlines = (StudentMissionInline, StudentSkillInline, StudentEventInline)
 
 
 @admin.register(UserProfessional)
