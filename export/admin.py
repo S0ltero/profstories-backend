@@ -7,7 +7,8 @@ from .models import (
     EmployerExport,
     ProfessionalExport,
     TeacherExport,
-    UserExport
+    UserExport,
+    EventExport
 )
 
 # Resources
@@ -33,6 +34,12 @@ class TeacherResource(resources.ModelResource):
 class UserResource(resources.ModelResource):
     class Meta:
         model = UserExport
+
+
+class EventResource(resources.ModelResource):
+    class Meta:
+        model = EventExport
+
 
 # Admin models
 
@@ -90,3 +97,9 @@ class AdminUser(ImportExportActionModelAdmin):
     list_filter = ("type", "verification")
     exclude = ("password", "is_active", "is_staff", "is_superuser",
                "last_login", "date_joined", "user_permissions", "groups")
+
+
+@admin.register(EventExport)
+class AdminEvent(ImportExportActionModelAdmin):
+    resource_class = EventResource
+    actions = None
