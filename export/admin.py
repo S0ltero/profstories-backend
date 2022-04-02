@@ -124,6 +124,21 @@ class AdminCollege(ImportExportActionModelAdmin):
         return str(obj.user.get_verification_display())
 
 
+@admin.register(NPOExport)
+class AdminProfessional(ImportExportActionModelAdmin):
+    resource_class = NPOResource
+    actions = None
+    list_display = ("user", "fullname", "verification")
+
+    @admin.display(description="Полное имя")
+    def fullname(self, obj):
+        return str(f"{obj.user.last_name} {obj.user.first_name} {obj.user.middle_name}")
+
+    @admin.display(description="Уровень верификации")
+    def verification(self, obj):
+        return str(obj.user.get_verification_display())
+
+
 @admin.register(TeacherExport)
 class AdminTeacher(ImportExportActionModelAdmin):
     resource_class = TeacherResource
